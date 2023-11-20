@@ -1,5 +1,5 @@
 <template>
-  <div class="mx-auto" style="max-width: 1440px">
+  <div class="mx-auto">
     <Header />
     <VacationDetails />
     <DreamVacation />
@@ -7,6 +7,7 @@
     <PopularHotels />
     <DownloadApp />
     <Explore />
+    <Footer />
   </div>
 </template>
 
@@ -18,4 +19,5 @@ import Inspiration from "@/components/Inspiration.vue";
 import PopularHotels from "@/components/PopularHotels.vue";
 import DownloadApp from "@/components/DownloadApp.vue";
 import Explore from "@/components/Explore.vue";
+import Footer from "@/components/Footer.vue";
 </script>

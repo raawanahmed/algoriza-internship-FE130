@@ -4,11 +4,11 @@
       class="flex justify-between items-center w-full mx-auto"
       style="height: 68px; margin-left: 100px; margin-right: 100px"
     >
-      <div class="flex items-center gap-4">
+      <div class="flex items-center gap-1">
         <img
-          src="../assets/Icons/planeIcon.png"
+          src="../assets/Icons/plane.svg"
           alt="Plane Icon"
-          class="w-5 h-5"
+          class="w-6 h-6 "
         />
         <p class="text-lg font-semibold text-gray-900 tracking-wide">
           my Dream Place
