@@ -21,7 +21,7 @@
     </p>
     <SearchSection />
     <section
-      class="absolute flex rounded-lg h-16 items-center p-4 gap-4"
+      class="flex rounded-lg h-16 items-center p-4 gap-4"
       style="
         margin-left: 100px;
         margin-right: 100px;
