@@ -1,10 +1,9 @@
 <template>
-  <header>
+  <header class="flex w-full mx-auto" style="max-width: 1440px">
     <nav
-      class="flex justify-between items-center w-full max-w-screen-xl mx-auto"
+      class="flex justify-between items-center w-full mx-auto"
       style="height: 68px; margin-left: 100px; margin-right: 100px"
     >
-      <!-- Left Section -->
       <div class="flex items-center gap-4">
         <img
           src="../assets/Icons/planeIcon.png"
@@ -16,7 +15,6 @@
         </p>
       </div>
 
-      <!-- Middle Section -->
       <div class="flex items-center gap-8">
         <router-link
           to="/"
@@ -45,7 +43,6 @@
         >
       </div>
 
-      <!-- Right Section -->
       <button
         class="register-button inline-flex px-10 py-2 justify-center items-center gap-2 rounded border border-blue-500 bg-blue-500 text-white"
         style="width: 92px; height: 40px"
