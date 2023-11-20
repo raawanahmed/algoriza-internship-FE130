@@ -1,6 +1,6 @@
 <template>
   <div class="mx-auto" style="max-width: 1440px">
-    <section style="margin-left: 100px; margin-right: 100px;">
+    <section style="margin-left: 100px; margin-right: 100px">
       <p class="font-semibold text-3xl mb-4">Enjoy your dream vacation</p>
       <p
         class="font-normal text-base mb-8"
