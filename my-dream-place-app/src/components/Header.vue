@@ -5,11 +5,7 @@
       style="height: 68px; margin-left: 100px; margin-right: 100px"
     >
       <div class="flex items-center gap-1">
-        <img
-          src="../assets/Icons/plane.svg"
-          alt="Plane Icon"
-          class="w-6 h-6 "
-        />
+        <img src="../assets/Icons/plane.svg" alt="Plane Icon" class="w-6 h-6" />
         <p class="text-lg font-semibold text-gray-900 tracking-wide">
           my Dream Place
         </p>
@@ -42,13 +38,14 @@
           >Contact</router-link
         >
       </div>
-
-      <button
-        class="register-button inline-flex px-10 py-2 justify-center items-center gap-2 rounded border border-blue-500 bg-blue-500 text-white"
-        style="width: 92px; height: 40px"
-      >
-        Register
-      </button>
+      <router-link to="/register">
+        <button
+          class="register-button inline-flex px-10 py-2 justify-center items-center gap-2 rounded border border-blue-500 bg-blue-500 text-white"
+          style="width: 92px; height: 40px"
+        >
+          Register
+        </button>
+      </router-link>
     </nav>
   </header>
   <router-view />
@@ -56,8 +53,4 @@
 
 <script setup></script>
 
-<style>
-.marginStyle {
-  margin-left: 100px;
-}
-</style>
+<style></style>
