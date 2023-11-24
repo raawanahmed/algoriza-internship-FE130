@@ -30,6 +30,7 @@
           name="email"
           style="width: 400px; background: var(--Gray-6, #f2f2f2)"
           class="h-11 p-3 mb-5 rounded"
+          v-model="email"
         />
         <label for="password" class="mb-1 font-medium text-sm">Password</label>
         <div
@@ -37,19 +38,21 @@
           style="width: 400px; background: var(--Gray-6, #f2f2f2)"
         >
           <input
-            type="password"
             name="password"
             style="width: 400px; background: var(--Gray-6, #f2f2f2)"
             class="h-11 p-3 pr-10 rounded"
+            :type="showPassword ? 'text' : 'password'"
+            v-model="password"
           />
           <img
             src="../assets/Icons/eye.svg"
             alt="see pass icon"
             class="w-5 h-5 absolute top-1/2 transform -translate-y-1/2 right-3"
+            @click="showPassword = !showPassword"
           />
         </div>
         <div class="mt-5" v-if="!isSignIn">
-          <label for="password" class="mb-1 font-medium text-sm"
+          <label for="confirmPassword" class="mb-1 font-medium text-sm"
             >Confirm password</label
           >
           <div
@@ -57,15 +60,17 @@
             style="width: 400px; background: var(--Gray-6, #f2f2f2)"
           >
             <input
-              type="password"
-              name="password"
+              name="confirmPassword"
               style="width: 400px; background: var(--Gray-6, #f2f2f2)"
               class="h-11 p-3 pr-10 rounded"
+              :type="showConfirmPassword ? 'text' : 'password'"
+              v-model="confirmPassword"
             />
             <img
               src="../assets/Icons/eye.svg"
               alt="see pass icon"
               class="w-5 h-5 absolute top-1/2 transform -translate-y-1/2 right-3"
+              @click="showConfirmPassword = !showConfirmPassword"
             />
           </div>
         </div>
@@ -99,16 +104,48 @@
 </template>
 
 <script setup>
-import { ref, watch, defineProps, computed } from "vue";
-
+import { ref, watch, defineProps, computed, onMounted } from "vue";
+import { useAuthStore } from "@/stores/AuthStore";
+import { useRouter } from "vue-router";
 const { isSignIn } = defineProps(["isSignIn"]);
 const textBasedOnTheView = computed(() => (isSignIn ? "Sign in" : "Register"));
 
+const email = ref("");
+const password = ref("");
+const confirmPassword = ref("");
+const showPassword = ref(false);
+const showConfirmPassword = ref(false);
+const authStore = useAuthStore();
+const router = useRouter();
+
+onMounted(() => {
+  console.log("onMounteed");
+  authStore.init();
+});
 const onBtnClick = () => {
+  // Simple form validation
+  if (!email.value || !password.value) {
+    alert("Please fill in all required fields.");
+    return;
+  }
+
   if (isSignIn) {
-    // Handle sign-in logic
+    const success = authStore.signIn({
+      email: email.value,
+      password: password.value,
+    });
+    success ? router.push("/home") : alert("Invalid email or password.");
   } else {
-    // Handle register logic
+    if (password.value !== confirmPassword.value) {
+      console.log(password.value, confirmPassword.value);
+      alert("Passwords do not match.");
+      return;
+    }
+    const success = authStore.register({
+      email: email.value,
+      password: password.value,
+    });
+    success ? router.push("/home") : alert("Invalid email or password.");
   }
 };
 </script>

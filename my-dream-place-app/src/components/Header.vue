@@ -38,7 +38,7 @@
           >Contact</router-link
         >
       </div>
-      <router-link to="/register">
+      <router-link to="/register" v-if="!curUser">
         <button
           class="register-button inline-flex px-10 py-2 justify-center items-center gap-2 rounded border border-blue-500 bg-blue-500 text-white"
           style="width: 92px; height: 40px"
@@ -46,11 +46,23 @@
           Register
         </button>
       </router-link>
+      <div class="flex" v-if="curUser">
+        <img
+          src="../assets/Icons/notifications.svg"
+          alt="notification"
+          style="margin-right: 22px"
+        />
+        <img src="../assets/Icons/user.svg" alt="user" />
+      </div>
     </nav>
   </header>
   <router-view />
 </template>
 
-<script setup></script>
+<script setup>
+import { useAuthStore } from "@/stores/AuthStore";
+const authStore = useAuthStore();
+const curUser = authStore.getCurrentUser();
+</script>
 
 <style></style>
