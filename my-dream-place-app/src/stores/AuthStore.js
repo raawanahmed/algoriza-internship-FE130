@@ -50,6 +50,7 @@ export const useAuthStore = defineStore("authStore", {
     signOut() {
       this.user = null;
       this.isAuthenticated = false;
+      localStorage.removeItem("user");
     },
   },
 });

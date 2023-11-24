@@ -18,7 +18,7 @@
         </p>
       </div>
 
-      <div class="flex items-center gap-8">
+      <div class="flex items-center gap-8" v-if="showNavBar">
         <router-link
           to="/"
           class="text-gray-1 font-sans text-base font-normal leading-normal tracking-tight"
@@ -56,7 +56,47 @@
           alt="notification"
           style="margin-right: 22px"
         />
-        <img src="../assets/Icons/user.svg" alt="user" />
+        <img
+          src="../assets/Icons/user.svg"
+          alt="user"
+          @click="toggleDropdown"
+        />
+        <div v-if="isDropdownOpen" class="relative">
+          <div
+            class="absolute top-0 right-0 bg-white shadow-md rounded-md mt-2 items-start"
+            style="z-index: 1; margin-top: 50px; width: 200px"
+          >
+            <ul
+              class=""
+              style="color: #4f4f4f list-style-type: none; padding: 0;"
+            >
+              <li class="border-b pb-2 pt-2">
+                <div class="flex items-center gap-2 m-1">
+                  <img src="../assets/Icons/user-square.svg" alt="user" />
+                  <a href="#" @click="goToHome">Manage account</a>
+                </div>
+              </li>
+              <li class="border-b pb-2 pt-2">
+                <div class="flex items-center gap-2 m-1">
+                  <img src="../assets/Icons/trips.svg" alt="trips" />
+                  <a href="#" @click="goToTrips">My trips</a>
+                </div>
+              </li>
+              <li class="border-b pb-2 pt-2">
+                <div class="flex items-center gap-2 m-1">
+                  <img src="../assets/Icons/wallet.svg" alt="wallet" />
+                  <a href="#" @click="goToCheckout">Reward and Wallet</a>
+                </div>
+              </li>
+              <li class="border-b pb-2 pt-2 rounded-md">
+                <div class="flex items-center gap-2 m-1">
+                  <img src="../assets/Icons/logout.svg" alt="sign out" />
+                  <a href="#" @click="signOut">Sign out</a>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
     </nav>
   </header>
@@ -64,9 +104,12 @@
 </template>
 
 <script setup>
+import router from "@/router";
 import { useAuthStore } from "@/stores/AuthStore";
+import { ref } from "vue";
 const authStore = useAuthStore();
 const curUser = authStore.getCurrentUser();
+const isDropdownOpen = ref(false);
 const { textColor, notificationColor, showNavBar } = defineProps([
   "textColor",
   "notificationColor",
@@ -74,6 +117,23 @@ const { textColor, notificationColor, showNavBar } = defineProps([
 ]);
 const getNotificationIconPath = () => {
   return require(`@/assets/Icons/${notificationColor}.svg`);
+};
+const toggleDropdown = () => {
+  isDropdownOpen.value = !isDropdownOpen.value;
+  // console.log(isDropdownOpen.value);
+};
+const signOut = () => {
+  authStore.signOut();
+  router.push("/");
+};
+const goToTrips = () => {
+  router.push("/myTrips");
+};
+const goToHome = () => {
+  router.push("/home");
+};
+const goToCheckout = () => {
+  router.push("/checkout");
 };
 </script>
 
