@@ -19,7 +19,13 @@
       Plan and book our perfect trip with expert advice, travel tips,
       destination information and inspiration from us
     </p>
-    <SearchSection />
+    <section
+      class="absolute left-1/2 transform -translate-x-1/2 -translate-y-10 bg-white rounded-lg shadow-md p-3 mt-8 gap-3.5 flex"
+      style="width: 1030px; height: 64px"
+    >
+      <SearchSection />
+    </section>
+
     <CovidAlert />
   </div>
 </template>

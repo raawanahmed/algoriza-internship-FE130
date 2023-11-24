@@ -1,88 +1,77 @@
 <template>
-  <section
-    class="absolute left-1/2 transform -translate-x-1/2 -translate-y-10 bg-white rounded-lg shadow-md p-3 mt-8 gap-3.5 flex fontStyle"
-    style="width: 1030px; height: 64px; top: 480px"
-  >
-    <div>
-      <IconButton
-        :textOnTheBtn="selectedDestinationName"
-        :btnClass="'p-3 rounded h-11 w-52 flex items-center font-normal gap-1.5 relative'"
-        :bgOfBtn="'#F2F2F2'"
-        :iconPath="require('@/assets/Icons/location.svg')"
-        :arrowDir="require(`@/assets/Icons/arrow-${arrowDir}.svg`)"
-        @click="toggleDropdown"
-      />
-      <div
-        v-if="isDropdownOpen"
-        class="absolute mt-1 w-52 bg-white shadow-md rounded-md text-xs"
-        style="background: #f2f2f2"
-      >
-        <div v-for="destination in destinations" :key="destination.dest_id">
-          <button
-            @click="selectDestination(destination)"
-            class="block w-full p-2 border-b-2"
-          >
-            {{ destination.label }}
-          </button>
-        </div>
+  <div class="fontStyle">
+    <IconButton
+      :textOnTheBtn="selectedDestinationName"
+      :btnClass="'p-3 rounded h-11 w-52 flex items-center font-normal gap-1.5 relative'"
+      :bgOfBtn="'#F2F2F2'"
+      :iconPath="require('@/assets/Icons/location.svg')"
+      :arrowDir="require(`@/assets/Icons/arrow-${arrowDir}.svg`)"
+      @click="toggleDropdown"
+    />
+    <div
+      v-if="isDropdownOpen"
+      class="absolute mt-1 w-52 bg-white shadow-md rounded-md text-xs"
+      style="background: #f2f2f2"
+    >
+      <div v-for="destination in destinations" :key="destination.dest_id">
+        <button
+          @click="selectDestination(destination)"
+          class="block w-full p-2 border-b-2"
+        >
+          {{ destination.label }}
+        </button>
       </div>
     </div>
+  </div>
 
-    <!-- <IconButton
-      :textOnTheBtn="'Check in date'"
-      :btnClass="'p-3 rounded h-11 w-36 flex items-center font-normal gap-1.5'"
-      :bgOfBtn="'#F2F2F2'"
-      :iconPath="require('@/assets/Icons/calendarIcon.svg')"
-    /> -->
-    <div
-      class="flex items-center rounded"
-      style="width: 147px; height: 43px; color: #4f4f4f; background: #f2f2f2"
-    >
-      <img src="@/assets/Icons/calendarIcon.svg" alt="" class="w-5 h-5 ml-3" />
-      <VueDatePicker
-        v-model="checkInDate"
-        :placeholder="checkInDate != null ? checkInDate.value : 'Check in date'"
-        class="p-2 rounded flex items-center font-normal gap-1.5"
-        @click="getCheckIn"
-        hide-input-icon
-        :enable-time-picker="false"
-      />
-    </div>
-    <div
-      class="flex items-center rounded"
-      style="width: 147px; height: 43px; color: #4f4f4f; background: #f2f2f2"
-    >
-      <img src="@/assets/Icons/calendarIcon.svg" alt="" class="w-5 h-5 ml-3" />
-      <VueDatePicker
-        v-model="checkOutDate"
-        :placeholder="
-          checkOutDate != null ? checkOutDate.value : 'Check out date'
-        "
-        class="p-2 rounded flex items-center font-normal gap-1.5"
-        @click="getCheckOut"
-        hide-input-icon
-        :enable-time-picker="false"
-      />
-    </div>
-    <IconButton
-      :textOnTheBtn="'Guests'"
-      :btnClass="'p-3 rounded h-11 w-36 flex items-center font-normal gap-1.5'"
-      :bgOfBtn="'#F2F2F2'"
-      :iconPath="require('@/assets/Icons/user-square.svg')"
+  <div
+    class="flex items-center rounded"
+    style="width: 147px; height: 43px; color: #4f4f4f; background: #f2f2f2"
+  >
+    <img src="@/assets/Icons/calendarIcon.svg" alt="" class="w-5 h-5 ml-3" />
+    <VueDatePicker
+      v-model="checkInDate"
+      :placeholder="checkInDate != null ? checkInDate.value : 'Check in date'"
+      class="p-2 rounded flex items-center font-normal gap-1.5"
+      @click="getCheckIn"
+      hide-input-icon
+      :enable-time-picker="false"
     />
-    <IconButton
-      :textOnTheBtn="'Rooms'"
-      :btnClass="'p-3 rounded h-11 w-36 flex items-center font-normal gap-1.5'"
-      :bgOfBtn="'#F2F2F2'"
-      :iconPath="require('@/assets/Icons/single_bed.svg')"
+  </div>
+  <div
+    class="flex items-center rounded"
+    style="width: 147px; height: 43px; color: #4f4f4f; background: #f2f2f2"
+  >
+    <img src="@/assets/Icons/calendarIcon.svg" alt="" class="w-5 h-5 ml-3" />
+    <VueDatePicker
+      v-model="checkOutDate"
+      :placeholder="
+        checkOutDate != null ? checkOutDate.value : 'Check out date'
+      "
+      class="p-2 rounded flex items-center font-normal gap-1.5"
+      @click="getCheckOut"
+      hide-input-icon
+      :enable-time-picker="false"
     />
-    <button
-      class="inline-flex px-10 py-2 justify-center items-center gap-2 rounded border border-blue-500 bg-blue-500 text-white w-36 h-11 font-medium text-sm"
-      @click="goSearch"
-    >
-      Search
-    </button>
-  </section>
+  </div>
+  <IconButton
+    :textOnTheBtn="'Guests'"
+    :btnClass="'p-3 rounded h-11 w-36 flex items-center font-normal gap-1.5'"
+    :bgOfBtn="'#F2F2F2'"
+    :iconPath="require('@/assets/Icons/user-square.svg')"
+  />
+  <IconButton
+    :textOnTheBtn="'Rooms'"
+    :btnClass="'p-3 rounded h-11 w-36 flex items-center font-normal gap-1.5'"
+    :bgOfBtn="'#F2F2F2'"
+    :iconPath="require('@/assets/Icons/single_bed.svg')"
+  />
+  <button
+    class="inline-flex px-10 py-2 justify-center items-center gap-2 rounded border border-blue-500 bg-blue-500 text-white w-36 h-11 font-medium text-sm"
+    @click="goSearch"
+  >
+    Search
+  </button>
 </template>
 
 <script setup>
@@ -91,7 +80,9 @@ import IconButton from "./IconButton.vue";
 import axios from "axios";
 import VueDatePicker from "@vuepic/vue-datepicker";
 import "@vuepic/vue-datepicker/dist/main.css";
+import router from "@/router";
 
+const { heightFromTop } = defineProps(["heightFromTop"]);
 const isDropdownOpen = ref(false);
 const arrowDir = ref("down");
 const selectedDestinationName = ref("Where are you going?");
@@ -124,7 +115,7 @@ const toggleDropdown = () => {
   arrowDir.value == "down"
     ? (arrowDir.value = "up")
     : (arrowDir.value = "down");
-  console.log(isDropdownOpen.value);
+  // console.log(isDropdownOpen.value);
 };
 const selectDestination = (destination) => {
   selectedDestinationName.value = destination.label;
@@ -138,8 +129,10 @@ const getCheckOut = () => {
   console.log(checkOutDate.value);
   return checkOutDate.value;
 };
-const goSearch = () => {};
-fetchDestinations();
+const goSearch = () => {
+  router.push("/searchResults");
+};
+//fetchDestinations();
 </script>
 
 <style>

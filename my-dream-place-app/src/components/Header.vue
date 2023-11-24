@@ -1,12 +1,19 @@
 <template>
-  <header class="flex w-full mx-auto" style="max-width: 1440px">
+  <header
+    class="flex w-full mx-auto"
+    style="max-width: 1440px"
+    :style="{ color: textColor }"
+  >
     <nav
       class="flex justify-between items-center w-full mx-auto"
       style="height: 68px; margin-left: 100px; margin-right: 100px"
     >
       <div class="flex items-center gap-1">
         <img src="../assets/Icons/plane.svg" alt="Plane Icon" class="w-6 h-6" />
-        <p class="text-lg font-semibold text-gray-900 tracking-wide">
+        <p
+          class="text-lg font-semibold text-gray-900 tracking-wide"
+          :style="{ color: textColor }"
+        >
           my Dream Place
         </p>
       </div>
@@ -48,7 +55,7 @@
       </router-link>
       <div class="flex" v-if="curUser">
         <img
-          src="../assets/Icons/notifications.svg"
+          :src="getNotificationIconPath()"
           alt="notification"
           style="margin-right: 22px"
         />
@@ -63,6 +70,13 @@
 import { useAuthStore } from "@/stores/AuthStore";
 const authStore = useAuthStore();
 const curUser = authStore.getCurrentUser();
+const { textColor, notificationColor } = defineProps([
+  "textColor",
+  "notificationColor",
+]);
+const getNotificationIconPath = () => {
+  return require(`@/assets/Icons/${notificationColor}.svg`);
+};
 </script>
 
 <style></style>
