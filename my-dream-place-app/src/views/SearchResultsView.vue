@@ -5,7 +5,7 @@
       height: 200px;
     "
   >
-    <Header :textColor="'white'" :notificationColor="'notification-white'" />
+    <Header :textColor="'white'" :notificationColor="'notification-white'" :showNavBar="true" />
     <section
       class="flex absolute left-1/2 transform -translate-x-1/2 translate-y-20 bg-white rounded-lg shadow-md p-3 mt-8 gap-3.5"
       style="width: 1030px; height: 64px"

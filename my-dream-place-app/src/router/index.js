@@ -4,6 +4,9 @@ import SignInView from "../views/SignInView.vue";
 import RegisterView from "@/views/RegisterView.vue";
 import WelcomeView from "@/views/WelcomeView.vue";
 import SearchResultsView from "@/views/SearchResultsView.vue";
+import CheckoutView from "@/views/CheckoutView";
+import MyTripsView from "@/views/MyTripsView";
+import ProductDetailsView from "@/views/ProductDetailsView";
 
 const routes = [
   {
@@ -31,7 +34,21 @@ const routes = [
     name: "searchResults",
     component: SearchResultsView,
   },
-
+  {
+    path: "/checkout",
+    name: "checkout",
+    component: CheckoutView,
+  },
+  {
+    path: "/myTrips",
+    name: "myTrips",
+    component: MyTripsView,
+  },
+  {
+    path: "/productDetails",
+    name: "productDetails",
+    component: ProductDetailsView,
+  },
   // {
   //   path: '/about',
   //   name: 'about',

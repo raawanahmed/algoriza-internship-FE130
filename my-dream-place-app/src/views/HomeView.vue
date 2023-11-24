@@ -1,6 +1,6 @@
 <template>
   <div class="mx-auto">
-    <Header :textColor="'black'" :notificationColor="'notifications'" />
+    <Header :textColor="'black'" :notificationColor="'notification-black'" :showNavBar="true"/>
     <VacationDetails />
     <DreamVacation />
     <Inspiration />

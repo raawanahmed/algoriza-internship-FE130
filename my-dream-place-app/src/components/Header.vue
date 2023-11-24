@@ -70,9 +70,10 @@
 import { useAuthStore } from "@/stores/AuthStore";
 const authStore = useAuthStore();
 const curUser = authStore.getCurrentUser();
-const { textColor, notificationColor } = defineProps([
+const { textColor, notificationColor, showNavBar } = defineProps([
   "textColor",
   "notificationColor",
+  "showNavBar"
 ]);
 const getNotificationIconPath = () => {
   return require(`@/assets/Icons/${notificationColor}.svg`);
