@@ -24,25 +24,22 @@
           class="text-gray-1 font-sans text-base font-normal leading-normal tracking-tight"
           >Home</router-link
         >
-        <router-link
-          to="/discover"
-          class="text-gray-1 font-sans text-base font-normal leading-normal tracking-tight"
-          >Discover</router-link
+        <a
+          class="text-gray-1 font-sans text-base font-normal leading-normal tracking-tight cursor-pointer"
+          >Discover</a
         >
-        <router-link
-          to="/activities"
-          class="text-gray-1 font-sans text-base font-normal leading-normal tracking-tight"
-          >Activities</router-link
+        <a
+          class="text-gray-1 font-sans text-base font-normal leading-normal tracking-tight cursor-pointer"
+          >Activities</a
         >
-        <router-link
-          to="/about"
-          class="text-gray-1 font-sans text-base font-normal leading-normal tracking-tight"
-          >About</router-link
+        <a
+          class="text-gray-1 font-sans text-base font-normal leading-normal tracking-tight cursor-pointer"
+          >About</a
         >
-        <router-link
+        <a
           to="/contact"
           class="text-gray-1 font-sans text-base font-normal leading-normal tracking-tight"
-          >Contact</router-link
+          >Contact</a
         >
       </div>
       <router-link to="/register" v-if="!curUser">
@@ -73,7 +70,7 @@ const curUser = authStore.getCurrentUser();
 const { textColor, notificationColor, showNavBar } = defineProps([
   "textColor",
   "notificationColor",
-  "showNavBar"
+  "showNavBar",
 ]);
 const getNotificationIconPath = () => {
   return require(`@/assets/Icons/${notificationColor}.svg`);
