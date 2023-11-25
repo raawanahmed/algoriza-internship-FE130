@@ -1,5 +1,5 @@
 <template>
-  <div class="mx-auto relative" style="max-width: 1440px">
+  <div class="mx-auto" style="max-width: 1440px">
     <section
       class="flex rounded-lg h-16 items-center p-4 gap-4 mx-auto"
       style="

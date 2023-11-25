@@ -1,7 +1,11 @@
 <template>
   <div class="fontStyle">
     <IconButton
-      :textOnTheBtn="selectedDestinationName"
+      :textOnTheBtn="
+        selectedDestinationName != null
+          ? selectedDestinationName
+          : 'Where are you going?'
+      "
       :btnClass="'p-3 rounded h-11 w-52 flex items-center font-normal gap-1.5 relative'"
       :bgOfBtn="'#F2F2F2'"
       :iconPath="require('@/assets/Icons/location.svg')"
@@ -37,9 +41,10 @@
       v-model="checkInDate"
       :placeholder="checkInDate != null ? checkInDate.value : 'Check in date'"
       class="rounded flex items-center font-normal"
-      @click="getCheckIn"
+      @update:model-value="setCheckIn"
       hide-input-icon
       :enable-time-picker="false"
+      model-type="dd.MM.yyyy"
     />
   </div>
   <div
@@ -57,9 +62,10 @@
         checkOutDate != null ? checkOutDate.value : 'Check out date'
       "
       class="rounded flex items-center font-normal"
-      @click="getCheckOut"
+      @update:model-value="setCheckOut"
       hide-input-icon
       :enable-time-picker="false"
+      model-type="dd.MM.yyyy"
     />
   </div>
   <div class="relative rounded h-11 w-36 flex items-center font-normal">
@@ -72,6 +78,7 @@
       class="w-full rounded p-3 pl-10 input-field outline-none"
       style="background: #f2f2f2; height: 44px; font-size: 13px"
       :placeholder="guests != null ? guests : 'Guests'"
+      @input="setGuests"
     />
   </div>
 
@@ -85,6 +92,7 @@
       class="w-full rounded p-3 pl-10 input-field outline-none"
       style="background: #f2f2f2; height: 44px; font-size: 13px"
       :placeholder="rooms != null ? rooms : 'Rooms'"
+      @input="setRooms"
     />
   </div>
   <button
@@ -102,16 +110,18 @@ import axios from "axios";
 import VueDatePicker from "@vuepic/vue-datepicker";
 import "@vuepic/vue-datepicker/dist/main.css";
 import router from "@/router";
-
+import { useSearchStore } from "@/stores/SearchStore";
+const searchStore = useSearchStore();
 const { heightFromTop } = defineProps(["heightFromTop"]);
 const isDropdownOpen = ref(false);
 const arrowDir = ref("down");
-const selectedDestinationName = ref("Where are you going?");
 const destinations = ref([]);
-const checkInDate = ref(null);
-const checkOutDate = ref(null);
-const guests = ref(null);
-const rooms = ref(null);
+
+const selectedDestinationName = ref(searchStore.getSelectedDist);
+const checkInDate = ref(searchStore.getSelectedDates.checkInDate);
+const checkOutDate = ref(searchStore.getSelectedDates.checkOutDate);
+const guests = ref(searchStore.getSelectedGuests);
+const rooms = ref(searchStore.getSelectedRooms);
 
 const fetchDestinations = async () => {
   const options = {
@@ -141,16 +151,20 @@ const toggleDropdown = () => {
   // console.log(isDropdownOpen.value);
 };
 const selectDestination = (destination) => {
-  selectedDestinationName.value = destination.label;
+  searchStore.setDistination(destination);
   isDropdownOpen.value = false;
 };
-const getCheckIn = () => {
-  console.log(checkInDate.value);
-  return checkInDate.value;
+const setCheckIn = (date) => {
+  searchStore.setCheckInDate(date);
 };
-const getCheckOut = () => {
-  console.log(checkOutDate.value);
-  return checkOutDate.value;
+const setCheckOut = (date) => {
+  searchStore.setCheckOutDate(date);
+};
+const setGuests = (guests) => {
+  searchStore.setGuests(guests.data);
+};
+const setRooms = (rooms) => {
+  searchStore.setRooms(rooms.data);
 };
 const goSearch = () => {
   router.push("/searchResults");
