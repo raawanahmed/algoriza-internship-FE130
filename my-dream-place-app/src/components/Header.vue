@@ -73,25 +73,33 @@
               <li class="border-b pb-2 pt-2">
                 <div class="flex items-center gap-2 m-1">
                   <img src="../assets/Icons/user-square.svg" alt="user" />
-                  <a href="#" @click="goToHome">Manage account</a>
+                  <a href="#" @click="goToHome" style="color: #4f4f4f"
+                    >Manage account</a
+                  >
                 </div>
               </li>
               <li class="border-b pb-2 pt-2">
                 <div class="flex items-center gap-2 m-1">
                   <img src="../assets/Icons/trips.svg" alt="trips" />
-                  <a href="#" @click="goToTrips">My trips</a>
+                  <a href="#" @click="goToTrips" style="color: #4f4f4f"
+                    >My trips</a
+                  >
                 </div>
               </li>
               <li class="border-b pb-2 pt-2">
                 <div class="flex items-center gap-2 m-1">
                   <img src="../assets/Icons/wallet.svg" alt="wallet" />
-                  <a href="#" @click="goToCheckout">Reward and Wallet</a>
+                  <a href="#" @click="goToCheckout" style="color: #4f4f4f"
+                    >Reward and Wallet</a
+                  >
                 </div>
               </li>
               <li class="border-b pb-2 pt-2 rounded-md">
                 <div class="flex items-center gap-2 m-1">
                   <img src="../assets/Icons/logout.svg" alt="sign out" />
-                  <a href="#" @click="signOut">Sign out</a>
+                  <a href="#" @click="signOut" style="color: #4f4f4f"
+                    >Sign out</a
+                  >
                 </div>
               </li>
             </ul>
