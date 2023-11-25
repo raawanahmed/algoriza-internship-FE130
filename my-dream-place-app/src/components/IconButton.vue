@@ -2,8 +2,8 @@
   <button :style="{ background: bgOfBtn }" :class="btnClass">
     <img v-if="iconPath != undefined" :src="iconPath" alt="icon" />
     <span
-      class="overflow-hidden text-xs text-gray-2 mt-2 mb-2 font-normal"
-      style="color: #4f4f4f"
+      class="overflow-hidden text-gray-2 mt-2 mb-2 font-normal"
+      style="color: #4f4f4f; font-size: 13px"
       >{{ textOnTheBtn }}</span
     >
     <img
