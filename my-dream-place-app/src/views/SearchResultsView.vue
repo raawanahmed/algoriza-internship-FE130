@@ -5,7 +5,11 @@
       height: 200px;
     "
   >
-    <Header :textColor="'white'" :notificationColor="'notification-white'" :showNavBar="true" />
+    <Header
+      :textColor="'white'"
+      :notificationColor="'notification-white'"
+      :showNavBar="true"
+    />
     <section
       class="flex absolute left-1/2 transform -translate-x-1/2 translate-y-20 bg-white rounded-lg shadow-md p-3 mt-8 gap-3.5"
       style="width: 1030px; height: 64px"
@@ -13,6 +17,16 @@
       <SearchSection />
     </section>
   </div>
+  <section class="w-full mx-auto" style="max-width: 1440px">
+    <div class="grid grid-cols-3" style="margin: 100px">
+      <div>
+        <SearchByName />
+        <FilterBy />
+        <Rating />
+      </div>
+      <div style="background: #38649e" class="col-span-2">bb</div>
+    </div>
+  </section>
   <CovidAlert />
   <Footer />
 </template>
@@ -22,6 +36,9 @@ import Header from "@/components/Header.vue";
 import SearchSection from "@/components/SearchSection.vue";
 import CovidAlert from "@/components/CovidAlert.vue";
 import Footer from "@/components/Footer.vue";
+import SearchByName from "@/components/SearchByName.vue";
+import FilterBy from "@/components/FilterBy.vue";
+import Rating from "@/components/Rating.vue";
 </script>
 
 <style></style>
