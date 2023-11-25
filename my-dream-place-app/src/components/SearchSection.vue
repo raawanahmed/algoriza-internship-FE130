@@ -84,7 +84,7 @@
 
   <div class="relative rounded h-11 w-36 flex items-center font-normal">
     <span class="absolute ml-3">
-      <img src="@/assets/Icons/single_bed.svg" alt="icon" class="icon" />
+      <img src="@/assets/Icons/single_bed.svg" alt="icon" />
     </span>
     <input
       v-model="rooms"
