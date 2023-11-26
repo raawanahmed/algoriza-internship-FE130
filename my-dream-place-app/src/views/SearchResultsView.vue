@@ -18,13 +18,19 @@
     </section>
   </div>
   <section class="w-full mx-auto" style="max-width: 1440px">
-    <div class="grid grid-cols-3" style="margin: 100px">
+    <div class="grid grid-cols-4" style="margin: 100px; gap: 30px">
       <div>
         <SearchByName />
         <FilterBy />
         <Rating />
       </div>
-      <div style="background: #38649e" class="col-span-2">bb</div>
+      <div style="background: #ffffff" class="col-span-3">
+        <p class="font-semibold text-2xl">
+          {{ searchStore.getSelectedDist }} :
+          {{ searchStore.getResults }} search results found
+        </p>
+        <HotelsDetails />
+      </div>
     </div>
   </section>
   <CovidAlert />
@@ -39,6 +45,9 @@ import Footer from "@/components/Footer.vue";
 import SearchByName from "@/components/SearchByName.vue";
 import FilterBy from "@/components/FilterBy.vue";
 import Rating from "@/components/Rating.vue";
+import HotelsDetails from "@/components/HotelsDetails.vue";
+import { useSearchStore } from "@/stores/SearchStore";
+const searchStore = useSearchStore();
 </script>
 
 <style></style>
