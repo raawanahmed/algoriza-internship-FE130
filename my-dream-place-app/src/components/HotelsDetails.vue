@@ -142,23 +142,14 @@ const generateRange = (num) =>
 const hotels = ref([]);
 
 const fetchHotels = async () => {
-  console.log(
-    destinationID.value,
-    searchType.value,
-    checkinDate.value,
-    checkoutDate.value,
-    adults.value,
-    rooms.value,
-    currentPage.value
-  );
   const options = {
     method: "GET",
     url: "https://booking-com15.p.rapidapi.com/api/v1/hotels/searchHotels",
     params: {
       dest_id: destinationID.value,
       search_type: searchType.value,
-      arrival_date: "2023-12-01",
-      departure_date: "2023-12-09",
+      arrival_date: checkinDate.value,
+      departure_date: checkoutDate.value,
       adults: adults.value,
       children_age: "0,17",
       room_qty: rooms.value,
@@ -178,10 +169,11 @@ const fetchHotels = async () => {
     hotels.value = response.data.data.hotels;
     console.log(hotels.value);
     // totalPages.value = Math.ceil(
-    //   response.data.meta.total / hotelsPerPage.value
+    //   response.data.data.meta.total / hotelsPerPage.value
     // );
+    // console.log(response.data.data.meta.total, totalPages)
   } catch (error) {
-    console.error(error);
+    console.error(error.response);
   }
 };
 

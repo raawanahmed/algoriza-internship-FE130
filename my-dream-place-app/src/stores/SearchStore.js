@@ -42,27 +42,27 @@ export const useSearchStore = defineStore("searchStore", {
       this.selectedDistName = name;
       console.log("dist name: ", name);
     },
-    setResults(results){
-      this.results = results
+    setResults(results) {
+      this.results = results;
     },
     getFormattedCheckinDate() {
       if (this.selectedDates.checkInDate != null) {
         const dateArray = this.selectedDates.checkInDate.split(".");
 
-        const month = dateArray[0] ? dateArray[0].padStart(2, "0") : "01";
-        const day = dateArray[1] ? dateArray[1].padStart(2, "0") : "01";
+        const day = dateArray[0] ? dateArray[0].padStart(2, "0") : "01";
+        const month = dateArray[1] ? dateArray[1].padStart(2, "0") : "01";
 
         const formattedCheckinDate = dateArray[2] + "-" + month + "-" + day;
         // console.log(formattedCheckinDate);
-        return formattedCheckinDate;
+        return formattedCheckinDate.toString();
       }
     },
     getFormattedCheckoutDate() {
       if (this.selectedDates.checkOutDate != null) {
         const dateArray = this.selectedDates.checkOutDate.split(".");
 
-        const month = dateArray[0] ? dateArray[0].padStart(2, "0") : "01";
-        const day = dateArray[1] ? dateArray[1].padStart(2, "0") : "01";
+        const day = dateArray[0] ? dateArray[0].padStart(2, "0") : "01";
+        const month = dateArray[1] ? dateArray[1].padStart(2, "0") : "01";
 
         const formattedCheckoutDate = dateArray[2] + "-" + month + "-" + day;
         // console.log(formattedCheckoutDate);
