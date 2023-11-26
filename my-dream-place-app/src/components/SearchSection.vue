@@ -129,7 +129,7 @@ const fetchDestinations = async () => {
     url: "https://booking-com15.p.rapidapi.com/api/v1/hotels/searchDestination",
     params: { query: "Egypt" },
     headers: {
-      "X-RapidAPI-Key": "5207885cbdmshf5ef7933079e239p1299b7jsn81996ac3e431",
+      "X-RapidAPI-Key": "c6f8dbff25mshb0322cd8edf15ffp1d087bjsnc1c70576c0f0",
       "X-RapidAPI-Host": "booking-com15.p.rapidapi.com",
     },
   };
@@ -151,7 +151,9 @@ const toggleDropdown = () => {
   // console.log(isDropdownOpen.value);
 };
 const selectDestination = (destination) => {
-  searchStore.setDistination(destination);
+  console.log(destination);
+  searchStore.setDistination(destination.dest_id);
+  searchStore.setSearchType(destination.search_type);
   isDropdownOpen.value = false;
 };
 const setCheckIn = (date) => {
@@ -169,7 +171,7 @@ const setRooms = (rooms) => {
 const goSearch = () => {
   router.push("/searchResults");
 };
-//fetchDestinations();
+// fetchDestinations();
 </script>
 
 <style>

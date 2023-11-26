@@ -10,6 +10,7 @@ export const useSearchStore = defineStore("searchStore", {
     selectedGuests: null,
     selectedRooms: null,
     results: null,
+    searchType: null,
   }),
   actions: {
     setDistination(dist) {
@@ -31,6 +32,10 @@ export const useSearchStore = defineStore("searchStore", {
     setRooms(rooms) {
       this.selectedRooms = rooms;
       console.log("rooms: ", rooms);
+    },
+    setSearchType(searchType) {
+      this.searchType = searchType;
+      console.log("search type: ",searchType)
     },
     getFormattedCheckinDate() {
       if (this.selectedDates.checkInDate != null) {
@@ -63,5 +68,6 @@ export const useSearchStore = defineStore("searchStore", {
     getSelectedGuests: (state) => state.selectedGuests,
     getSelectedRooms: (state) => state.selectedRooms,
     getResults: (state) => state.results,
+    getSearchType: (state) => state.searchType,
   },
 });
