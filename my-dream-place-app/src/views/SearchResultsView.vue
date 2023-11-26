@@ -26,7 +26,7 @@
       </div>
       <div style="background: #ffffff" class="col-span-3">
         <p class="font-semibold text-2xl">
-          {{ searchStore.getSelectedDist }} :
+          {{ searchStore.getselectedDistName }} :
           {{ searchStore.getResults }} search results found
         </p>
         <HotelsDetails />

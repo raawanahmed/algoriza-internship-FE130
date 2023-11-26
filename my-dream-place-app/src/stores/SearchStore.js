@@ -2,7 +2,8 @@ import { defineStore } from "pinia";
 
 export const useSearchStore = defineStore("searchStore", {
   state: () => ({
-    selectedDist: null,
+    selectedDistID: null,
+    selectedDistName: null,
     selectedDates: {
       checkInDate: null,
       checkOutDate: null,
@@ -14,7 +15,7 @@ export const useSearchStore = defineStore("searchStore", {
   }),
   actions: {
     setDistination(dist) {
-      this.selectedDist = dist;
+      this.selectedDistID = dist;
       console.log("dist: ", dist);
     },
     setCheckInDate(checkInDate) {
@@ -35,7 +36,14 @@ export const useSearchStore = defineStore("searchStore", {
     },
     setSearchType(searchType) {
       this.searchType = searchType;
-      console.log("search type: ",searchType)
+      console.log("search type: ", searchType);
+    },
+    setDistinationName(name) {
+      this.selectedDistName = name;
+      console.log("dist name: ", name);
+    },
+    setResults(results){
+      this.results = results
     },
     getFormattedCheckinDate() {
       if (this.selectedDates.checkInDate != null) {
@@ -63,11 +71,12 @@ export const useSearchStore = defineStore("searchStore", {
     },
   },
   getters: {
-    getSelectedDist: (state) => state.selectedDist,
+    getselectedDistID: (state) => state.selectedDistID,
     getSelectedDates: (state) => state.selectedDates,
     getSelectedGuests: (state) => state.selectedGuests,
     getSelectedRooms: (state) => state.selectedRooms,
     getResults: (state) => state.results,
     getSearchType: (state) => state.searchType,
+    getselectedDistName: (state) => state.selectedDistName,
   },
 });

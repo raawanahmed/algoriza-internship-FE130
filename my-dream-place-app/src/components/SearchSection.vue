@@ -117,7 +117,7 @@ const isDropdownOpen = ref(false);
 const arrowDir = ref("down");
 const destinations = ref([]);
 
-const selectedDestinationName = ref(searchStore.getSelectedDist);
+const selectedDestinationName = ref(searchStore.getselectedDistName);
 const checkInDate = ref(searchStore.getSelectedDates.checkInDate);
 const checkOutDate = ref(searchStore.getSelectedDates.checkOutDate);
 const guests = ref(searchStore.getSelectedGuests);
@@ -154,6 +154,9 @@ const selectDestination = (destination) => {
   console.log(destination);
   searchStore.setDistination(destination.dest_id);
   searchStore.setSearchType(destination.search_type);
+  searchStore.setDistinationName(destination.label);
+  searchStore.setResults(destination.nr_hotels);
+  selectedDestinationName.value = destination.label;
   isDropdownOpen.value = false;
 };
 const setCheckIn = (date) => {
@@ -169,9 +172,20 @@ const setRooms = (rooms) => {
   searchStore.setRooms(rooms.data);
 };
 const goSearch = () => {
+  if (
+    !selectedDestinationName.value ||
+    !checkInDate.value ||
+    !checkOutDate.value ||
+    !guests.value ||
+    !rooms.value
+  ) {
+    // Display an error message or take appropriate action for incomplete fields
+    alert("Please fill in all fields before searching.");
+    return;
+  }
   router.push("/searchResults");
 };
-// fetchDestinations();
+fetchDestinations();
 </script>
 
 <style>
