@@ -129,12 +129,6 @@ import { useSearchStore } from "@/stores/SearchStore";
 import { ref, computed, onMounted } from "vue";
 
 const searchStore = useSearchStore();
-const checkinDate = ref(searchStore.getFormattedCheckinDate());
-const checkoutDate = ref(searchStore.getFormattedCheckoutDate());
-const destinationID = ref(searchStore.getselectedDistID);
-const adults = ref(searchStore.getSelectedGuests);
-const rooms = ref(searchStore.getSelectedRooms);
-const searchType = ref(searchStore.getSearchType);
 const currentPage = ref(1);
 const totalPages = ref(20);
 const generateRange = (num) =>
@@ -142,46 +136,21 @@ const generateRange = (num) =>
 const hotels = ref([]);
 
 const fetchHotels = async () => {
-  const options = {
-    method: "GET",
-    url: "https://booking-com15.p.rapidapi.com/api/v1/hotels/searchHotels",
-    params: {
-      dest_id: destinationID.value,
-      search_type: searchType.value,
-      arrival_date: checkinDate.value,
-      departure_date: checkoutDate.value,
-      adults: adults.value,
-      children_age: "0,17",
-      room_qty: rooms.value,
-      page_number: currentPage.value,
-      languagecode: "en-us",
-      currency_code: "usd",
-    },
-    headers: {
-      "X-RapidAPI-Key": "c6f8dbff25mshb0322cd8edf15ffp1d087bjsnc1c70576c0f0",
-      "X-RapidAPI-Host": "booking-com15.p.rapidapi.com",
-    },
-  };
-
-  try {
-    const response = await axios.request(options);
-    console.log(response.data.data.hotels);
-    hotels.value = response.data.data.hotels;
-    console.log(hotels.value);
-    // totalPages.value = Math.ceil(
-    //   response.data.data.meta.total / hotelsPerPage.value
-    // );
-    // console.log(response.data.data.meta.total, totalPages)
-  } catch (error) {
-    console.error(error.response);
-  }
+  await searchStore.fetchHotels();
+  hotels.value = searchStore.getHotels;
+  console.log(hotels.value);
 };
+
+onMounted(() => {
+  fetchHotels();
+});
 
 const changePage = (page) => {
   if (page >= 1 && page <= totalPages.value) {
     currentPage.value = page;
   }
-  fetchHotels();
+  searchStore.setCurrenPage(page);
+  searchStore.fetchHotels();
 };
 const paginationButtons = computed(() => {
   const buttons = [];
@@ -206,10 +175,6 @@ const paginationButtons = computed(() => {
   }
   // console.log(buttons);
   return buttons;
-});
-
-onMounted(() => {
-  fetchHotels();
 });
 </script>
 

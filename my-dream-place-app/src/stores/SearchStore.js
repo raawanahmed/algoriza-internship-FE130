@@ -48,6 +48,9 @@ export const useSearchStore = defineStore("searchStore", {
     sethotelsCount(hotelsCount) {
       this.hotelsCount = hotelsCount;
     },
+    setCurrenPage(page) {
+      this.currentPage = page;
+    },
     getFormattedCheckinDate() {
       if (this.selectedDates.checkInDate != null) {
         const dateArray = this.selectedDates.checkInDate.split(".");
@@ -57,7 +60,7 @@ export const useSearchStore = defineStore("searchStore", {
 
         const formattedCheckinDate = dateArray[2] + "-" + month + "-" + day;
         // console.log(formattedCheckinDate);
-        return formattedCheckinDate.toString();
+        return formattedCheckinDate;
       }
     },
     getFormattedCheckoutDate() {
@@ -73,14 +76,24 @@ export const useSearchStore = defineStore("searchStore", {
       }
     },
     async fetchHotels() {
+      console.log(
+        this.selectedDistID,
+        this.searchType,
+        this.selectedDates,
+        this.selectedGuests,
+        this.selectedRooms,
+        this.currentPage,
+        this.getFormattedCheckinDate(),
+        this.getFormattedCheckoutDate()
+      );
       const options = {
         method: "GET",
         url: "https://booking-com15.p.rapidapi.com/api/v1/hotels/searchHotels",
         params: {
           dest_id: this.selectedDistID,
           search_type: this.searchType,
-          arrival_date: this.selectedDates.checkInDate,
-          departure_date: this.selectedDates.checkOutDate,
+          arrival_date: this.getFormattedCheckinDate(),
+          departure_date: this.getFormattedCheckoutDate(),
           adults: this.selectedGuests,
           children_age: "0,17",
           room_qty: this.selectedRooms,
@@ -97,7 +110,8 @@ export const useSearchStore = defineStore("searchStore", {
 
       try {
         const response = await axios.request(options);
-        console.log(response.data.data.hotels);
+        console.log(response);
+        // console.log(response.data.data.hotels);
         this.hotels = response.data.data.hotels;
         return this.hotels;
         // totalPages.value = Math.ceil(totalHotels.value / 20);

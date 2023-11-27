@@ -104,18 +104,15 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
 import IconButton from "./IconButton.vue";
-import axios from "axios";
-import VueDatePicker from "@vuepic/vue-datepicker";
-import "@vuepic/vue-datepicker/dist/main.css";
 import router from "@/router";
+import { ref } from "vue";
 import { useSearchStore } from "@/stores/SearchStore";
-const searchStore = useSearchStore();
+
 const { heightFromTop } = defineProps(["heightFromTop"]);
 const isDropdownOpen = ref(false);
 const arrowDir = ref("down");
-
+const searchStore = useSearchStore();
 const destinations = ref(searchStore.getDestinations());
 const selectedDestinationName = ref(searchStore.getselectedDistName);
 const checkInDate = ref(searchStore.getSelectedDates.checkInDate);
