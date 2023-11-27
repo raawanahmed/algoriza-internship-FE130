@@ -19,10 +19,11 @@
     >
       <div v-for="destination in destinations" :key="destination.dest_id">
         <button
+          v-if="destination.city_name != ''"
           @click="selectDestination(destination)"
           class="block w-full p-2 border-b-2"
         >
-          {{ destination.label }}
+          {{ destination.city_name }}
         </button>
       </div>
     </div>
@@ -106,7 +107,7 @@
 <script setup>
 import IconButton from "./IconButton.vue";
 import router from "@/router";
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import { useSearchStore } from "@/stores/SearchStore";
 
 const { heightFromTop } = defineProps(["heightFromTop"]);
@@ -129,9 +130,9 @@ const toggleDropdown = () => {
 const selectDestination = (destination) => {
   searchStore.setDistinationID(destination.dest_id);
   searchStore.setSearchType(destination.search_type);
-  searchStore.setDistinationName(destination.label);
+  searchStore.setDistinationName(destination.city_name);
   searchStore.sethotelsCount(destination.nr_hotels);
-  selectedDestinationName.value = destination.label;
+  selectedDestinationName.value = destination.city_name;
   isDropdownOpen.value = false;
 };
 const setCheckIn = (date) => {
@@ -158,6 +159,7 @@ const goSearch = () => {
     return;
   }
   searchStore.fetchHotels();
+
   router.push("/searchResults");
 };
 </script>

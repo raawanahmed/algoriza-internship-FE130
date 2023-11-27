@@ -133,7 +133,7 @@ const currentPage = ref(1);
 const totalPages = ref(20);
 const generateRange = (num) =>
   Array.from({ length: Math.ceil(num / 2) }, (_, index) => index + 1);
-const hotels = ref([]);
+const hotels = ref(searchStore.getHotels);
 
 const fetchHotels = async () => {
   await searchStore.fetchHotels();
@@ -143,6 +143,7 @@ const fetchHotels = async () => {
 
 onMounted(() => {
   // fetchHotels();
+  
 });
 
 const changePage = (page) => {
