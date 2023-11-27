@@ -76,16 +76,16 @@ export const useSearchStore = defineStore("searchStore", {
       }
     },
     async fetchHotels() {
-      console.log(
-        this.selectedDistID,
-        this.searchType,
-        this.selectedDates,
-        this.selectedGuests,
-        this.selectedRooms,
-        this.currentPage,
-        this.getFormattedCheckinDate(),
-        this.getFormattedCheckoutDate()
-      );
+      // console.log(
+      //   this.selectedDistID,
+      //   this.searchType,
+      //   this.selectedDates,
+      //   this.selectedGuests,
+      //   this.selectedRooms,
+      //   this.currentPage,
+      //   this.getFormattedCheckinDate(),
+      //   this.getFormattedCheckoutDate()
+      // );
       const options = {
         method: "GET",
         url: "https://booking-com15.p.rapidapi.com/api/v1/hotels/searchHotels",
@@ -144,7 +144,7 @@ export const useSearchStore = defineStore("searchStore", {
     },
     getDestinations() {
       const dists = localStorage.getItem("destinations");
-      console.log(dists);
+      // console.log(dists);
       return dists ? JSON.parse(dists) : this.fetchDestinations();
     },
   },
