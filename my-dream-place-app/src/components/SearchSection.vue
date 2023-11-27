@@ -137,7 +137,6 @@ const fetchDestinations = async () => {
   try {
     const response = await axios.request(options);
     destinations.value = response.data.data;
-    // console.log(destinations.value);
   } catch (error) {
     console.error(error);
   }
@@ -148,14 +147,12 @@ const toggleDropdown = () => {
   arrowDir.value == "down"
     ? (arrowDir.value = "up")
     : (arrowDir.value = "down");
-  // console.log(isDropdownOpen.value);
 };
 const selectDestination = (destination) => {
-  console.log(destination);
-  searchStore.setDistination(destination.dest_id);
+  searchStore.setDistinationID(destination.dest_id);
   searchStore.setSearchType(destination.search_type);
   searchStore.setDistinationName(destination.label);
-  searchStore.setResults(destination.nr_hotels);
+  searchStore.sethotelsCount(destination.nr_hotels);
   selectedDestinationName.value = destination.label;
   isDropdownOpen.value = false;
 };
@@ -179,7 +176,6 @@ const goSearch = () => {
     !guests.value ||
     !rooms.value
   ) {
-    // Display an error message or take appropriate action for incomplete fields
     alert("Please fill in all fields before searching.");
     return;
   }
