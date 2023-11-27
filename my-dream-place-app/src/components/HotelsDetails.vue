@@ -20,16 +20,10 @@
             {{ hotel.property.name }}
           </p>
           <section style="margin-top: 10px; margin-bottom: 17px" class="flex">
-            <div
-              v-for="index in generateRange(hotel.property.reviewScore)"
-              :key="index"
-              class="flex"
-            >
-              <img src="../assets/Icons/star.svg" alt="" />
-            </div>
-            <p style="color: #4f4f4f" class="text-sm">
-              ({{ hotel.property.reviewCount }} Reviews)
-            </p>
+            <Reviews
+              :reviewScore="hotel.property.reviewScore"
+              :reviewsCount="hotel.property.reviewCount"
+            />
           </section>
           <p
             class=""
@@ -52,6 +46,7 @@
               margin-top: 18px;
               margin-bottom: 24px;
             "
+            @click="seeAvailabilityOfHotel(hotel)"
           >
             See availability
           </button>
@@ -90,8 +85,6 @@
         "
         class="rounded-md"
       />
-
-      <!-- Display pagination buttons -->
       <template v-for="page in paginationButtons" :key="page">
         <button
           @click="changePage(page)"
@@ -124,26 +117,27 @@
 </template>
 
 <script setup>
-import axios from "axios";
 import { useSearchStore } from "@/stores/SearchStore";
 import { ref, computed, onMounted } from "vue";
+import { useHotelStore } from "@/stores/HotelStore";
+import router from "@/router";
+import Reviews from "./Reviews.vue";
 
 const searchStore = useSearchStore();
+const hotelStore = useHotelStore();
 const currentPage = ref(1);
 const totalPages = ref(20);
-const generateRange = (num) =>
-  Array.from({ length: Math.ceil(num / 2) }, (_, index) => index + 1);
 const hotels = ref(searchStore.getHotels);
 
 const fetchHotels = async () => {
   await searchStore.fetchHotels();
   hotels.value = searchStore.getHotels;
   console.log(hotels.value);
+  return searchStore.getHotels;
 };
 
 onMounted(() => {
-  // fetchHotels();
-  
+  fetchHotels();
 });
 
 const changePage = (page) => {
@@ -151,8 +145,9 @@ const changePage = (page) => {
     currentPage.value = page;
   }
   searchStore.setCurrenPage(page);
-  // fetchHotels();
+  fetchHotels();
 };
+
 const paginationButtons = computed(() => {
   const buttons = [];
   const totalButtons = 3;
@@ -177,6 +172,11 @@ const paginationButtons = computed(() => {
   // console.log(buttons);
   return buttons;
 });
+
+const seeAvailabilityOfHotel = (hotel) => {
+  hotelStore.setselectedHotelData(hotel);
+  router.push("/productDetails");
+};
 </script>
 
 <style>

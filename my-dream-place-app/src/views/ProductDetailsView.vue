@@ -4,14 +4,7 @@
     :notificationColor="'notification-black'"
     :showNavBar="true"
   />
-  <div
-    style="
-      width: 1440px;
-      height: 500px;
-      background: linear-gradient(180deg, rgba(244, 244, 244, 0) 0%, #fff 100%);
-    "
-    class="mx-auto"
-  >
+  <div style="width: 1440px; height: 500px" class="mx-auto">
     <section class="mt-6 flex" style="margin-left: 100px; margin-right: 100px">
       <img
         src="../assets/Imgs/japan.png"
@@ -34,15 +27,65 @@
       </div>
     </section>
   </div>
-  <div style="background: #f4f4f4"></div>
-  <CovidAlert />
-  <Footer />
+  <section style="background: #f4f4f4">
+    <div style="width: 1440px; height: 500px" class="mx-auto">
+      <section class="mt-6" style="margin-left: 100px; margin-right: 100px">
+        <p class="font-medium text-3xl pt-10" style="color: #1a1a1a">
+          {{ selectedHotel.property.name }}
+        </p>
+        <section style="margin-top: 12px; margin-bottom: 12px" class="flex">
+          <Reviews
+            :reviewScore="selectedHotel.property.reviewScore"
+            :reviewsCount="selectedHotel.property.reviewCount"
+          />
+        </section>
+        <section class="mb-8 flex">
+          <img
+            src="../assets/Icons/locationblue.svg"
+            alt=""
+            style="margin-right: 6px"
+          />
+          <p class="text-sm" style="color: #333">
+            {{ hotelDetails.data.address }}
+          </p>
+        </section>
+        <OverviewOfHotel />
+      </section>
+    </div>
+    <CovidAlert />
+    <Footer />
+  </section>
 </template>
 
 <script setup>
 import Header from "@/components/Header.vue";
 import CovidAlert from "@/components/CovidAlert.vue";
 import Footer from "@/components/Footer.vue";
+import OverviewOfHotel from "@/components/OverviewOfHotel.vue";
+import Reviews from "@/components/Reviews.vue";
+import { useHotelStore } from "@/stores/HotelStore";
+import { ref, onMounted, onUnmounted } from "vue";
+const hotelStore = useHotelStore();
+const selectedHotel = ref(hotelStore.getselectedHotelData);
+const hotelDetails = ref(hotelStore.getHotelDetails);
+
+const fetchHotel = async () => {
+  await hotelStore.fetchHotelDetails();
+  hotelDetails.value = hotelStore.getHotelDetails;
+  console.log(hotelDetails.value.data);
+  return hotelStore.getHotelDetails;
+};
+
+onMounted(() => {
+  fetchHotel();
+});
+
+onUnmounted(() => {
+  hotelStore.removeSlectedHotel();
+});
+
+console.log(selectedHotel.value);
+console.log(hotelDetails.value);
 </script>
 
 <style></style>
