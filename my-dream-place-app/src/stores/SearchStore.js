@@ -99,6 +99,7 @@ export const useSearchStore = defineStore("searchStore", {
         const response = await axios.request(options);
         console.log(response.data.data.hotels);
         this.hotels = response.data.data.hotels;
+        return this.hotels;
         // totalPages.value = Math.ceil(totalHotels.value / 20);
         // console.log(response.data.data.meta.total, totalPages)
       } catch (error) {
@@ -121,10 +122,15 @@ export const useSearchStore = defineStore("searchStore", {
         const response = await axios.request(options);
         this.destinations = response.data.data;
         console.log(this.destinations);
+        localStorage.setItem("destinations", JSON.stringify(this.destinations));
         return this.destinations;
       } catch (error) {
         console.error(error);
       }
+    },
+    getDestinations() {
+      const dists = localStorage.getItem("destinations");
+      return dists ? JSON.parse(dists) : this.fetchDestinations();
     },
   },
   getters: {
@@ -136,10 +142,5 @@ export const useSearchStore = defineStore("searchStore", {
     getSearchType: (state) => state.searchType,
     getselectedDistName: (state) => state.selectedDistName,
     getHotels: (state) => state.hotels,
-    getDestinations: (state) => state.destinations,
-    getDestinations: async function () {
-      await this.fetchDestinations(); 
-      return this.destinations;
-    },
   },
 });

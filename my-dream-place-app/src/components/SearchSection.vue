@@ -115,32 +115,13 @@ const searchStore = useSearchStore();
 const { heightFromTop } = defineProps(["heightFromTop"]);
 const isDropdownOpen = ref(false);
 const arrowDir = ref("down");
-const destinations = ref([]);
 
+const destinations = ref(searchStore.getDestinations());
 const selectedDestinationName = ref(searchStore.getselectedDistName);
 const checkInDate = ref(searchStore.getSelectedDates.checkInDate);
 const checkOutDate = ref(searchStore.getSelectedDates.checkOutDate);
 const guests = ref(searchStore.getSelectedGuests);
 const rooms = ref(searchStore.getSelectedRooms);
-
-const fetchDestinations = async () => {
-  const options = {
-    method: "GET",
-    url: "https://booking-com15.p.rapidapi.com/api/v1/hotels/searchDestination",
-    params: { query: "Egypt" },
-    headers: {
-      "X-RapidAPI-Key": "c6f8dbff25mshb0322cd8edf15ffp1d087bjsnc1c70576c0f0",
-      "X-RapidAPI-Host": "booking-com15.p.rapidapi.com",
-    },
-  };
-
-  try {
-    const response = await axios.request(options);
-    destinations.value = response.data.data;
-  } catch (error) {
-    console.error(error);
-  }
-};
 
 const toggleDropdown = () => {
   isDropdownOpen.value = !isDropdownOpen.value;
@@ -179,9 +160,9 @@ const goSearch = () => {
     alert("Please fill in all fields before searching.");
     return;
   }
+  searchStore.fetchHotels();
   router.push("/searchResults");
 };
-fetchDestinations();
 </script>
 
 <style>
