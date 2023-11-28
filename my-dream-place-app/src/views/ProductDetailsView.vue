@@ -59,6 +59,9 @@
           </div>
           <ExploreArea />
         </section>
+        
+
+        
       </div>
       <CovidAlert />
       <Footer />
