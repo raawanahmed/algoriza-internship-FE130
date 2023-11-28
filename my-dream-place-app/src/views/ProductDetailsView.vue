@@ -34,7 +34,10 @@
     </div>
     <section style="background: #f4f4f4">
       <div style="width: 1440px" class="mx-auto">
-        <section class="mt-6 flex" style="margin-left: 100px; margin-right: 100px">
+        <section
+          class="mt-6 flex"
+          style="margin-left: 100px; margin-right: 100px"
+        >
           <div>
             <p class="font-medium text-3xl pt-10" style="color: #1a1a1a">
               <!-- {{ selectedHotel.property.name }} -->
@@ -59,9 +62,15 @@
           </div>
           <ExploreArea />
         </section>
-        
-
-        
+        <div style="margin-left: 100px; margin-right: 100px">
+          <p
+            style="margin-top: 40px; margin-bottom: 32px"
+            class="text-2xl font-semibold"
+          >
+            Available rooms
+          </p>
+          <Ad />
+        </div>
       </div>
       <CovidAlert />
       <Footer />
@@ -76,6 +85,7 @@ import Footer from "@/components/Footer.vue";
 import OverviewOfHotel from "@/components/OverviewOfHotel.vue";
 import Reviews from "@/components/Reviews.vue";
 import ExploreArea from "@/components/ExploreArea.vue";
+import Ad from "@/components/Ad.vue";
 import { useHotelStore } from "@/stores/HotelStore";
 import { ref, onMounted, onUnmounted } from "vue";
 
