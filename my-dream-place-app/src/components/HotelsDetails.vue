@@ -117,35 +117,36 @@
 </template>
 
 <script setup>
-import { useSearchStore } from "@/stores/SearchStore";
+import { useSearchDetailsStore } from "@/stores/SearchDetailsStore";
+
 import { ref, computed, onMounted } from "vue";
 import { useHotelStore } from "@/stores/HotelStore";
 import router from "@/router";
 import Reviews from "./Reviews.vue";
 
-const searchStore = useSearchStore();
+const searchDetailsStore = useSearchDetailsStore();
 const hotelStore = useHotelStore();
 const currentPage = ref(1);
 const totalPages = ref(20);
-const hotels = ref(searchStore.getHotels);
+const hotels = ref(searchDetailsStore.getHotels);
 
 const fetchHotels = async () => {
-  await searchStore.fetchHotels();
-  hotels.value = searchStore.getHotels;
+  await searchDetailsStore.fetchHotels();
+  hotels.value = searchDetailsStore.getHotels;
   console.log(hotels.value);
-  return searchStore.getHotels;
+  return searchDetailsStore.getHotels;
 };
 
 onMounted(() => {
-  fetchHotels();
+ // fetchHotels();
 });
 
 const changePage = (page) => {
   if (page >= 1 && page <= totalPages.value) {
     currentPage.value = page;
   }
-  searchStore.setCurrenPage(page);
-  fetchHotels();
+  searchDetailsStore.setCurrenPage(page);
+  //fetchHotels();
 };
 
 const paginationButtons = computed(() => {

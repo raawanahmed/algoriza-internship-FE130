@@ -26,8 +26,8 @@
       </div>
       <div style="background: #ffffff" class="col-span-3">
         <p class="font-semibold text-2xl">
-          {{ searchStore.getselectedDistName }} :
-          {{ searchStore.gethotelsCount }} search results found
+          {{ searchDetailsStore.getSelectedDestinationName }} :
+          {{ searchDetailsStore.getHotelsCount }} search results found
         </p>
         <HotelsDetails />
       </div>
@@ -46,8 +46,9 @@ import SearchByName from "@/components/SearchByName.vue";
 import FilterBy from "@/components/FilterBy.vue";
 import Rating from "@/components/Rating.vue";
 import HotelsDetails from "@/components/HotelsDetails.vue";
-import { useSearchStore } from "@/stores/SearchStore";
-const searchStore = useSearchStore();
+
+import { useSearchDetailsStore } from "@/stores/SearchDetailsStore";
+const searchDetailsStore = useSearchDetailsStore();
 </script>
 
 <style></style>

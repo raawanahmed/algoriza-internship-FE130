@@ -45,7 +45,7 @@ export const useSearchStore = defineStore("searchStore", {
       this.selectedDistName = name;
       console.log("dist name: ", name);
     },
-    sethotelsCount(hotelsCount) {
+    setHotelsCount(hotelsCount) {
       this.hotelsCount = hotelsCount;
     },
     setCurrenPage(page) {

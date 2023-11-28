@@ -1,6 +1,10 @@
 <template>
   <div class="mx-auto">
-    <Header :textColor="'black'" :notificationColor="'notification-black'" :showNavBar="true"/>
+    <Header
+      :textColor="'black'"
+      :notificationColor="'notification-black'"
+      :showNavBar="true"
+    />
     <VacationDetails />
     <DreamVacation />
     <Inspiration />
@@ -20,4 +24,9 @@ import PopularHotels from "@/components/PopularHotels.vue";
 import DownloadApp from "@/components/DownloadApp.vue";
 import Explore from "@/components/Explore.vue";
 import Footer from "@/components/Footer.vue";
+import { onMounted } from "vue";
+
+onMounted(() => {
+  localStorage.removeItem("searchData");
+});
 </script>

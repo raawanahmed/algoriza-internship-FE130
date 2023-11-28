@@ -2,8 +2,8 @@
   <div class="fontStyle">
     <IconButton
       :textOnTheBtn="
-        selectedDestinationName != null
-          ? selectedDestinationName
+        searchData.selectedDestinationName != null
+          ? searchData.selectedDestinationName
           : 'Where are you going?'
       "
       :btnClass="'p-3 rounded h-11 w-52 flex items-center font-normal gap-1.5 relative'"
@@ -39,10 +39,14 @@
       class="w-5 h-5 ml-3 mr-1.5"
     />
     <VueDatePicker
-      v-model="checkInDate"
-      :placeholder="checkInDate != null ? checkInDate.value : 'Check in date'"
+      v-model="searchData.selectedCheckinDate"
+      :placeholder="
+        searchData.selectedCheckinDate != null
+          ? searchData.selectedCheckinDate
+          : 'Check in date'
+      "
       class="rounded flex items-center font-normal"
-      @update:model-value="setCheckIn"
+      @update:model-value="setCheckin"
       hide-input-icon
       :enable-time-picker="false"
       model-type="dd.MM.yyyy"
@@ -58,12 +62,14 @@
       class="w-5 h-5 ml-3 mr-1.5"
     />
     <VueDatePicker
-      v-model="checkOutDate"
+      v-model="searchData.selectedCheckoutDate"
       :placeholder="
-        checkOutDate != null ? checkOutDate.value : 'Check out date'
+        searchData.selectedCheckoutDate != null
+          ? searchData.selectedCheckoutDate
+          : 'Check out date'
       "
       class="rounded flex items-center font-normal"
-      @update:model-value="setCheckOut"
+      @update:model-value="setCheckout"
       hide-input-icon
       :enable-time-picker="false"
       model-type="dd.MM.yyyy"
@@ -74,11 +80,13 @@
       <img src="@/assets/Icons/user-square.svg" alt="icon" class="icon" />
     </span>
     <input
-      v-model="guests"
+      v-model="searchData.selectedGuests"
       type="number"
       class="w-full rounded p-3 pl-10 input-field outline-none"
       style="background: #f2f2f2; height: 44px; font-size: 13px"
-      :placeholder="guests != null ? guests : 'Guests'"
+      :placeholder="
+        searchData.selectedGuests != null ? searchData.selectedGuests : 'Guests'
+      "
       @input="setGuests"
     />
   </div>
@@ -88,11 +96,13 @@
       <img src="@/assets/Icons/single_bed.svg" alt="icon" />
     </span>
     <input
-      v-model="rooms"
+      v-model="searchData.selectedRooms"
       type="number"
       class="w-full rounded p-3 pl-10 input-field outline-none"
       style="background: #f2f2f2; height: 44px; font-size: 13px"
-      :placeholder="rooms != null ? rooms : 'Rooms'"
+      :placeholder="
+        searchData.selectedRooms != null ? searchData.selectedRooms : 'Rooms'
+      "
       @input="setRooms"
     />
   </div>
@@ -107,60 +117,66 @@
 <script setup>
 import IconButton from "./IconButton.vue";
 import router from "@/router";
-import { onMounted, ref } from "vue";
-import { useSearchStore } from "@/stores/SearchStore";
+import { ref, reactive } from "vue";
+import { useSearchDetailsStore } from "@/stores/SearchDetailsStore";
 
 const { heightFromTop } = defineProps(["heightFromTop"]);
 const isDropdownOpen = ref(false);
 const arrowDir = ref("down");
-const searchStore = useSearchStore();
-const destinations = ref(searchStore.getDestinations());
-const selectedDestinationName = ref(searchStore.getselectedDistName);
-const checkInDate = ref(searchStore.getSelectedDates.checkInDate);
-const checkOutDate = ref(searchStore.getSelectedDates.checkOutDate);
-const guests = ref(searchStore.getSelectedGuests);
-const rooms = ref(searchStore.getSelectedRooms);
+
+const searchDetailsStore = useSearchDetailsStore();
+const destinations = ref(searchDetailsStore.getDestinations());
+const searchData = reactive({
+  selectedDestinationId: searchDetailsStore.getSelectedDestinationId,
+  selectedDestinationName: searchDetailsStore.getSelectedDestinationName,
+  selectedCheckinDate: searchDetailsStore.getSelectedCheckinDate,
+  selectedCheckoutDate: searchDetailsStore.getSelectedCheckoutDate,
+  selectedGuests: searchDetailsStore.getSelectedGuests,
+  selectedRooms: searchDetailsStore.getSelectedRooms,
+});
+
+const selectDestination = (destination) => {
+  searchDetailsStore.setDestinationId(destination.dest_id);
+  searchDetailsStore.setDestinationName(destination.city_name);
+  searchDetailsStore.setSearchType(destination.search_type);
+  searchDetailsStore.setHotelsCount(destination.nr_hotels);
+
+  isDropdownOpen.value = false;
+};
+const setCheckin = (date) => {
+  searchDetailsStore.setCheckinDate(date);
+};
+const setCheckout = (date) => {
+  searchDetailsStore.setCheckoutDate(date);
+};
+const setGuests = (guests) => {
+  searchDetailsStore.setGuests(guests.data);
+};
+const setRooms = (rooms) => {
+  searchDetailsStore.setRooms(rooms.data);
+};
+const goSearch = () => {
+  if (
+  
+    !searchData.selectedCheckinDate ||
+    !searchData.selectedCheckoutDate ||
+    !searchData.selectedGuests ||
+    !searchData.selectedRooms
+  ) {
+    alert("Please fill in all fields before searching.");
+    return;
+  }
+  searchDetailsStore.setSeachDataToStorage(searchData);
+  searchDetailsStore.fetchHotels();
+
+  router.push("/searchResults");
+};
 
 const toggleDropdown = () => {
   isDropdownOpen.value = !isDropdownOpen.value;
   arrowDir.value == "down"
     ? (arrowDir.value = "up")
     : (arrowDir.value = "down");
-};
-const selectDestination = (destination) => {
-  searchStore.setDistinationID(destination.dest_id);
-  searchStore.setSearchType(destination.search_type);
-  searchStore.setDistinationName(destination.city_name);
-  searchStore.sethotelsCount(destination.nr_hotels);
-  selectedDestinationName.value = destination.city_name;
-  isDropdownOpen.value = false;
-};
-const setCheckIn = (date) => {
-  searchStore.setCheckInDate(date);
-};
-const setCheckOut = (date) => {
-  searchStore.setCheckOutDate(date);
-};
-const setGuests = (guests) => {
-  searchStore.setGuests(guests.data);
-};
-const setRooms = (rooms) => {
-  searchStore.setRooms(rooms.data);
-};
-const goSearch = () => {
-  if (
-    !selectedDestinationName.value ||
-    !checkInDate.value ||
-    !checkOutDate.value ||
-    !guests.value ||
-    !rooms.value
-  ) {
-    alert("Please fill in all fields before searching.");
-    return;
-  }
-  searchStore.fetchHotels();
-
-  router.push("/searchResults");
 };
 </script>
 
