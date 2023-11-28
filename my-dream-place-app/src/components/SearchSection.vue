@@ -140,7 +140,7 @@ const selectDestination = (destination) => {
   searchDetailsStore.setDestinationName(destination.city_name);
   searchDetailsStore.setSearchType(destination.search_type);
   searchDetailsStore.setHotelsCount(destination.nr_hotels);
-
+  searchData.selectedDestinationName = destination.city_name;
   isDropdownOpen.value = false;
 };
 const setCheckin = (date) => {
@@ -157,7 +157,6 @@ const setRooms = (rooms) => {
 };
 const goSearch = () => {
   if (
-  
     !searchData.selectedCheckinDate ||
     !searchData.selectedCheckoutDate ||
     !searchData.selectedGuests ||
@@ -174,9 +173,7 @@ const goSearch = () => {
 
 const toggleDropdown = () => {
   isDropdownOpen.value = !isDropdownOpen.value;
-  arrowDir.value == "down"
-    ? (arrowDir.value = "up")
-    : (arrowDir.value = "down");
+  arrowDir.value = arrowDir.value === "down" ? "up" : "down";
 };
 </script>
 
