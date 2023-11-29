@@ -116,9 +116,12 @@
 
 <script setup>
 import IconButton from "./IconButton.vue";
-import router from "@/router";
+//import router from "@/router";
 import { ref, reactive, onMounted } from "vue";
 import { useSearchDetailsStore } from "@/stores/SearchDetailsStore";
+import { useRouter, useRoute } from "vue-router";
+const router = useRouter();
+const route = useRoute();
 
 const { heightFromTop } = defineProps(["heightFromTop"]);
 const isDropdownOpen = ref(false);
@@ -170,8 +173,7 @@ const goSearch = async () => {
   await searchDetailsStore.fetchHotels(),
     console.log("search data?? ", searchData);
   searchDetailsStore.setSeachDataToStorage(searchData);
-
-  router.push("/searchResults");
+  router.push({ name: "searchResults", params: { searchData: JSON.stringify(searchData)} });
 };
 
 const toggleDropdown = () => {

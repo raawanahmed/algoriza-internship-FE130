@@ -1,74 +1,77 @@
 <template>
+  <div v-if="isLoading" class="loading-indicator">Loading...</div>
   <div v-for="hotel in hotels" :key="hotel.hotel_id">
-    <section
-      class="mt-6 rounded"
-      style="
-        width: 915px;
-        height: 240px;
-        border: 1px solid var(--Gray-5, #e0e0e0);
-      "
-    >
-      <div class="p-5 flex">
-        <img
-          :src="hotel.property.photoUrls[0]"
-          alt=""
-          style="width: 285px; height: 200px"
-          class="mr-6"
-        />
-        <section style="max-height: 200px">
-          <p class="font-medium text-xl" style="color: #1a1a1a">
-            {{ hotel.property.name }}
-          </p>
-          <section style="margin-top: 10px; margin-bottom: 17px" class="flex">
-            <Reviews
-              :reviewScore="hotel.property.reviewScore"
-              :reviewsCount="hotel.property.reviewCount"
-            />
+    <div v-if="isLoading == false">
+      <section
+        class="mt-6 rounded"
+        style="
+          width: 915px;
+          height: 240px;
+          border: 1px solid var(--Gray-5, #e0e0e0);
+        "
+      >
+        <div class="p-5 flex">
+          <img
+            :src="hotel.property.photoUrls[0]"
+            alt=""
+            style="width: 285px; height: 200px"
+            class="mr-6"
+          />
+          <section style="max-height: 200px">
+            <p class="font-medium text-xl" style="color: #1a1a1a">
+              {{ hotel.property.name }}
+            </p>
+            <section style="margin-top: 10px; margin-bottom: 17px" class="flex">
+              <Reviews
+                :reviewScore="hotel.property.reviewScore"
+                :reviewsCount="hotel.property.reviewCount"
+              />
+            </section>
+            <p
+              class=""
+              style="
+                max-height: 58px;
+                height: 58px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                max-width: 400px;
+                font-size: 13px;
+              "
+            >
+              {{ hotel.accessibilityLabel }}
+            </p>
+            <button
+              class="justify-center items-center rounded border border-blue-500 bg-blue-500 text-white"
+              style="
+                width: 137px;
+                height: 40px;
+                margin-top: 18px;
+                margin-bottom: 24px;
+              "
+              @click="seeAvailabilityOfHotel(hotel)"
+            >
+              See availability
+            </button>
           </section>
-          <p
-            class=""
-            style="
-              max-height: 58px;
-              height: 58px;
-              overflow: hidden;
-              text-overflow: ellipsis;
-              max-width: 400px;
-              font-size: 13px;
-            "
+          <section
+            class="text-end relative"
+            style="flex-grow: 1; max-height: 200px"
           >
-            {{ hotel.accessibilityLabel }}
-          </p>
-          <button
-            class="justify-center items-center rounded border border-blue-500 bg-blue-500 text-white"
-            style="
-              width: 137px;
-              height: 40px;
-              margin-top: 18px;
-              margin-bottom: 24px;
-            "
-            @click="seeAvailabilityOfHotel(hotel)"
-          >
-            See availability
-          </button>
-        </section>
-        <section
-          class="text-end relative"
-          style="flex-grow: 1; max-height: 200px"
-        >
-          <section class="absolute bottom-6 right-0">
-            <p class="font-semibold text-xl">
-              ${{ hotel.property.priceBreakdown.grossPrice.value }}
+            <section class="absolute bottom-6 right-0">
+              <p class="font-semibold text-xl">
+                ${{ hotel.property.priceBreakdown.grossPrice.value }}
+              </p>
+            </section>
+            <p
+              class="font-light text-sm absolute"
+              style="color: #333; bottom: 0; width: 140px; right: 0"
+            >
+              Includes taxes and fees
             </p>
           </section>
-          <p
-            class="font-light text-sm absolute"
-            style="color: #333; bottom: 0; width: 140px; right: 0"
-          >
-            Includes taxes and fees
-          </p>
-        </section>
-      </div>
-    </section>
+        </div>
+      </section>
+    </div>
   </div>
   <section style="margin-top: 56px" class="flex justify-center">
     <div style="width: 297px; height: 40px" class="flex">
@@ -119,23 +122,39 @@
 <script setup>
 import { useSearchDetailsStore } from "@/stores/SearchDetailsStore";
 
-import { ref, computed, onMounted } from "vue";
+import { ref, computed, onMounted, watch } from "vue";
 import { useHotelStore } from "@/stores/HotelStore";
-import router from "@/router";
 import Reviews from "./Reviews.vue";
+
+import { useRouter, useRoute } from "vue-router";
+const router = useRouter();
+const route = useRoute();
 
 const searchDetailsStore = useSearchDetailsStore();
 const hotelStore = useHotelStore();
 const currentPage = ref(1);
 const totalPages = ref(20);
 const hotels = ref(searchDetailsStore.getHotels);
+const isLoading = ref(false);
 
 const fetchHotels = async () => {
+  isLoading.value = true;
   await searchDetailsStore.fetchHotels();
   hotels.value = searchDetailsStore.getHotels;
-  console.log(hotels.value);
-  return searchDetailsStore.getHotels;
+  isLoading.value = false;
 };
+
+// console.log(JSON.parse(route.params.searchData));
+
+watch(
+  () => JSON.parse(route.params.searchData),
+  async (newSearchData) => {
+    // console.log("New Search Data: ", newSearchData);
+    isLoading.value = true;
+    await fetchHotels();
+    isLoading.value = false;
+  }
+);
 
 onMounted(() => {
   fetchHotels();
@@ -194,5 +213,21 @@ button.active {
 }
 .notActive {
   color: #9e9e9e;
+}
+.loading-indicator {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px; /* Adjust the height as needed */
+  background-color: rgba(
+    255,
+    255,
+    255,
+    0.8
+  ); /* Semi-transparent white background */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
 </style>

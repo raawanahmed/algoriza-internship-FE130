@@ -30,7 +30,7 @@ const routes = [
     component: RegisterView,
   },
   {
-    path: "/searchResults",
+    path: "/searchResults/:searchData",
     name: "searchResults",
     component: SearchResultsView,
   },

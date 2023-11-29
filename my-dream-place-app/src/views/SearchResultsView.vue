@@ -46,7 +46,6 @@ import SearchByName from "@/components/SearchByName.vue";
 import FilterBy from "@/components/FilterBy.vue";
 import Rating from "@/components/Rating.vue";
 import HotelsDetails from "@/components/HotelsDetails.vue";
-
 import { useSearchDetailsStore } from "@/stores/SearchDetailsStore";
 const searchDetailsStore = useSearchDetailsStore();
 
