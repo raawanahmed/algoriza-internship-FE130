@@ -1,12 +1,7 @@
 <template>
-  <main class="mt-10" style="margin-left: 30px">
+  <main class="mt-10 ml-[30px]">
     <img src="../assets/Imgs/map.png" alt="map image" />
-    <p
-      class="font-semibold text-lg mb-3"
-      style="margin-top: 35px; margin-bottom: 22px"
-    >
-      Explore the area
-    </p>
+    <p class="font-semibold text-lg mt-[35px] mb-[22px]">Explore the area</p>
     <IconWithText
       :iconText="'Hotel Penselvenyia'"
       :iconPath="require('../assets/Icons/bxs-plane.svg')"
@@ -37,6 +32,7 @@
 
 <script setup>
 import IconWithText from "./IconWithText.vue";
+// clean code and css .. done
 </script>
 
 <style></style>

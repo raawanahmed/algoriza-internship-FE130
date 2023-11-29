@@ -1,16 +1,7 @@
 <template>
   <div class="mx-auto" style="max-width: 1440px">
     <section
-      class="flex rounded-lg h-16 items-center p-4 gap-4 mx-auto"
-      style="
-        margin-left: 100px;
-        margin-right: 100px;
-        margin-top: 75px;
-        margin-bottom: 50px;
-        max-width: 1440px;
-        background: #fcefca;
-        width: 1240px;
-      "
+      class="flex rounded-lg h-16 items-center p-4 gap-4 mx-auto ml-[100px] mr-[100px] mt-[75px] mb-[50px] max-w-[1440px] bg-[#fcefca] w-[1240px]"
     >
       <img src="../assets/Icons/danger.svg" alt="danger icon" />
       <div class="flex gap-1">
@@ -23,6 +14,8 @@
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+// clean code and css .. done
+</script>
 
 <style></style>

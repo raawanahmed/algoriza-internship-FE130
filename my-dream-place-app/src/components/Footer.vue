@@ -1,10 +1,9 @@
 <template>
   <footer>
-    <div class="mx-auto" style="max-width: 1440px">
-      <section style="margin-left: 100px; margin-right: 100px">
+    <div class="mx-auto max-w-[1440px]">
+      <section class="ml-[100px] mr-[100px]">
         <div
-          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-2 text-sm"
-          style="color: #4f4f4f"
+          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-2 text-sm text-[#4f4f4f]"
         >
           <div>
             <div class="flex">
@@ -67,14 +66,8 @@
         </div>
       </section>
     </div>
-    <div
-      class="w-full mt-16"
-      style="background: #ebebeb; padding: 12px; height: 60px"
-    >
-      <div
-        class="flex gap-2"
-        style="justify-content: end; color: #4f4f4f; margin-right: 205px"
-      >
+    <div class="w-full mt-16 bg-[#ebebeb] p-3 h-[60px]">
+      <div class="flex gap-2 justify-end text-[#4f4f4f] mr-[205px]">
         <img
           src="../assets/Icons/copyright.svg"
           alt="Plane Icon"
@@ -86,6 +79,8 @@
   </footer>
 </template>
 
-<script setup></script>
+<script setup>
+// clean code and css .. done
+</script>
 
 <style></style>

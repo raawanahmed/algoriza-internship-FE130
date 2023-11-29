@@ -1,8 +1,8 @@
 <template>
   <div v-for="index in generateRange(reviewScore)" :key="index" class="flex">
-    <img src="../assets/Icons/star.svg" alt="" />
+    <img src="../assets/Icons/star.svg" alt="star icon" />
   </div>
-  <p style="color: #4f4f4f" class="text-sm ml-2">
+  <p class="text-sm ml-2 text-[#4f4f4f]">
     {{ numberOfStars }} ({{ reviewsCount }} Reviews)
   </p>
 </template>
@@ -15,6 +15,8 @@ const { reviewsCount, reviewScore } = defineProps([
 const generateRange = (num) =>
   Array.from({ length: Math.ceil(num / 2) }, (_, index) => index + 1);
 const numberOfStars = generateRange(reviewScore).length;
+
+// clean css .. done
 </script>
 
 <style></style>
