@@ -28,5 +28,6 @@ import { onMounted } from "vue";
 
 onMounted(() => {
   localStorage.removeItem("searchData");
+  localStorage.removeItem("destinationId");
 });
 </script>

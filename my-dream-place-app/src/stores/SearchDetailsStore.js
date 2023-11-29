@@ -10,15 +10,19 @@ export const useSearchDetailsStore = defineStore("searchDetailsStore", {
       selectedGuests: null,
       selectedRooms: null,
     },
-    hotelsCount: null,
-    searchType: null,
+    hotelsCountOfDist: null,
     currentPage: 1,
     destinations: [],
     hotels: [],
     selectedDestinationFromStorage: JSON.parse(
       localStorage.getItem("searchData")
     ),
+    destinationIdFromStorage: JSON.parse(localStorage.getItem("destinationId")),
+    hotelsCountOfDistFromStorage: JSON.parse(
+      localStorage.getItem("hotelsCount")
+    ),
   }),
+
   actions: {
     getDateFormatted(date) {
       if (date != null) {
@@ -31,19 +35,17 @@ export const useSearchDetailsStore = defineStore("searchDetailsStore", {
         return formattedDate;
       }
     },
-    setDestinationId(dest) {
-      this.selectedDestinationData.selectedDestinationId = dest;
+    setDestinationId(destinationId) {
+      this.selectedDestinationData.selectedDestinationId = destinationId;
     },
     setDestinationName(name) {
       this.selectedDestinationData.selectedDestinationName = name;
     },
     setCheckinDate(checkinDate) {
-      this.selectedDestinationData.selectedCheckinDate =
-        this.getDateFormatted(checkinDate);
+      this.selectedDestinationData.selectedCheckinDate = checkinDate;
     },
     setCheckoutDate(checkoutDate) {
-      this.selectedDestinationData.selectedCheckoutDate =
-        this.getDateFormatted(checkoutDate);
+      this.selectedDestinationData.selectedCheckoutDate = checkoutDate;
     },
     setGuests(guests) {
       this.selectedDestinationData.selectedGuests = guests;
@@ -52,13 +54,12 @@ export const useSearchDetailsStore = defineStore("searchDetailsStore", {
       this.selectedDestinationData.selectedRooms = rooms;
     },
     setSeachDataToStorage(searchData) {
+      console.log(searchData);
       localStorage.setItem("searchData", JSON.stringify(searchData));
-    },
-    setSearchType(searchType) {
-      this.searchType = searchType;
+      console.log("local: ", this.selectedDestinationFromStorage);
     },
     setHotelsCount(hotelsCount) {
-      this.hotelsCount = hotelsCount;
+      this.hotelsCountOfDist = hotelsCount;
     },
     setCurrenPage(page) {
       this.currentPage = page;
@@ -78,7 +79,7 @@ export const useSearchDetailsStore = defineStore("searchDetailsStore", {
       try {
         const response = await axios.request(options);
         this.destinations = response.data.data;
-        console.log(this.destinations);
+        // console.log(this.destinations);
         localStorage.setItem("destinations", JSON.stringify(this.destinations));
         return this.destinations;
       } catch (error) {
@@ -87,15 +88,14 @@ export const useSearchDetailsStore = defineStore("searchDetailsStore", {
     },
 
     async fetchHotels() {
-      console.log(this.getSelectedCheckinDate, this.getSelectedCheckoutDate);
       const options = {
         method: "GET",
         url: "https://booking-com15.p.rapidapi.com/api/v1/hotels/searchHotels",
         params: {
           dest_id: this.getSelectedDestinationId,
           search_type: "city",
-          arrival_date: this.getSelectedCheckinDate,
-          departure_date: this.getSelectedCheckoutDate,
+          arrival_date: this.getDateFormatted(this.getSelectedCheckinDate),
+          departure_date: this.getDateFormatted(this.getSelectedCheckoutDate),
           adults: this.getSelectedGuests,
           children_age: "0,17",
           room_qty: this.getSelectedRooms,
@@ -123,33 +123,65 @@ export const useSearchDetailsStore = defineStore("searchDetailsStore", {
     },
     getDestinations() {
       const dests = localStorage.getItem("destinations");
-      console.log("local: ", this.selectedDestinationFromStorage);
       return dests ? JSON.parse(dests) : this.fetchDestinations();
     },
   },
+
   getters: {
     getSelectedDestinationId: (state) => {
-      return state.selectedDestinationData.selectedDestinationId;
+      return (
+        state.selectedDestinationData.selectedDestinationId ||
+        (state.destinationIdFromStorage ? state.destinationIdFromStorage : null)
+      );
     },
     getSelectedDestinationName: (state) => {
-      return state.selectedDestinationData.selectedDestinationName;
+      return (
+        state.selectedDestinationData.selectedDestinationName ||
+        (state.selectedDestinationFromStorage
+          ? state.selectedDestinationFromStorage.selectedDestinationName
+          : null)
+      );
     },
     getSelectedCheckinDate: (state) => {
-      return state.selectedDestinationData.selectedCheckinDate;
+      return (
+        state.selectedDestinationData.selectedCheckinDate ||
+        (state.selectedDestinationFromStorage
+          ? state.selectedDestinationFromStorage.selectedCheckinDate
+          : null)
+      );
     },
     getSelectedCheckoutDate: (state) => {
-      return state.selectedDestinationData.selectedCheckoutDate;
+      return (
+        state.selectedDestinationData.selectedCheckoutDate ||
+        (state.selectedDestinationFromStorage
+          ? state.selectedDestinationFromStorage.selectedCheckoutDate
+          : null)
+      );
     },
     getSelectedGuests: (state) => {
-      return state.selectedDestinationData.selectedGuests;
+      return (
+        state.selectedDestinationData.selectedGuests ||
+        (state.selectedDestinationFromStorage
+          ? state.selectedDestinationFromStorage.selectedGuests
+          : null)
+      );
     },
     getSelectedRooms: (state) => {
-      return state.selectedDestinationData.selectedRooms;
+      return (
+        state.selectedDestinationData.selectedRooms ||
+        (state.selectedDestinationFromStorage
+          ? state.selectedDestinationFromStorage.selectedRooms
+          : null)
+      );
     },
-    getStorage: (state) => state.selectedDestinationFromStorage,
-    getHotelsCount: (state) => state.hotelsCount,
-    getSearchType: (state) => state.searchType,
-
+    getHotelsCountOfDist: (state) => {
+      return (
+        state.hotelsCountOfDist ||
+        (state.hotelsCountOfDistFromStorage
+          ? state.hotelsCountOfDistFromStorage
+          : null)
+      );
+    },
     getHotels: (state) => state.hotels,
   },
 });

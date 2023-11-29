@@ -27,7 +27,7 @@
       <div style="background: #ffffff" class="col-span-3">
         <p class="font-semibold text-2xl">
           {{ searchDetailsStore.getSelectedDestinationName }} :
-          {{ searchDetailsStore.getHotelsCount }} search results found
+          {{ searchDetailsStore.getHotelsCountOfDist }} search results found
         </p>
         <HotelsDetails />
       </div>

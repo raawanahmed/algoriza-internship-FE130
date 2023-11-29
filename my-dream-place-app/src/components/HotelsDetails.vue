@@ -138,7 +138,7 @@ const fetchHotels = async () => {
 };
 
 onMounted(() => {
- // fetchHotels();
+  fetchHotels();
 });
 
 const changePage = (page) => {
@@ -146,7 +146,8 @@ const changePage = (page) => {
     currentPage.value = page;
   }
   searchDetailsStore.setCurrenPage(page);
-  //fetchHotels();
+  fetchHotels();
+  // todo add the current page to localstorage
 };
 
 const paginationButtons = computed(() => {

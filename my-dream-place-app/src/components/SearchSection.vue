@@ -117,7 +117,7 @@
 <script setup>
 import IconButton from "./IconButton.vue";
 import router from "@/router";
-import { ref, reactive } from "vue";
+import { ref, reactive, onMounted } from "vue";
 import { useSearchDetailsStore } from "@/stores/SearchDetailsStore";
 
 const { heightFromTop } = defineProps(["heightFromTop"]);
@@ -127,21 +127,23 @@ const arrowDir = ref("down");
 const searchDetailsStore = useSearchDetailsStore();
 const destinations = ref(searchDetailsStore.getDestinations());
 const searchData = reactive({
-  selectedDestinationId: searchDetailsStore.getSelectedDestinationId,
+  selectedDestinationId: searchDetailsStore.getSelectedDestinationId, // sometimes null and causes some errors thats why i created a seprated localstorage for it
   selectedDestinationName: searchDetailsStore.getSelectedDestinationName,
   selectedCheckinDate: searchDetailsStore.getSelectedCheckinDate,
   selectedCheckoutDate: searchDetailsStore.getSelectedCheckoutDate,
   selectedGuests: searchDetailsStore.getSelectedGuests,
   selectedRooms: searchDetailsStore.getSelectedRooms,
+  hotelsCountOfDist: searchDetailsStore.getHotelsCountOfDist, // same as destination id and idk why i tried manytime to figure the problem but i couldn't?
 });
 
 const selectDestination = (destination) => {
   searchDetailsStore.setDestinationId(destination.dest_id);
   searchDetailsStore.setDestinationName(destination.city_name);
-  searchDetailsStore.setSearchType(destination.search_type);
   searchDetailsStore.setHotelsCount(destination.nr_hotels);
   searchData.selectedDestinationName = destination.city_name;
   isDropdownOpen.value = false;
+  localStorage.setItem("destinationId", JSON.stringify(destination.dest_id));
+  localStorage.setItem("hotelsCount", JSON.stringify(destination.nr_hotels));
 };
 const setCheckin = (date) => {
   searchDetailsStore.setCheckinDate(date);
@@ -155,7 +157,7 @@ const setGuests = (guests) => {
 const setRooms = (rooms) => {
   searchDetailsStore.setRooms(rooms.data);
 };
-const goSearch = () => {
+const goSearch = async () => {
   if (
     !searchData.selectedCheckinDate ||
     !searchData.selectedCheckoutDate ||
@@ -165,8 +167,9 @@ const goSearch = () => {
     alert("Please fill in all fields before searching.");
     return;
   }
+  await searchDetailsStore.fetchHotels(),
+    console.log("search data?? ", searchData);
   searchDetailsStore.setSeachDataToStorage(searchData);
-  searchDetailsStore.fetchHotels();
 
   router.push("/searchResults");
 };
