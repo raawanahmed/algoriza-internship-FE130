@@ -44,9 +44,9 @@
             </p>
             <section style="margin-top: 12px; margin-bottom: 12px" class="flex">
               <Reviews
-              :reviewScore="selectedHotel.property.reviewScore"
-              :reviewsCount="selectedHotel.property.reviewCount"
-            />
+                :reviewScore="selectedHotel.property.reviewScore"
+                :reviewsCount="selectedHotel.property.reviewCount"
+              />
             </section>
             <section class="mb-8 flex">
               <img
@@ -55,7 +55,7 @@
                 style="margin-right: 6px"
               />
               <p class="text-sm" style="color: #333">
-                <!-- {{ hotelDetails.data.address }} -->
+                {{ hotelDetails.data.address }}
               </p>
             </section>
             <OverviewOfHotel />
@@ -92,7 +92,7 @@ import { ref, onMounted, onUnmounted } from "vue";
 const hotelStore = useHotelStore();
 const selectedHotel = ref(hotelStore.getselectedHotelData);
 const hotelDetails = ref(hotelStore.getHotelDetails);
-const isLoading = ref(false); // Introduce loading state
+const isLoading = ref(true);
 
 const fetchHotel = async () => {
   try {
@@ -102,20 +102,14 @@ const fetchHotel = async () => {
       "hotelDetails",
       JSON.stringify(hotelStore.getHotelDetails)
     );
-    console.log(hotelDetails.value.data);
   } catch (error) {
     console.error("Error fetching hotel data:", error);
   } finally {
-    isLoading.value = false; // Set loading state to false
+    isLoading.value = false;
   }
 };
 
-onMounted(() => {
-  // fetchHotel();
-});
-
-
-console.log(hotelDetails.value);
+fetchHotel();
 </script>
 
 <style>

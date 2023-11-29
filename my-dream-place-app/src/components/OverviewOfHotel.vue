@@ -3,7 +3,7 @@
     <section class="pt-6 pr-10 pb-10" style="padding-left: 30px">
       <p class="font-semibold text-lg mb-3">Overview</p>
       <p class="text-base" style="color: #4f4f4f">
-        <!-- {{ hotel.accessibilityLabel }} -->
+        {{ hotel.accessibilityLabel }}
       </p>
     </section>
     <hr

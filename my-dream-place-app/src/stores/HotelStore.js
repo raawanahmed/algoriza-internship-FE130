@@ -7,6 +7,7 @@ export const useHotelStore = defineStore("hotelStore", {
     selectedHotelDataFromStorage: JSON.parse(
       localStorage.getItem("currentHotel")
     ),
+    hotelDetailsFromStorage: JSON.parse(localStorage.getItem("hotelDetails")),
   }),
   actions: {
     setselectedHotelData(selectedHotelData) {
@@ -19,9 +20,9 @@ export const useHotelStore = defineStore("hotelStore", {
         method: "GET",
         url: "https://booking-com15.p.rapidapi.com/api/v1/hotels/getHotelDetails",
         params: {
-          hotel_id: this.selectedHotelData.hotel_id,
-          arrival_date: this.selectedHotelData.property.checkinDate,
-          departure_date: this.selectedHotelData.property.checkoutDate,
+          hotel_id: this.getselectedHotelData.hotel_id,
+          arrival_date: this.getselectedHotelData.property.checkinDate,
+          departure_date: this.getselectedHotelData.property.checkoutDate,
           adults: "1",
           children_age: "1,17",
           room_qty: "1",
@@ -53,13 +54,19 @@ export const useHotelStore = defineStore("hotelStore", {
   },
   getters: {
     // getselectedHotelData: (state) => state.selectedHotelData,
-    getHotelDetails: (state) => state.hotelDetails,
+    // getHotelDetails: (state) => state.hotelDetails,
     getselectedHotelData: (state) => {
       return (
         state.selectedHotelData ||
         (state.selectedHotelDataFromStorage
           ? state.selectedHotelDataFromStorage
           : null)
+      );
+    },
+    getHotelDetails: (state) => {
+      return (
+        state.hotelDetails ||
+        (state.hotelDetailsFromStorage ? state.hotelDetailsFromStorage : null)
       );
     },
   },
