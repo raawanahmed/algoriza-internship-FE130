@@ -147,7 +147,6 @@ const changePage = (page) => {
   }
   searchDetailsStore.setCurrenPage(page);
   fetchHotels();
-  // todo add the current page to localstorage
 };
 
 const paginationButtons = computed(() => {
@@ -177,6 +176,7 @@ const paginationButtons = computed(() => {
 
 const seeAvailabilityOfHotel = (hotel) => {
   hotelStore.setselectedHotelData(hotel);
+
   router.push("/productDetails");
 };
 </script>

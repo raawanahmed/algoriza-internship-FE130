@@ -21,6 +21,7 @@ export const useSearchDetailsStore = defineStore("searchDetailsStore", {
     hotelsCountOfDistFromStorage: JSON.parse(
       localStorage.getItem("hotelsCount")
     ),
+    currentPageFromStorage: JSON.parse(localStorage.getItem("currentPage")),
   }),
 
   actions: {
@@ -63,6 +64,7 @@ export const useSearchDetailsStore = defineStore("searchDetailsStore", {
     },
     setCurrenPage(page) {
       this.currentPage = page;
+      localStorage.setItem("currentPage", JSON.stringify(page));
     },
     async fetchDestinations() {
       const options = {
@@ -99,7 +101,7 @@ export const useSearchDetailsStore = defineStore("searchDetailsStore", {
           adults: this.getSelectedGuests,
           children_age: "0,17",
           room_qty: this.getSelectedRooms,
-          page_number: this.currentPage,
+          page_number: this.getCurrentPage,
           languagecode: "en-us",
           currency_code: "usd",
         },
@@ -180,6 +182,12 @@ export const useSearchDetailsStore = defineStore("searchDetailsStore", {
         (state.hotelsCountOfDistFromStorage
           ? state.hotelsCountOfDistFromStorage
           : null)
+      );
+    },
+    getCurrentPage: (state) => {
+      return (
+        state.currentPage ||
+        (state.currentPageFromStorage ? state.currentPageFromStorage : null)
       );
     },
     getHotels: (state) => state.hotels,

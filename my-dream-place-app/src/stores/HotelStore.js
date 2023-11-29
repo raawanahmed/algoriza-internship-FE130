@@ -4,10 +4,14 @@ export const useHotelStore = defineStore("hotelStore", {
   state: () => ({
     selectedHotelData: null,
     hotelDetails: null,
+    selectedHotelDataFromStorage: JSON.parse(
+      localStorage.getItem("currentHotel")
+    ),
   }),
   actions: {
     setselectedHotelData(selectedHotelData) {
       this.selectedHotelData = selectedHotelData;
+      localStorage.setItem("currentHotel", JSON.stringify(selectedHotelData));
       console.log(selectedHotelData);
     },
     async fetchHotelDetails() {
@@ -48,7 +52,15 @@ export const useHotelStore = defineStore("hotelStore", {
     },
   },
   getters: {
-    getselectedHotelData: (state) => state.selectedHotelData,
+    // getselectedHotelData: (state) => state.selectedHotelData,
     getHotelDetails: (state) => state.hotelDetails,
+    getselectedHotelData: (state) => {
+      return (
+        state.selectedHotelData ||
+        (state.selectedHotelDataFromStorage
+          ? state.selectedHotelDataFromStorage
+          : null)
+      );
+    },
   },
 });

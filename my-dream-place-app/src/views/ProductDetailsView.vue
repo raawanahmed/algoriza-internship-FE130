@@ -40,13 +40,13 @@
         >
           <div>
             <p class="font-medium text-3xl pt-10" style="color: #1a1a1a">
-              <!-- {{ selectedHotel.property.name }} -->
+              {{ selectedHotel.property.name }}
             </p>
             <section style="margin-top: 12px; margin-bottom: 12px" class="flex">
-              <!-- <Reviews
+              <Reviews
               :reviewScore="selectedHotel.property.reviewScore"
               :reviewsCount="selectedHotel.property.reviewCount"
-            /> -->
+            />
             </section>
             <section class="mb-8 flex">
               <img
@@ -114,11 +114,7 @@ onMounted(() => {
   // fetchHotel();
 });
 
-onUnmounted(() => {
-  localStorage.removeItem("getHotelDetails");
-});
 
-console.log(selectedHotel.value);
 console.log(hotelDetails.value);
 </script>
 
