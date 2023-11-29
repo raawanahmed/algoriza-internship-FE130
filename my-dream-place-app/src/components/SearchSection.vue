@@ -126,6 +126,7 @@ const route = useRoute();
 const { heightFromTop } = defineProps(["heightFromTop"]);
 const isDropdownOpen = ref(false);
 const arrowDir = ref("down");
+const validate = ref("true");
 
 const searchDetailsStore = useSearchDetailsStore();
 const destinations = ref(searchDetailsStore.getDestinations());
@@ -148,32 +149,81 @@ const selectDestination = (destination) => {
   localStorage.setItem("destinationId", JSON.stringify(destination.dest_id));
   localStorage.setItem("hotelsCount", JSON.stringify(destination.nr_hotels));
 };
+
 const setCheckin = (date) => {
-  searchDetailsStore.setCheckinDate(date);
+  const today = new Date().getTime();
+  const selectedDate = new Date(
+    searchDetailsStore.getDateFormatted(date)
+  ).getTime();
+
+  if (selectedDate <= today) {
+    alert("Please select a valid check-in date.");
+    validate.value = false;
+  } else {
+    validate.value = true;
+    searchDetailsStore.setCheckinDate(date);
+  }
 };
+
 const setCheckout = (date) => {
-  searchDetailsStore.setCheckoutDate(date);
+  const today = new Date().getTime();
+  const selectedDate = new Date(
+    searchDetailsStore.getDateFormatted(date)
+  ).getTime();
+
+  if (selectedDate <= searchData.selectedCheckinDate) {
+    alert("Please select a valid check-out date.");
+    validate.value = false;
+  } else {
+    validate.value = true;
+    searchDetailsStore.setCheckoutDate(date);
+  }
 };
 const setGuests = (guests) => {
-  searchDetailsStore.setGuests(guests.data);
+  if (guests.data >= 0) {
+    searchDetailsStore.setGuests(guests.data);
+    validate.value = true;
+  } else {
+    alert("Please enter a valid number of guests.");
+    validate.value = false;
+  }
 };
+
 const setRooms = (rooms) => {
-  searchDetailsStore.setRooms(rooms.data);
+  if (rooms.data >= 0) {
+    searchDetailsStore.setRooms(rooms.data);
+    validate.value = true;
+  } else {
+    alert("Please enter a valid number of rooms.");
+    validate.value = false;
+  }
 };
 const goSearch = async () => {
   if (
+    !searchData.selectedDestinationName ||
     !searchData.selectedCheckinDate ||
     !searchData.selectedCheckoutDate ||
     !searchData.selectedGuests ||
-    !searchData.selectedRooms
+    !searchData.selectedRooms ||
+    !validate.value
   ) {
-    alert("Please fill in all fields before searching.");
+    alert("Please fill in all fields correctly before searching.");
     return;
   }
-  await searchDetailsStore.fetchHotels(),
+  try {
+    searchDetailsStore.setIsLoading(true);
+    await searchDetailsStore.fetchHotels();
     console.log("search data?? ", searchData);
-  searchDetailsStore.setSeachDataToStorage(searchData);
-  router.push({ name: "searchResults", params: { searchData: JSON.stringify(searchData)} });
+    searchDetailsStore.setSeachDataToStorage(searchData);
+    router.push({
+      name: "searchResults",
+      params: { searchData: JSON.stringify(searchData) },
+    });
+  } catch (error) {
+    console.error("Error fetching hotels: ", error);
+  } finally {
+    searchDetailsStore.setIsLoading(true);
+  }
 };
 
 const toggleDropdown = () => {
@@ -183,9 +233,9 @@ const toggleDropdown = () => {
 
 /*
 todos
-1- add validations to each input
-2- add validation for the dates 
-3- handle when clicking on search button reload the hotels automatic
+1- add validations to each input .. done
+2- add validation for the dates .. done
+3- handle when clicking on search button reload the hotels automatic .. done 
 */
 </script>
 

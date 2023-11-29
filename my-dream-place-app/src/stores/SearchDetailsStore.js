@@ -14,6 +14,7 @@ export const useSearchDetailsStore = defineStore("searchDetailsStore", {
     currentPage: 1,
     destinations: [],
     hotels: [],
+    isLoading: null,
     selectedDestinationFromStorage: JSON.parse(
       localStorage.getItem("searchData")
     ),
@@ -65,6 +66,9 @@ export const useSearchDetailsStore = defineStore("searchDetailsStore", {
     setCurrenPage(page) {
       this.currentPage = page;
       localStorage.setItem("currentPage", JSON.stringify(page));
+    },
+    setIsLoading(isLoading) {
+      this.isLoading = isLoading;
     },
     async fetchDestinations() {
       const options = {
@@ -191,5 +195,6 @@ export const useSearchDetailsStore = defineStore("searchDetailsStore", {
       );
     },
     getHotels: (state) => state.hotels,
+    getLoadingStatus: (state) => state.isLoading,
   },
 });

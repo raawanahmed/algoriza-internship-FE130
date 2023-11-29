@@ -135,7 +135,7 @@ const hotelStore = useHotelStore();
 const currentPage = ref(1);
 const totalPages = ref(20);
 const hotels = ref(searchDetailsStore.getHotels);
-const isLoading = ref(false);
+const isLoading = ref(searchDetailsStore.getLoadingStatus);
 
 const fetchHotels = async () => {
   isLoading.value = true;
@@ -155,11 +155,7 @@ watch(
     isLoading.value = false;
   }
 );
-
-onMounted(() => {
-  fetchHotels();
-});
-
+fetchHotels();
 const changePage = (page) => {
   if (page >= 1 && page <= totalPages.value) {
     currentPage.value = page;
@@ -218,13 +214,8 @@ button.active {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100px; /* Adjust the height as needed */
-  background-color: rgba(
-    255,
-    255,
-    255,
-    0.8
-  ); /* Semi-transparent white background */
+  height: 100px;
+  background-color: rgba(255, 255, 255, 0.8);
   top: 0;
   left: 0;
   right: 0;
