@@ -38,6 +38,7 @@ export const useHotelStore = defineStore("hotelStore", {
       try {
         const response = await axios.request(options);
         this.hotelDetails = response.data;
+        console.log(this.hotelDetails)
       } catch (error) {
         console.error(error);
       }
