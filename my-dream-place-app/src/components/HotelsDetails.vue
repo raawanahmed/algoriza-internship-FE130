@@ -179,6 +179,12 @@ const seeAvailabilityOfHotel = (hotel) => {
 
   router.push("/productDetails");
 };
+
+/*
+todos 
+1- add the discount section
+2- add the offer style if exist 
+*/
 </script>
 
 <style>

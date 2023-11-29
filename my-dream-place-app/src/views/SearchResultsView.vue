@@ -49,6 +49,12 @@ import HotelsDetails from "@/components/HotelsDetails.vue";
 
 import { useSearchDetailsStore } from "@/stores/SearchDetailsStore";
 const searchDetailsStore = useSearchDetailsStore();
+
+/*
+toods 
+1- pass a prop to handle on click search here to reload the component
+2- add sort by component and handle the logic of it using api
+*/
 </script>
 
 <style></style>

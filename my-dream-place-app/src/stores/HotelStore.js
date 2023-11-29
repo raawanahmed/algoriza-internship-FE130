@@ -43,18 +43,8 @@ export const useHotelStore = defineStore("hotelStore", {
         console.error(error);
       }
     },
-    getSelectedHotel() {
-      const hotel = localStorage.getItem("selectedHotel");
-      return hotel ? JSON.parse(hotel) : this.fetchHotelDetails();
-    },
-
-    removeSlectedHotel() {
-      localStorage.removeItem("selectedHotel");
-    },
   },
   getters: {
-    // getselectedHotelData: (state) => state.selectedHotelData,
-    // getHotelDetails: (state) => state.hotelDetails,
     getselectedHotelData: (state) => {
       return (
         state.selectedHotelData ||

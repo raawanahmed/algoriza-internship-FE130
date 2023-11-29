@@ -178,6 +178,13 @@ const toggleDropdown = () => {
   isDropdownOpen.value = !isDropdownOpen.value;
   arrowDir.value = arrowDir.value === "down" ? "up" : "down";
 };
+
+/*
+todos
+1- add validations to each input
+2- add validation for the dates 
+3- handle when clicking on search button reload the hotels automatic
+*/
 </script>
 
 <style>

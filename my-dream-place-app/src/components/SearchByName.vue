@@ -25,6 +25,11 @@
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+/*
+todos
+1- handle functionality here when searching
+*/
+</script>
 
 <style></style>

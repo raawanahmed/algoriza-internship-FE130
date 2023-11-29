@@ -89,6 +89,11 @@
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+/*
+todos 
+1- filter the list based on the selected number of stars
+*/
+</script>
 
 <style></style>

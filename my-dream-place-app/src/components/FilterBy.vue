@@ -29,6 +29,14 @@
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+/*
+todos
+1- add the design
+2- handle the logic with static data
+3- try to handle logic with min and max values for budget
+4- if it's possible get the count of them 
+*/
+</script>
 
 <style></style>

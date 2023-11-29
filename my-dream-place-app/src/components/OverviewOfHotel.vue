@@ -58,6 +58,7 @@ import { ref } from "vue";
 import IconWithText from "./IconWithText.vue";
 const hotelStore = useHotelStore();
 const hotel = ref(hotelStore.getselectedHotelData);
+// clean the code and css styles
 </script>
 
 <style></style>

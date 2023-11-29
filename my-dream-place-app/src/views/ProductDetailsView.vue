@@ -87,7 +87,7 @@ import Reviews from "@/components/Reviews.vue";
 import ExploreArea from "@/components/ExploreArea.vue";
 import Ad from "@/components/Ad.vue";
 import { useHotelStore } from "@/stores/HotelStore";
-import { ref, onMounted, onUnmounted } from "vue";
+import { ref } from "vue";
 
 const hotelStore = useHotelStore();
 const selectedHotel = ref(hotelStore.getselectedHotelData);
@@ -110,6 +110,15 @@ const fetchHotel = async () => {
 };
 
 fetchHotel();
+
+/*
+todos 
+1- change statics images
+2- add the room component
+3- add the overview and rooms taps
+4- go to available rooms when click on rooms
+4- clean the code and the styles 
+*/
 </script>
 
 <style>
