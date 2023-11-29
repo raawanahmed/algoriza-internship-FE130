@@ -52,13 +52,13 @@
         <section class="mt-6 flex ml-[100px] mr-[100px]">
           <div>
             <p class="font-medium text-3xl pt-10 text-[#1a1a1a]">
-              <!-- {{ selectedHotel.property.name }} -->
+              {{ selectedHotel.property.name }}
             </p>
             <section class="flex mt-3 mb-3">
-              <!-- <Reviews
+              <Reviews
                 :reviewScore="selectedHotel.property.reviewScore"
                 :reviewsCount="selectedHotel.property.reviewCount"
-              /> -->
+              />
             </section>
             <section class="mb-8 flex">
               <img
@@ -67,7 +67,7 @@
                 class="mr-[6px]"
               />
               <p class="text-sm text-[#333]">
-                <!-- {{ hotelDetails.data.address }} -->
+                {{ hotelDetails.data.address }}
               </p>
             </section>
             <OverviewOfHotel />
@@ -78,7 +78,21 @@
           <p class="text-2xl font-semibold mt-[40px] mb-[32px]">
             Available rooms
           </p>
-          <Ad />
+          <section class="flex">
+            <Ad class="mr-[15px]" />
+            <div
+              class="flex"
+              v-for="block in blocksOfHotel"
+              :key="block.room_id"
+            >
+              <!-- hotelDetails.data.rooms[block.room_id].bed_configuration[0].bed_types[0] -->
+              <RoomDetails
+                :imgPath="getImageOfHotel(block.room_id)"
+                :roomDescription="'test'"
+                :roomData="getBedTypes(block.room_id)"
+              />
+            </div>
+          </section>
         </div>
       </div>
       <CovidAlert />
@@ -95,19 +109,22 @@ import OverviewOfHotel from "@/components/OverviewOfHotel.vue";
 import Reviews from "@/components/Reviews.vue";
 import ExploreArea from "@/components/ExploreArea.vue";
 import Ad from "@/components/Ad.vue";
+import RoomDetails from "@/components/RoomDetails.vue";
 import { useHotelStore } from "@/stores/HotelStore";
 import { ref } from "vue";
-const activeTab = ref("overview"); // Initialize with 'overview'
+const activeTab = ref("overview");
 
 const hotelStore = useHotelStore();
 const selectedHotel = ref(hotelStore.getselectedHotelData);
 const hotelDetails = ref(hotelStore.getHotelDetails);
 const isLoading = ref(false);
+const blocksOfHotel = ref([]);
 
 const fetchHotel = async () => {
   try {
     await hotelStore.fetchHotelDetails();
     hotelDetails.value = hotelStore.getHotelDetails;
+    blocksOfHotel.value = hotelDetails.value.data.block;
     localStorage.setItem(
       "hotelDetails",
       JSON.stringify(hotelStore.getHotelDetails)
@@ -118,6 +135,32 @@ const fetchHotel = async () => {
     isLoading.value = false;
   }
 };
+
+const getBedTypes = (roomId) => {
+  const room = hotelDetails.value.data.rooms[roomId];
+  if (
+    room &&
+    room.bed_configurations &&
+    room.bed_configurations[0] &&
+    room.bed_configurations[0].bed_types
+  ) {
+    console.log(room.bed_configurations[0].bed_types[0]);
+    return room.bed_configurations[0].bed_types[0];
+  } else {
+    return null;
+  }
+};
+
+const getImageOfHotel = (roomId) => {
+  const room = hotelDetails.value.data.rooms[roomId];
+  if (room && room.photos && room.photos[0]) {
+    console.log(room.photos[0].url_original);
+    return room.photos[0].url_original;
+  } else {
+    return null;
+  }
+};
+
 const setActiveTab = (tab) => {
   activeTab.value = tab;
 };
@@ -129,12 +172,13 @@ const goToAvailableRooms = () => {
     availableRoomsSection.scrollIntoView({ behavior: "smooth" });
   }
 };
-//fetchHotel();
+fetchHotel();
+// console.log(hotelDetails.value.data);
 
 /*
 todos 
 1- change statics images -- couldn't find them from api 
-2- add the room component
+2- add the room component .. done
 3- add the overview and rooms taps .. done 
 4- go to available rooms when click on rooms .. done
 4- clean the code and the styles  .. done

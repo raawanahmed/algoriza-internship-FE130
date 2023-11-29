@@ -1,5 +1,5 @@
 <template>
-  <div class="flex mb-3 justify-between">
+  <div class="flex mb-[10px] justify-between">
     <div class="flex">
       <img :src="iconPath" alt="icon" class="mr-3" />
       <p style="color: #4f4f4f; font-size: 15px">{{ iconText }}</p>
