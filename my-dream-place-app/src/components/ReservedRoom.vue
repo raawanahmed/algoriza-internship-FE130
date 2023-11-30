@@ -24,12 +24,12 @@
       <div class="ml-6 text-[14px] text-[#4F4F4F]">
         <p class="mb-2 text-[#EB5757]">Non refundable</p>
         <p class="mb-2">
-          Check in: {{ formatDate(selectedHotel.property.checkinDate) }}
+          Check in: {{ formatDateToText(selectedHotel.property.checkinDate) }}
         </p>
         <p class="mb-2">
-          Check out: {{ formatDate(selectedHotel.property.checkoutDate) }}
+          Check out: {{ formatDateToText(selectedHotel.property.checkoutDate) }}
         </p>
-        <p>2 night stay</p>
+        <p>{{ noOfDays }} night stay</p>
       </div>
     </div>
     <section
@@ -59,10 +59,9 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
-import { useHotelStore } from "@/stores/HotelStore";
 import Reviews from "./Reviews.vue";
-import { useRoute } from "vue-router";
+import { ref } from "vue";
+import { useSearchDetailsStore } from "@/stores/SearchDetailsStore";
 
 const { classOfCard, classOfImg, showPriceAndDetilsBtn, hotel } = defineProps([
   "classOfCard",
@@ -71,10 +70,11 @@ const { classOfCard, classOfImg, showPriceAndDetilsBtn, hotel } = defineProps([
   "hotel",
 ]);
 
+const searchstore = useSearchDetailsStore();
+const noOfDays = ref(searchstore.getDifferenceInDays());
 const selectedHotel = ref(hotel);
-const isLoading = ref(false);
 
-function formatDate(inputDate) {
+function formatDateToText(inputDate) {
   const options = {
     weekday: "long",
     year: "numeric",

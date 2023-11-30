@@ -131,6 +131,43 @@ export const useSearchDetailsStore = defineStore("searchDetailsStore", {
       const dests = localStorage.getItem("destinations");
       return dests ? JSON.parse(dests) : this.fetchDestinations();
     },
+    getDifferenceInDays() {
+      console.log(this.selectedDestinationFromStorage);
+      const checkinDateParts =
+        this.selectedDestinationFromStorage.selectedCheckinDate.split(".");
+      const checkoutDateParts =
+        this.selectedDestinationFromStorage.selectedCheckoutDate.split(".");
+
+      if (checkinDateParts.length !== 3 || checkoutDateParts.length !== 3) {
+        console.error("Invalid date format");
+        return 0;
+      }
+
+      const checkinDate = new Date(
+        parseInt(checkinDateParts[2], 10),
+        parseInt(checkinDateParts[1], 10) - 1,
+        parseInt(checkinDateParts[0], 10)
+      );
+
+      const checkoutDate = new Date(
+        parseInt(checkoutDateParts[2], 10),
+        parseInt(checkoutDateParts[1], 10) - 1,
+        parseInt(checkoutDateParts[0], 10)
+      );
+
+      if (isNaN(checkinDate) || isNaN(checkoutDate)) {
+        console.error("Invalid date format");
+        return 0;
+      }
+
+      const differenceInMilliseconds = checkoutDate - checkinDate;
+      const differenceInDays = differenceInMilliseconds / (1000 * 60 * 60 * 24);
+      const roundedDifferenceInDays = Math.round(differenceInDays);
+
+      console.log(`The difference is ${roundedDifferenceInDays} days.`);
+
+      return roundedDifferenceInDays;
+    },
   },
 
   getters: {

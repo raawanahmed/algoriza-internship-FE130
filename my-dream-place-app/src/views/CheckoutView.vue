@@ -12,12 +12,15 @@
       <CovidAlert class="mt-[30px]" />
       <div class="flex">
         <PaymentDetails class="mr-[30px]" />
-        <ReservedRoom
-          :classOfCard="'w-[400px] h-[420px] rounded-md'"
-          :classOfImg="'w-[400px] h-[180px] mb-5'"
-          :showPriceAndDetilsBtn="false"
-          :hotel="hotelStore.getselectedHotelData"
-        />
+        <section>
+          <ReservedRoom
+            :classOfCard="'w-[400px] h-[420px] rounded-md'"
+            :classOfImg="'w-[400px] h-[180px] mb-5 rounded-t-md'"
+            :showPriceAndDetilsBtn="false"
+            :hotel="selectedHotel"
+          />
+          <PriceDetails />
+        </section>
       </div>
     </div>
   </main>
@@ -28,9 +31,11 @@ import Header from "@/components/Header.vue";
 import CovidAlert from "@/components/CovidAlert.vue";
 import PaymentDetails from "@/components/PaymentDetails.vue";
 import ReservedRoom from "@/components/ReservedRoom.vue";
+import PriceDetails from "@/components/PriceDetails.vue";
 import { useHotelStore } from "@/stores/HotelStore";
+import { ref } from "vue";
 const hotelStore = useHotelStore();
-
+const selectedHotel = ref(hotelStore.getselectedHotelData);
 </script>
 
 <style></style>
