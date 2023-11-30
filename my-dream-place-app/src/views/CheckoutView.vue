@@ -4,13 +4,13 @@
     :notificationColor="'notification-black'"
     :showNavBar="false"
   />
-  <main style="background: #f4f4f4; height: 1820px">
-    <div style="max-width: 1440px" class="w-full flex mx-auto font-semibold">
-      <p style="margin-left: 100px; font-size: 32px; margin-top: 60px">
+  <main class="bg-[#f4f4f4] h-[1820px]">
+    <div class="w-full flex mx-auto font-semibold max-w-[1440px]">
+      <p class="mx-[100px] text-[32px] mt-[60px]">
         Secure your reservation
       </p>
     </div>
-    <CovidAlert />
+    <CovidAlert class="mt-[30px]" />
   </main>
 </template>
 

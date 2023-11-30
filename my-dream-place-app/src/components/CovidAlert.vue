@@ -1,7 +1,7 @@
 <template>
-  <div class="mx-auto" style="max-width: 1440px">
+  <div class="mx-auto max-w-[1440px]" >
     <section
-      class="flex rounded-lg h-16 items-center p-4 gap-4 mx-auto ml-[100px] mr-[100px] mt-[75px] mb-[50px] max-w-[1440px] bg-[#fcefca] w-[1240px]"
+      class="flex rounded-lg h-16 items-center p-4 gap-4 mx-auto mx-[100px] mb-[50px] max-w-[1440px] bg-[#fcefca] w-[1240px]"
     >
       <img src="../assets/Icons/danger.svg" alt="danger icon" />
       <div class="flex gap-1">

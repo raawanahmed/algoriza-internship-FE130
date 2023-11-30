@@ -44,7 +44,7 @@
       </div>
     </div>
   </section>
-  <CovidAlert />
+  <CovidAlert class="mt-[75px]"/>
   <Footer />
 </template>
 

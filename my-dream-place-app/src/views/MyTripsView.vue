@@ -4,7 +4,7 @@
     :notificationColor="'notification-black'"
     :showNavBar="true"
   />
-  <CovidAlert />
+  <CovidAlert class="mt-[75px]" />
   <Footer />
 </template>
 

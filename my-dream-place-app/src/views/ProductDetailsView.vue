@@ -95,7 +95,7 @@
           </section>
         </div>
       </div>
-      <CovidAlert />
+      <CovidAlert class="mt-[75px]" />
       <Footer />
     </section>
   </div>

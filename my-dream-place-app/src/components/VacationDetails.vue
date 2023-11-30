@@ -26,7 +26,7 @@
       <SearchSection />
     </section>
 
-    <CovidAlert />
+    <CovidAlert class="mt-[75px]" />
   </div>
 </template>
 
