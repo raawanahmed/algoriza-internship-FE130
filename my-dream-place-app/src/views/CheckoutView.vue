@@ -4,15 +4,18 @@
     :notificationColor="'notification-black'"
     :showNavBar="false"
   />
-  <main class="bg-[#f4f4f4] pb-[140px]" >
+  <main class="bg-[#f4f4f4] pb-[140px]">
     <div class="w-full mx-auto max-w-[1440px]">
       <p class="mx-[100px] text-[32px] font-semibold pt-[60px]">
         Secure your reservation
       </p>
       <CovidAlert class="mt-[30px]" />
       <div class="flex">
-        <PaymentDetails class="mr-[30px]"/>
-        <ReservedRoom :classOfTag="'w-[400px] h-[400px]'" />
+        <PaymentDetails class="mr-[30px]" />
+        <ReservedRoom
+          :classOfCard="'w-[400px] h-[420px] rounded-md'"
+          :classOfImg="'w-[400px] h-[180px] mb-5'"
+        />
       </div>
     </div>
   </main>
