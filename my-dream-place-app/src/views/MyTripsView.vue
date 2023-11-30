@@ -12,6 +12,7 @@
         :classOfCard="'w-[1030px] h-[240px] flex py-5 pl-5 pl-[24px] rounded-[5px]'"
         :classOfImg="'w-[285px] h-[200px]'"
         class="mt-[28px]"
+        :showPriceAndDetilsBtn ="true"
       />
     </div>
     <CovidAlert class="mt-[75px]" />

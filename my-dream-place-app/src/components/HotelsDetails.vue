@@ -57,7 +57,8 @@
             class="text-end relative"
             style="flex-grow: 1; max-height: 200px"
           >
-            <section class="absolute bottom-6 right-0">
+            <section class="absolute bottom-6 right-0 flex items-center">
+              <p class="mr-2 text-[#EB5757] line-through">${{ 170 }}</p>
               <p class="font-semibold text-xl">
                 ${{ hotel.property.priceBreakdown.grossPrice.value }}
               </p>

@@ -15,6 +15,7 @@
         <ReservedRoom
           :classOfCard="'w-[400px] h-[420px] rounded-md'"
           :classOfImg="'w-[400px] h-[180px] mb-5'"
+          :showPriceAndDetilsBtn="false"
         />
       </div>
     </div>

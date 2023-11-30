@@ -25,6 +25,25 @@
         <p>2 night stay</p>
       </div>
     </div>
+    <section
+      v-if="showPriceAndDetilsBtn === true"
+      class="text-end relative mr-6 max-h-[200px] flex-grow-[1]"
+    >
+      <section class="absolute bottom-[80px] right-0 flex items-center">
+        <p class="mr-2 text-[#EB5757] line-through">${{ 170 }}</p>
+        <p class="font-semibold text-xl">${{ 221 }}</p>
+      </section>
+      <p
+        class="font-light text-sm absolute text-[#333] bottom-[60px] w-[140px] right-0"
+      >
+        Includes taxes and fees
+      </p>
+      <button
+        class="absolute right-0 font-medium text-[15px] text-white rounded-md bg-[#2F80ED] px-[18px] py-[10px] bottom-0"
+      >
+        View trip details
+      </button>
+    </section>
   </main>
 </template>
 
@@ -33,7 +52,11 @@ import { ref } from "vue";
 import { useHotelStore } from "@/stores/HotelStore";
 import Reviews from "./Reviews.vue";
 
-const { classOfCard, classOfImg } = defineProps(["classOfCard", "classOfImg"]);
+const { classOfCard, classOfImg, showPriceAndDetilsBtn } = defineProps([
+  "classOfCard",
+  "classOfImg",
+  "showPriceAndDetilsBtn",
+]);
 
 const hotelStore = useHotelStore();
 const selectedHotel = ref(hotelStore.getselectedHotelData);
