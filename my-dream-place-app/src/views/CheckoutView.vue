@@ -16,6 +16,7 @@
           :classOfCard="'w-[400px] h-[420px] rounded-md'"
           :classOfImg="'w-[400px] h-[180px] mb-5'"
           :showPriceAndDetilsBtn="false"
+          :hotel="hotelStore.getselectedHotelData"
         />
       </div>
     </div>
@@ -27,6 +28,9 @@ import Header from "@/components/Header.vue";
 import CovidAlert from "@/components/CovidAlert.vue";
 import PaymentDetails from "@/components/PaymentDetails.vue";
 import ReservedRoom from "@/components/ReservedRoom.vue";
+import { useHotelStore } from "@/stores/HotelStore";
+const hotelStore = useHotelStore();
+
 </script>
 
 <style></style>

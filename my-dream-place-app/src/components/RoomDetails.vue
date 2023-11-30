@@ -31,15 +31,17 @@
 
 <script setup>
 import IconWithText from "./IconWithText.vue";
+import { useRouter } from "vue-router";
+const router = useRouter();
 const { imgPath, roomDescription, roomData } = defineProps([
   "imgPath",
   "roomDescription",
   "roomData",
 ]);
 
-console.log(roomData);
-
-const reserveSuite = () => {};
+const reserveSuite = () => {
+  router.push("/checkout");
+};
 </script>
 
 <style></style>

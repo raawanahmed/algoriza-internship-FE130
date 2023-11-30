@@ -24,6 +24,7 @@
       </p>
       <button
         class="inline-flex px-[18px] py-3 justify-center items-center text-[15px] rounded border border-blue-500 bg-blue-500 text-white w-[160px] h-[44px] my-[20px]"
+        @click="completePayment"
       >
         Complete Booking
       </button>
@@ -44,6 +45,14 @@
 
 <script setup>
 // todo highlight texts and adjust the spacing
+import { useHotelStore } from "@/stores/HotelStore";
+import { useHotelsOfreservedRoomsStore } from "@/stores/ReservedRoomsStore";
+const hotelStore = useHotelStore();
+const hotelsOfreservedRoomsStore = useHotelsOfreservedRoomsStore();
+const completePayment = () => {
+  const hotel = hotelStore.getselectedHotelData;
+  hotelsOfreservedRoomsStore.addHotelOfReservedRoom(hotel);
+};
 </script>
 
 <style></style>

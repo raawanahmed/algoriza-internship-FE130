@@ -4,7 +4,11 @@
     class="bg-white"
     style="font-family: SF Pro Display, sans-serif"
   >
-    <img src="../assets/Imgs/aust.png" alt="room image" :class="classOfImg" />
+    <img
+      :src="selectedHotel.property.photoUrls[0]"
+      alt="room image"
+      :class="classOfImg"
+    />
     <div>
       <div class="ml-6 mb-[15px]">
         <p class="font-medium text-lg text-[#1a1a1a]">
@@ -19,9 +23,12 @@
       </div>
       <div class="ml-6 text-[14px] text-[#4F4F4F]">
         <p class="mb-2 text-[#EB5757]">Non refundable</p>
-        <p class="mb-2">Check in: Sunday, March 18, 2022</p>
-        <p class="mb-2">Check in: Sunday, March 18, 2022</p>
-        <p class="mb-2">Check out: Tuesday, March 20, 2022</p>
+        <p class="mb-2">
+          Check in: {{ formatDate(selectedHotel.property.checkinDate) }}
+        </p>
+        <p class="mb-2">
+          Check out: {{ formatDate(selectedHotel.property.checkoutDate) }}
+        </p>
         <p>2 night stay</p>
       </div>
     </div>
@@ -30,8 +37,12 @@
       class="text-end relative mr-6 max-h-[200px] flex-grow-[1]"
     >
       <section class="absolute bottom-[80px] right-0 flex items-center">
-        <p class="mr-2 text-[#EB5757] line-through">${{ 170 }}</p>
-        <p class="font-semibold text-xl">${{ 221 }}</p>
+        <p class="mr-2 text-[#EB5757] line-through">
+          ${{ selectedHotel.property.priceBreakdown.excludedPrice.value }}
+        </p>
+        <p class="font-semibold text-xl">
+          ${{ selectedHotel.property.priceBreakdown.grossPrice.value }}
+        </p>
       </section>
       <p
         class="font-light text-sm absolute text-[#333] bottom-[60px] w-[140px] right-0"
@@ -51,16 +62,31 @@
 import { ref } from "vue";
 import { useHotelStore } from "@/stores/HotelStore";
 import Reviews from "./Reviews.vue";
+import { useRoute } from "vue-router";
 
-const { classOfCard, classOfImg, showPriceAndDetilsBtn } = defineProps([
+const { classOfCard, classOfImg, showPriceAndDetilsBtn, hotel } = defineProps([
   "classOfCard",
   "classOfImg",
   "showPriceAndDetilsBtn",
+  "hotel",
 ]);
 
-const hotelStore = useHotelStore();
-const selectedHotel = ref(hotelStore.getselectedHotelData);
+const selectedHotel = ref(hotel);
 const isLoading = ref(false);
+
+function formatDate(inputDate) {
+  const options = {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  };
+  const formattedDate = new Date(inputDate).toLocaleDateString(
+    "en-US",
+    options
+  );
+  return formattedDate;
+}
 </script>
 
 <style></style>
