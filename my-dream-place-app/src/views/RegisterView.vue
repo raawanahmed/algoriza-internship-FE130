@@ -1,9 +1,9 @@
 <template>
-  <UserForm :isSignIn="false" />
+  <UserFormForAuth :isSignIn="false" />
 </template>
 
 <script setup>
-import UserForm from "@/components/UserForm.vue";
+import UserFormForAuth from "@/components/UserFormForAuth.vue";
 </script>
 
 <style></style>

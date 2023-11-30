@@ -10,14 +10,43 @@
       />
       <p class="mr-[18px] text-lg">Payment options</p>
     </header>
-    <div class="text-base text-[#333] px-8 py-[10px] mt-2">
+    <div
+      class="text-base text-[#333] px-8 pt-[10px] mt-2 border-b-[1px] border-b-[#e0e0e0]"
+    >
       <button
         class="p-[10px] pb-[7px] mr-[22px] border-b-[3px] border-b-[#2F80ED]"
       >
         Debit/Credit Card
       </button>
     </div>
-    <div class="bg-white p-8">
+    <section class="flex mb-[26px] pl-8 mt-8">
+      <div class="w-[60px] h-10 rounded bg-[#F2F2F2] mr-[6px] flex">
+        <img
+          src="../assets/Icons/image 6.png"
+          alt="card img"
+          class="p-2 w-full"
+        />
+      </div>
+      <div class="w-[60px] h-10 rounded bg-[#F2F2F2] mr-[6px] flex">
+        <img src="../assets/Icons/image 7.png" alt="card img" class="p-2" />
+      </div>
+      <div class="w-[60px] h-10 rounded bg-[#F2F2F2] mr-[6px] flex">
+        <img
+          src="../assets/Icons/image 10.png"
+          alt="card img"
+          class="p-2 w-full"
+        />
+      </div>
+      <div class="w-[60px] h-10 rounded bg-[#F2F2F2] mr-[6px] flex">
+        <img
+          src="../assets/Icons/image 8.png"
+          alt="card img"
+          class="p-2 w-full"
+        />
+      </div>
+    </section>
+
+    <div class="bg-white px-8 pb-8">
       <section class="mb-5">
         <div>
           <label for="cardNumber" class="font-medium">Name on card</label>
