@@ -1,5 +1,5 @@
 <template>
-  <div class="flex mb-[10px] justify-between">
+  <div class="flex mb-[10px] justify-between" style="font-family: SF Pro Display, sans-serif">
     <div class="flex">
       <img :src="iconPath" alt="icon" class="mr-3" />
       <p class="text-[#4f4f4f] text-[15px]">{{ iconText }}</p>

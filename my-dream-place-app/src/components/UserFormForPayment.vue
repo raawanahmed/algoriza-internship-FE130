@@ -1,5 +1,5 @@
 <template>
-  <div class="w-[810px] h-[328px] bg-white rounded-md">
+  <div class="w-[810px] h-[328px] bg-white rounded-md" style="font-family: SF Pro Display, sans-serif">
     <header
       class="py-4 px-5 flex bg-[#2F80ED] font-medium text-[#fff] items-center rounded-t-md"
     >

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="font-family: SF Pro Display, sans-serif">
     <img :src="imgPath" alt="Image of a place" />
     <div>
       <p class="font-semibold text-xl">{{ imgName }}</p>

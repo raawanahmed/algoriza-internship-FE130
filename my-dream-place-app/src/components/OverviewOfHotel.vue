@@ -1,5 +1,5 @@
 <template>
-  <div class="rounded-md bg-white w-[810px] h-[508px]">
+  <div class="rounded-md bg-white w-[810px] h-[508px]" style="font-family: SF Pro Display, sans-serif">
     <section class="pt-6 pr-10 pb-10 pl-[30px]">
       <p class="font-semibold text-lg mb-3">Overview</p>
       <p class="text-base text-[#4f4f4f]">

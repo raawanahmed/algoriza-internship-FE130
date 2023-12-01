@@ -1,11 +1,8 @@
 <template>
-  <div class="mx-auto" style="max-width: 1440px">
-    <section style="margin-left: 100px; margin-right: 100px">
+  <div class="mx-auto max-w-[1440px]"  style="font-family: SF Pro Display, sans-serif">
+    <section class="mx-[100px]">
       <p class="font-semibold text-3xl mb-4">Enjoy your dream vacation</p>
-      <p
-        class="font-normal text-base mb-8"
-        style="width: 610px; line-height: 22.4px; color: var(--Gray-1, #333)"
-      >
+      <p class="font-normal text-base mb-8 w-[610px] text-[#333]">
         Plan and book our perfect trip with expert advice, travel tips,
         destination information and inspiration from us
       </p>

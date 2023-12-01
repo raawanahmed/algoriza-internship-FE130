@@ -1,8 +1,7 @@
 <template>
   <div
-    style="background: linear-gradient(180deg, #4796ff 0%, #2366bf 100%)"
-    class="rounded-md relative w-[400px] h-[340px]"
-  >
+    style="background: linear-gradient(180deg, #4796ff 0%, #2366bf 100%); font-family: SF Pro Display, sans-serif"
+    class="rounded-md relative w-[400px] h-[340px]"  >
     <div class="flex items-center gap-1 ml-[28px] pt-[72px]">
       <img
         src="../assets/Icons/bxs-plane-alt.svg"

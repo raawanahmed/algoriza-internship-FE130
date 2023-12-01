@@ -1,10 +1,7 @@
 <template>
-  <div class="mx-auto" style="max-width: 1440px">
-    <section style="margin-left: 100px; margin-right: 100px">
-      <p
-        class="font-semibold text-3xl"
-        style="margin-top: 60px; margin-bottom: 24px"
-      >
+  <div class="mx-auto max-w-[1440px]"  style="font-family: SF Pro Display, sans-serif">
+    <section class="mx-[100px]">
+      <p class="font-semibold text-3xl mt-[60px] mb-[24px]">
         Get inspiration for your next trip
       </p>
       <div class="flex gap-5">

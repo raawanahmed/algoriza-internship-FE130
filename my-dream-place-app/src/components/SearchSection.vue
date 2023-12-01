@@ -14,8 +14,7 @@
     />
     <div
       v-if="isDropdownOpen"
-      class="absolute mt-1 w-52 bg-white shadow-md rounded-md text-xs"
-      style="background: #f2f2f2"
+      class="absolute mt-1 w-52 shadow-md rounded-md text-xs bg-[#f2f2f2]"
     >
       <div v-for="destination in destinations" :key="destination.dest_id">
         <button
@@ -30,12 +29,11 @@
   </div>
 
   <div
-    class="flex items-center rounded"
-    style="width: 147px; height: 43px; color: #4f4f4f; background: #f2f2f2"
+    class="flex items-center rounded w-[147px] h-[43px] text-[#4f4f4f] bg-[#f2f2f2]"
   >
     <img
       src="@/assets/Icons/calendarIcon.svg"
-      alt=""
+      alt="calendar Icon"
       class="w-5 h-5 ml-3 mr-1.5"
     />
     <VueDatePicker
@@ -53,12 +51,11 @@
     />
   </div>
   <div
-    class="flex items-center rounded"
-    style="width: 147px; height: 43px; color: #4f4f4f; background: #f2f2f2"
+    class="flex items-center rounded w-[147px] h-[43px] text-[#4f4f4f] bg-[#f2f2f2]"
   >
     <img
       src="@/assets/Icons/calendarIcon.svg"
-      alt=""
+      alt="calendar Icon"
       class="w-5 h-5 ml-3 mr-1.5"
     />
     <VueDatePicker
@@ -82,8 +79,7 @@
     <input
       v-model="searchData.selectedGuests"
       type="number"
-      class="w-full rounded p-3 pl-10 input-field outline-none"
-      style="background: #f2f2f2; height: 44px; font-size: 13px"
+      class="w-full rounded p-3 pl-10 input-field outline-none bg-[#f2f2f2] h-[44px] text-[13px]"
       :placeholder="
         searchData.selectedGuests != null ? searchData.selectedGuests : 'Guests'
       "
@@ -98,8 +94,7 @@
     <input
       v-model="searchData.selectedRooms"
       type="number"
-      class="w-full rounded p-3 pl-10 input-field outline-none"
-      style="background: #f2f2f2; height: 44px; font-size: 13px"
+      class="w-full rounded p-3 pl-10 input-field outline-none bg-[#f2f2f2] h-[44px] text-[13px]"
       :placeholder="
         searchData.selectedRooms != null ? searchData.selectedRooms : 'Rooms'
       "
@@ -247,7 +242,6 @@ todos
 .fontStyle {
   font-family: "Work Sans", sans-serif;
 }
-
 .dp__pointer.dp__input_readonly.dp__input.dp__input_reg {
   border: 0px;
   background: #f2f2f2;

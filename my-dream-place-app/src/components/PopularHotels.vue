@@ -1,9 +1,7 @@
 <template>
-  <div class="mx-auto" style="max-width: 1440px">
-    <section style="margin-left: 100px; margin-right: 100px">
-      <p class="font-semibold text-3xl mb-4" style="margin-top: 60px">
-        Popular Hotels
-      </p>
+  <div class="mx-auto max-w-[1440px]"  style="font-family: SF Pro Display, sans-serif">
+    <section class="mx-[100px]">
+      <p class="font-semibold text-3xl mb-4 mt-[60px]">Popular Hotels</p>
       <section class="flex gap-4">
         <ImgDetails
           :imgPath="require('@/assets/Imgs/lakeside.png')"

@@ -1,6 +1,6 @@
 <template>
   <div
-    class="w-[400px] h-[217px] rounded-md mt-[30px] border-[1px] border-[#e0e0e0] bg-white"
+    class="w-[400px] h-[217px] rounded-md mt-[30px] border-[1px] border-[#e0e0e0] bg-white" style="font-family: SF Pro Display, sans-serif"
   >
     <header class="p-[18px] font-medium text-base bg-[#85E0AB] rounded-t-md">
       <p>Price Details</p>

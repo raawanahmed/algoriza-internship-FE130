@@ -1,6 +1,5 @@
 <template>
-
-  <div>
+  <div style="font-family: SF Pro Display, sans-serif">
     <p class="font-semibold text-lg mt-5 mb-5 text-[#333] ml-[18px]">
       Filter by
     </p>

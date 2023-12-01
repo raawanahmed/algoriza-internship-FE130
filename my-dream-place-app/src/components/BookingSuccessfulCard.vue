@@ -1,5 +1,5 @@
 <template>
-  <main class="w-[400px] h-[500px] rounded-[10px] bg-white">
+  <main class="w-[400px] h-[500px] rounded-[10px] bg-white" style="font-family: SF Pro Display, sans-serif">
     <div class="px-[80px] py-[50px]">
       <div
         class="w-[240px] h-[200px] rounded-[10px] px-10 py-5"

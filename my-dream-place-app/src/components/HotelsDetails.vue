@@ -1,150 +1,120 @@
 <template>
-  <div v-if="isHotelsLoading" class="loading-indicator">
-    <div class="spinner"></div>
-  </div>
-  <div v-if="isHotelsLoading == false">
-    <div class="col-span-3 bg-white">
-      <div class="flex relative">
-        <p class="font-semibold text-2xl">
-          {{ destName }} : {{ destCount }} search results found
-        </p>
-        <select
-          class="absolute right-0 w-[190px] h-[48px] py-2 px-3 border-[1px] border-[#BDBDBD] rounded-md pr-3 flex mr-[10px]"
-          v-model="selectedSortOption"
-          @change="serachHotelsBySortOption"
-        >
-          <option disabled selected hidden class="text-[#828282]">
-            Sort by
-          </option>
-          <option
-            v-for="option in sortByOptions"
-            :key="option.title"
-            :value="option.title"
+  <main style="font-family: SF Pro Display, sans-serif">
+    <div v-if="isHotelsLoading" class="loading-indicator">
+      <div class="spinner"></div>
+    </div>
+    <div v-if="isHotelsLoading == false">
+      <div class="col-span-3 bg-white">
+        <div class="flex relative">
+          <p class="font-semibold text-2xl">
+            {{ destName }} : {{ destCount }} search results found
+          </p>
+          <select
+            class="absolute right-0 w-[190px] h-[48px] py-2 px-3 border-[1px] border-[#BDBDBD] rounded-md pr-3 flex mr-[10px]"
+            v-model="selectedSortOption"
+            @change="serachHotelsBySortOption"
           >
-            {{ option.title }}
-          </option>
-        </select>
+            <option disabled selected hidden class="text-[#828282]">
+              Sort by
+            </option>
+            <option
+              v-for="option in sortByOptions"
+              :key="option.title"
+              :value="option.title"
+            >
+              {{ option.title }}
+            </option>
+          </select>
+        </div>
       </div>
     </div>
-  </div>
-  <div v-for="hotel in hotels" :key="hotel.hotel_id">
-    <div v-if="isHotelsLoading == false">
-      <section
-        class="mt-6 rounded"
-        style="
-          width: 915px;
-          height: 240px;
-          border: 1px solid var(--Gray-5, #e0e0e0);
-        "
-      >
-        <div class="p-5 flex">
-          <img
-            :src="hotel.property.photoUrls[0]"
-            alt=""
-            style="width: 285px; height: 200px"
-            class="mr-6"
-          />
-          <section style="max-height: 200px">
-            <p class="font-medium text-xl" style="color: #1a1a1a">
-              {{ hotel.property.name }}
-            </p>
-            <section style="margin-top: 10px; margin-bottom: 17px" class="flex">
-              <Reviews
-                :reviewScore="hotel.property.reviewScore"
-                :reviewsCount="hotel.property.reviewCount"
-              />
+    <div v-for="hotel in hotels" :key="hotel.hotel_id">
+      <div v-if="isHotelsLoading == false">
+        <section
+          class="mt-6 rounded border-[1px] border-[#e0e0e0] w-[915px] h-[240px]"
+        >
+          <div class="p-5 flex">
+            <img
+              :src="hotel.property.photoUrls[0]"
+              alt="hotel photo"
+              class="mr-6 w-[285px] h-[200px]"
+            />
+            <section style="max-height: 200px">
+              <p class="font-medium text-xl text-[#1a1a1a]">
+                {{ hotel.property.name }}
+              </p>
+              <section class="flex mt-[10px] mb-[17px]">
+                <Reviews
+                  :reviewScore="hotel.property.reviewScore"
+                  :reviewsCount="hotel.property.reviewCount"
+                />
+              </section>
+              <p
+                class="max-h-[58px] h-[58px] overflow-hidden max-w-[400px] text-[13px] text-ellipsis"
+              >
+                {{ hotel.accessibilityLabel }}
+              </p>
+              <button
+                class="justify-center items-center rounded border border-blue-500 bg-blue-500 text-white w-[137px] h-[40px] mt-[18px] mb-[24px]"
+                @click="seeAvailabilityOfHotel(hotel)"
+              >
+                See availability
+              </button>
             </section>
-            <p
-              class=""
-              style="
-                max-height: 58px;
-                height: 58px;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                max-width: 400px;
-                font-size: 13px;
-              "
+            <section
+              class="text-end relative max-h-[200px] flex-grow-[1]"
+              style="flex-grow: 1; max-height: 200px"
             >
-              {{ hotel.accessibilityLabel }}
-            </p>
-            <button
-              class="justify-center items-center rounded border border-blue-500 bg-blue-500 text-white"
-              style="
-                width: 137px;
-                height: 40px;
-                margin-top: 18px;
-                margin-bottom: 24px;
-              "
-              @click="seeAvailabilityOfHotel(hotel)"
-            >
-              See availability
-            </button>
-          </section>
-          <section
-            class="text-end relative"
-            style="flex-grow: 1; max-height: 200px"
-          >
-            <section class="absolute bottom-6 right-0 flex items-center">
-              <p class="mr-2 text-[#EB5757] line-through">${{ 170 }}</p>
-              <p class="font-semibold text-xl">
-                ${{ hotel.property.priceBreakdown.grossPrice.value }}
+              <section class="absolute bottom-6 right-0 flex items-center">
+                <p class="mr-2 text-[#EB5757] line-through">${{ 170 }}</p>
+                <p class="font-semibold text-xl">
+                  ${{ hotel.property.priceBreakdown.grossPrice.value }}
+                </p>
+              </section>
+              <p
+                class="font-light text-sm absolute bottom-0 w-[140px] right-0 text-[#333]"
+              >
+                Includes taxes and fees
               </p>
             </section>
-            <p
-              class="font-light text-sm absolute"
-              style="color: #333; bottom: 0; width: 140px; right: 0"
-            >
-              Includes taxes and fees
-            </p>
-          </section>
-        </div>
-      </section>
+          </div>
+        </section>
+      </div>
     </div>
-  </div>
-  <section style="margin-top: 56px" class="flex justify-center">
-    <div style="width: 297px; height: 40px" class="flex">
-      <img
-        src="../assets/Icons/leftarrow.png"
-        alt=""
-        :disabled="currentPage === 1"
-        @click="changePage(currentPage - 1)"
-        style="
-          margin-right: 8px;
-          filter: drop-shadow(0px 4px 14px rgba(0, 0, 0, 0.1));
-          width: 40px;
-          height: 40px;
-        "
-        class="rounded-md"
-      />
-      <template v-for="page in paginationButtons" :key="page">
-        <button
-          @click="changePage(page)"
-          style="width: 40px; height: 40px"
-          :class="{
-            active: currentPage === page,
-            notActive: currentPage !== page,
-          }"
-          class="rounded-md"
-        >
-          {{ page }}
-        </button>
-      </template>
+    <section class="flex justify-center mt-[56px]">
+      <div class="flex w-[297px] h-[40px]">
+        <img
+          src="../assets/Icons/leftarrow.png"
+          alt="left arrow icon"
+          :disabled="currentPage === 1"
+          @click="changePage(currentPage - 1)"
+          style="filter: drop-shadow(0px 4px 14px rgba(0, 0, 0, 0.1))"
+          class="rounded-md mr-2 w-[40px] h-[40px]"
+        />
+        <template v-for="page in paginationButtons" :key="page">
+          <button
+            @click="changePage(page)"
+            :class="{
+              active: currentPage === page,
+              notActive: currentPage !== page,
+            }"
+            class="rounded-md w-[40px] h-[40px]"
+          >
+            {{ page }}
+          </button>
+        </template>
 
-      <img
-        src="../assets/Icons/rightarrow.png"
-        alt=""
-        :disabled="currentPage === 1"
-        @click="changePage(currentPage + 1)"
-        style="
-          margin-left: 8px;
-          filter: drop-shadow(0px 4px 14px rgba(0, 0, 0, 0.1));
-          width: 40px;
-          height: 40px;
-        "
-        class="rounded-md"
-      />
-    </div>
-  </section>
+        <img
+          src="../assets/Icons/rightarrow.png"
+          alt="right arrow icon"
+          :disabled="currentPage === 1"
+          @click="changePage(currentPage + 1)"
+          style="filter: drop-shadow(0px 4px 14px rgba(0, 0, 0, 0.1))"
+          class="rounded-md ml-2 w-[40px] h-[40px]"
+        />
+      </div>
+    </section>
+  </main>
 </template>
 
 <script setup>

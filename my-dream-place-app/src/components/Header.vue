@@ -2,6 +2,7 @@
   <header
     class="flex w-full mx-auto max-w-[1440px]"
     :style="{ color: textColor }"
+    style="font-family: SF Pro Display, sans-serif"
   >
     <nav
       class="flex justify-between items-center w-full mx-auto h-[68px] ml-[100px] mr-[100px]"
@@ -57,8 +58,7 @@
         />
         <div v-if="isDropdownOpen" class="relative">
           <div
-            class="absolute top-0 right-0 bg-white shadow-md rounded-md items-start mt-[50px] w-[200px]"
-            style="z-index: 1"
+            class="absolute top-0 right-0 bg-white shadow-md rounded-md items-start mt-[50px] w-[200px] z-[1]"
           >
             <ul class="text-[#4f4f4f] p-0 list-none">
               <li class="border-b pb-2 pt-2">

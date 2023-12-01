@@ -1,5 +1,5 @@
 <template>
-  <div class="w-[400px] h-[432px] bg-white rounded-md mr-5">
+  <div class="w-[400px] h-[432px] bg-white rounded-md mr-5" style="font-family: SF Pro Display, sans-serif">
     <img :src="imgPath" alt="room image" class="w-[400px] h-[200px]" />
     <section class="p-5">
       <p class="text-lg text-[#1A1A1A] mb-[10px] font-medium">

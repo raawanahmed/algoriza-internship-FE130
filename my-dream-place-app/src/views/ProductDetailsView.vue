@@ -4,7 +4,7 @@
     :notificationColor="'notification-black'"
     :showNavBar="true"
   />
-  <div v-if="isLoading" class="loading-indicator">
+  <div v-if="isLoading" class="flex justify-center items-center h-[100vh]">
     <div class="spinner"></div>
   </div>
   <div v-else>
@@ -74,7 +74,10 @@
             </section>
             <OverviewOfHotel />
           </div>
-          <ExploreArea :latitude="hotelDetails.data.latitude" :longitude="hotelDetails.data.longitude" />
+          <ExploreArea
+            :latitude="hotelDetails.data.latitude"
+            :longitude="hotelDetails.data.longitude"
+          />
         </section>
         <div class="ml-[100px] mr-[100px]" id="available-rooms">
           <p class="text-2xl font-semibold mt-[40px] mb-[32px]">
@@ -189,16 +192,4 @@ todos
 */
 </script>
 
-<style>
-.loading-indicator {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100px;
-  background-color: rgba(255, 255, 255, 0.8);
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-}
-</style>
+<style></style>

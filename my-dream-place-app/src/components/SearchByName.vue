@@ -1,9 +1,6 @@
 <template>
-  <div
-    style="width: 295px; height: 119px; background: #f2f2f2"
-    class="rounded-md"
-  >
-    <p class="font-semibold text-base ml-5 mr-5 pt-3" style="color: #181818">
+  <div class="rounded-md w-[295px] h-[119px] bg-[#f2f2f2]" style="font-family: SF Pro Display, sans-serif">
+    <p class="font-semibold text-base ml-5 mr-5 pt-3 text-[#181818]">
       Search by property name
     </p>
     <div class="flex items-center font-normal">
@@ -12,13 +9,7 @@
       </span>
       <input
         type="text"
-        class="mb-5 mt-4 rounded pl-9"
-        style="
-          height: 44px;
-          width: 259px;
-          margin-left: 18px;
-          margin-right: 18px;
-        "
+        class="mb-5 mt-4 rounded pl-9 h-[44px] w-[259px] mx-[18px]"
         placeholder="eg. Beach westpalm"
       />
     </div>

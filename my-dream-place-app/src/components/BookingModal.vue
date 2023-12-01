@@ -1,7 +1,7 @@
 <template>
   <div
     class="fixed top-0 left-0 w-[100%] h-[100%] flex justify-center items-center z-[1000]"
-    style="background-color: rgba(0, 0, 0, 0.5)"
+    style="background-color: rgba(0, 0, 0, 0.5) font-family: SF Pro Display, sans-serif"
     v-if="showModal"
   >
     <div

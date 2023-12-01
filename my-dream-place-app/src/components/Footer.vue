@@ -1,5 +1,5 @@
 <template>
-  <footer>
+  <footer style="font-family: SF Pro Display, sans-serif">
     <div class="mx-auto max-w-[1440px]">
       <section class="ml-[100px] mr-[100px]">
         <div
@@ -16,7 +16,7 @@
                 my Dream Place
               </p>
             </div>
-            <p>Your next goto companion for travel</p>
+            <p class="w-[197px]">Your next goto companion for travel</p>
           </div>
           <div>
             <p class="text-base font-medium text-black mb-5">Company</p>
