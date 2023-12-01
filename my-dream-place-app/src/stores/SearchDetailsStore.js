@@ -23,6 +23,7 @@ export const useSearchDetailsStore = defineStore("searchDetailsStore", {
       localStorage.getItem("hotelsCount")
     ),
     currentPageFromStorage: JSON.parse(localStorage.getItem("currentPage")),
+    destinationsLoading: true,
   }),
 
   actions: {
@@ -76,7 +77,8 @@ export const useSearchDetailsStore = defineStore("searchDetailsStore", {
         url: "https://booking-com15.p.rapidapi.com/api/v1/hotels/searchDestination",
         params: { query: "egypt" },
         headers: {
-          'X-RapidAPI-Key': 'e92c684514mshe00e5fb9f9e6c14p1b4f8ajsn6342ba042c38',
+          "X-RapidAPI-Key":
+            "e92c684514mshe00e5fb9f9e6c14p1b4f8ajsn6342ba042c38",
           "X-RapidAPI-Host": "booking-com15.p.rapidapi.com",
         },
       };
@@ -89,6 +91,9 @@ export const useSearchDetailsStore = defineStore("searchDetailsStore", {
         return this.destinations;
       } catch (error) {
         console.error(error);
+      } finally {
+        this.destinationsLoading = false;
+        console.log(this.destinationsLoading);
       }
     },
 
@@ -109,7 +114,8 @@ export const useSearchDetailsStore = defineStore("searchDetailsStore", {
           currency_code: "usd",
         },
         headers: {
-          'X-RapidAPI-Key': 'e92c684514mshe00e5fb9f9e6c14p1b4f8ajsn6342ba042c38',
+          "X-RapidAPI-Key":
+            "e92c684514mshe00e5fb9f9e6c14p1b4f8ajsn6342ba042c38",
           "X-RapidAPI-Host": "booking-com15.p.rapidapi.com",
         },
       };
@@ -135,9 +141,10 @@ export const useSearchDetailsStore = defineStore("searchDetailsStore", {
       }
       return Math.ceil(properties / 20);
     },
-    getDestinations() {
+    async getDestinations() {
       const dests = localStorage.getItem("destinations");
-      return dests ? JSON.parse(dests) : this.fetchDestinations();
+      console.log(dests);
+      return dests ? JSON.parse(dests) : await this.fetchDestinations();
     },
     getDifferenceInDays() {
       console.log(this.selectedDestinationFromStorage);
@@ -241,5 +248,6 @@ export const useSearchDetailsStore = defineStore("searchDetailsStore", {
     },
     getHotels: (state) => state.hotels,
     getLoadingStatus: (state) => state.isLoading,
+    getIsDestinationsLoading: (state) => state.destinationsLoading,
   },
 });

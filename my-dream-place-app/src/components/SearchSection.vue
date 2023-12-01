@@ -117,7 +117,7 @@
 <script setup>
 import IconButton from "./IconButton.vue";
 //import router from "@/router";
-import { ref, reactive, onMounted } from "vue";
+import { ref, reactive, onMounted, watchEffect } from "vue";
 import { useSearchDetailsStore } from "@/stores/SearchDetailsStore";
 import { useRouter, useRoute } from "vue-router";
 const router = useRouter();
@@ -130,6 +130,9 @@ const validate = ref("true");
 
 const searchDetailsStore = useSearchDetailsStore();
 const destinations = ref(searchDetailsStore.getDestinations());
+watchEffect(async () => {
+  destinations.value = await searchDetailsStore.getDestinations();
+});
 const searchData = reactive({
   selectedDestinationId: searchDetailsStore.getSelectedDestinationId, // sometimes null and causes some errors thats why i created a seprated localstorage for it
   selectedDestinationName: searchDetailsStore.getSelectedDestinationName,
@@ -137,7 +140,7 @@ const searchData = reactive({
   selectedCheckoutDate: searchDetailsStore.getSelectedCheckoutDate,
   selectedGuests: searchDetailsStore.getSelectedGuests,
   selectedRooms: searchDetailsStore.getSelectedRooms,
-  hotelsCountOfDist: searchDetailsStore.getHotelsCountOfDist, // same as destination id and idk why i tried manytime to figure the problem but i couldn't?
+  hotelsCountOfDist: searchDetailsStore.getHotelsCountOfDist, // same as destination id and idk why i tried manytimes to figure the problem but i couldn't?
 });
 
 const selectDestination = (destination) => {
