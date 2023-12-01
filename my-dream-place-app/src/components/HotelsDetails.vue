@@ -10,6 +10,8 @@
         </p>
         <select
           class="absolute right-0 w-[190px] h-[48px] py-2 px-3 border-[1px] border-[#BDBDBD] rounded-md pr-3 flex mr-[10px]"
+          v-model="selectedSortOption"
+          @change="serachHotelsBySortOption"
         >
           <option disabled selected hidden class="text-[#828282]">
             Sort by
@@ -146,28 +148,27 @@
 </template>
 
 <script setup>
+import Reviews from "./Reviews.vue";
 import { useSearchDetailsStore } from "@/stores/SearchDetailsStore";
-
 import { ref, computed, onMounted, watch, watchEffect } from "vue";
 import { useHotelStore } from "@/stores/HotelStore";
-import Reviews from "./Reviews.vue";
-
 import { useRouter, useRoute } from "vue-router";
+
 const router = useRouter();
 const route = useRoute();
-
 const searchDetailsStore = useSearchDetailsStore();
 const destName = ref(searchDetailsStore.getSelectedDestinationName);
 const destCount = ref(searchDetailsStore.getHotelsCountOfDist);
 const hotelStore = useHotelStore();
 const currentPage = ref(1);
-
 const hotels = ref(searchDetailsStore.getHotels);
 const isHotelsLoading = ref(searchDetailsStore.getIsHotelsLoading);
-
 const totalProperties = ref(-1);
 const returnedHotels = ref(null);
-const totalPages = ref(Math.ceil(destCount / 20));
+const totalPages = ref(20);
+const selectedSortOption = ref("Sort by");
+const sortByOptions = ref(searchDetailsStore.getSortByOptions());
+
 const fetchHotels = async () => {
   isHotelsLoading.value = true;
   returnedHotels.value = await searchDetailsStore.fetchHotels();
@@ -175,14 +176,18 @@ const fetchHotels = async () => {
   destName.value = searchDetailsStore.getSelectedDestinationName;
   destCount.value = searchDetailsStore.getHotelsCountOfDist;
   isHotelsLoading.value = false;
+  totalPages.value = Math.ceil(+destCount.value / 20);
 };
 
-// console.log(JSON.parse(route.params.searchData));
-const sortByOptions = ref(searchDetailsStore.getSortByOptions());
 watchEffect(async () => {
   sortByOptions.value = await searchDetailsStore.getSortByOptions();
 });
-console.log(sortByOptions.value);
+
+const serachHotelsBySortOption = async () => {
+  isHotelsLoading.value = true;
+  await fetchHotels();
+  isHotelsLoading.value = false;
+};
 
 watch(
   () => JSON.parse(route.params.searchData),
@@ -194,6 +199,7 @@ watch(
     isHotelsLoading.value = false;
   }
 );
+
 fetchHotels();
 const changePage = async (page) => {
   if (page >= 1 && page <= totalPages.value) {
@@ -207,8 +213,7 @@ const changePage = async (page) => {
 
 const paginationButtons = computed(() => {
   const buttons = [];
-  const totalButtons = 100;
-  console.log(totalPages.value);
+  const totalButtons = 3;
   if (totalPages.value <= totalButtons) {
     for (let i = 1; i <= totalPages.value; i++) {
       buttons.push(i);
@@ -220,26 +225,23 @@ const paginationButtons = computed(() => {
     for (let i = start; i <= end; i++) {
       buttons.push(i);
     }
-
     if (end < totalPages.value - 1) {
       buttons.push("...");
     }
     if (end != totalPages.value) buttons.push(totalPages.value);
   }
-  // console.log(buttons);
   return buttons;
 });
 
 const seeAvailabilityOfHotel = (hotel) => {
   hotelStore.setselectedHotelData(hotel);
-
   router.push("/productDetails");
 };
 
 /*
-todos 
+todos
 1- add the discount section
-2- add the offer style if exist 
+2- add the offer style if exist
 */
 </script>
 

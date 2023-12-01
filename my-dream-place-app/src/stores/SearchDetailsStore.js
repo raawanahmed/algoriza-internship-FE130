@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import axios from "axios";
+import config from "@/config";
 export const useSearchDetailsStore = defineStore("searchDetailsStore", {
   state: () => ({
     selectedDestinationData: {
@@ -25,6 +26,11 @@ export const useSearchDetailsStore = defineStore("searchDetailsStore", {
     isDestinationsLoading: true,
     isHotelsLoading: true,
     sortByOptions: JSON.parse(localStorage.getItem("sortBy")),
+    selectedSortOption: "",
+    selectedRangePrice: {
+      selectedMinPrice: "",
+      selectedMaxPrice: "",
+    },
   }),
 
   actions: {
@@ -72,6 +78,13 @@ export const useSearchDetailsStore = defineStore("searchDetailsStore", {
     setIsHotelsLoading(isLoading) {
       this.isHotelsLoading = isLoading;
     },
+    setSelectedRangePrice(minPrice, maxPrice) {
+      this.selectedRangePrice.maxPrice = maxPrice;
+      this.selectedRangePrice.minPrice = minPrice;
+    },
+    setSelectedSortOption(sortOption) {
+      this.selectedSortOption = sortOption;
+    },
     async fetchDestinations() {
       this.isDestinationsLoading = true;
       const options = {
@@ -79,7 +92,7 @@ export const useSearchDetailsStore = defineStore("searchDetailsStore", {
         url: "https://booking-com15.p.rapidapi.com/api/v1/hotels/searchDestination",
         params: { query: "egypt" },
         headers: {
-          'X-RapidAPI-Key': '4cced9aff8mshaa2c5cef3458b46p13f6dfjsnd2f3ea867ad4',
+          "X-RapidAPI-Key": config.rapidApiKey,
           "X-RapidAPI-Host": "booking-com15.p.rapidapi.com",
         },
       };
@@ -114,12 +127,13 @@ export const useSearchDetailsStore = defineStore("searchDetailsStore", {
           page_number: this.getCurrentPage,
           languagecode: "en-us",
           currency_code: "usd",
-          price_min: "",
-          price_max: "",
-          sort_by: "",
+          price_min: this.getSelectedRangePrice.selectedMinPrice,
+          price_max: this.getSelectedRangePrice.selectedMaxPrice,
+          sort_by: this.selectedSortOption,
         },
         headers: {
-          'X-RapidAPI-Key': '4cced9aff8mshaa2c5cef3458b46p13f6dfjsnd2f3ea867ad4',
+          "X-RapidAPI-Key":
+          config.rapidApiKey,
           "X-RapidAPI-Host": "booking-com15.p.rapidapi.com",
         },
       };
@@ -152,7 +166,8 @@ export const useSearchDetailsStore = defineStore("searchDetailsStore", {
           room_qty: this.getSelectedRooms,
         },
         headers: {
-          'X-RapidAPI-Key': '4cced9aff8mshaa2c5cef3458b46p13f6dfjsnd2f3ea867ad4',
+          "X-RapidAPI-Key":
+          config.rapidApiKey,
           "X-RapidAPI-Host": "booking-com15.p.rapidapi.com",
         },
       };
@@ -258,5 +273,7 @@ export const useSearchDetailsStore = defineStore("searchDetailsStore", {
     getHotels: (state) => state.hotels,
     getIsisDestinationsLoading: (state) => state.isDestinationsLoading,
     getIsHotelsLoading: (state) => state.isHotelsLoading,
+    getSelectedSortOption: (state) => state.selectedSortOption,
+    getSelectedRangePrice: (state) => state.selectedRangePrice,
   },
 });
