@@ -24,10 +24,5 @@ import PopularHotels from "@/components/PopularHotels.vue";
 import DownloadApp from "@/components/DownloadApp.vue";
 import Explore from "@/components/Explore.vue";
 import Footer from "@/components/Footer.vue";
-import { onMounted } from "vue";
 
-onMounted(() => {
-  localStorage.removeItem("searchData");
-  localStorage.removeItem("destinationId");
-});
 </script>
