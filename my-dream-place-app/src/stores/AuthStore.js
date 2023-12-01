@@ -51,17 +51,8 @@ export const useAuthStore = defineStore("authStore", {
     signOut() {
       this.user = null;
       this.isAuthenticated = false;
-
       router.push("/home");
-      localStorage.removeItem("user");
-      localStorage.removeItem("destinationId");
-      localStorage.removeItem("hotelsCount");
-      localStorage.removeItem("currentHotel");
-      localStorage.removeItem("hotelsOfreservedRooms");
-      localStorage.removeItem("searchData");
-      localStorage.removeItem("currentPage");
-      localStorage.removeItem("destinations");
-      localStorage.removeItem("hotelDetails");
+      localStorage.clear();
     },
   },
 });
