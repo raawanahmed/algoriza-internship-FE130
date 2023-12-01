@@ -4,7 +4,9 @@
     :notificationColor="'notification-black'"
     :showNavBar="true"
   />
-  <div v-if="isLoading" class="text-lg p-5 text-center">Loading...</div>
+  <div v-if="isLoading" class="loading-indicator">
+    <div class="spinner"></div>
+  </div>
   <div v-else>
     <div class="mx-auto w-[1440px] h-[500px]">
       <section class="mt-6 flex ml-[100px] mr-[100px]">
@@ -185,4 +187,16 @@ todos
 */
 </script>
 
-<style></style>
+<style>
+.loading-indicator {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+  background-color: rgba(255, 255, 255, 0.8);
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+</style>

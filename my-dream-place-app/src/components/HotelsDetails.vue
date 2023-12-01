@@ -230,7 +230,8 @@ todos
 */
 </script>
 
-<style>
+<style scoped>
+
 button.active {
   background-color: #2f80ed;
   color: #ffffff;
