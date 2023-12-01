@@ -4,7 +4,11 @@
     :notificationColor="'notification-black'"
     :showNavBar="false"
   />
-  <main class="bg-[#f4f4f4] pb-[140px]">
+  <div v-if="isHotelLoading" class="flex justify-center items-center h-[100vh]">
+    <div class="spinner"></div>
+  </div>
+
+  <main v-else class="bg-[#f4f4f4] pb-[140px]">
     <div class="w-full mx-auto max-w-[1440px]">
       <p class="mx-[100px] text-[32px] font-semibold pt-[60px]">
         Secure your reservation
@@ -33,10 +37,16 @@ import PaymentDetails from "@/components/PaymentDetails.vue";
 import ReservedRoom from "@/components/ReservedRoom.vue";
 import PriceDetails from "@/components/PriceDetails.vue";
 import { useHotelStore } from "@/stores/HotelStore";
-import { ref } from "vue";
+import { ref, watchEffect } from "vue";
 const hotelStore = useHotelStore();
 const selectedHotel = ref(hotelStore.getselectedHotelData);
-const isLoading = ref(true);
+const isHotelLoading = ref(false);
+watchEffect(()=>{
+  isHotelLoading.value = hotelStore.getIsHotelLoading
+})
+console.log(isHotelLoading.value)
+
+
 </script>
 
 <style></style>

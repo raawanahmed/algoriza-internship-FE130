@@ -62,6 +62,7 @@
 import Reviews from "./Reviews.vue";
 import { ref } from "vue";
 import { useSearchDetailsStore } from "@/stores/SearchDetailsStore";
+import { useHotelStore } from "@/stores/HotelStore";
 
 const { classOfCard, classOfImg, showPriceAndDetilsBtn, hotel } = defineProps([
   "classOfCard",
@@ -71,8 +72,14 @@ const { classOfCard, classOfImg, showPriceAndDetilsBtn, hotel } = defineProps([
 ]);
 
 const searchstore = useSearchDetailsStore();
-const noOfDays = ref(searchstore.getDifferenceInDays());
+const hotelStore = useHotelStore();
 const selectedHotel = ref(hotel);
+console.log(selectedHotel.value);
+const days = hotelStore.calcDifferenceInDays(
+  selectedHotel.value.property.checkinDate,
+  selectedHotel.value.property.checkoutDate
+);
+const noOfDays = ref(days);
 
 function formatDateToText(inputDate) {
   const options = {

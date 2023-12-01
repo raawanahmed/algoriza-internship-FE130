@@ -78,8 +78,7 @@ export const useSearchDetailsStore = defineStore("searchDetailsStore", {
         url: "https://booking-com15.p.rapidapi.com/api/v1/hotels/searchDestination",
         params: { query: "egypt" },
         headers: {
-          "X-RapidAPI-Key":
-            "2a99baf621msh04c1651a83dfe2cp13bfa6jsnd533ded3fd81",
+          'X-RapidAPI-Key': 'ae3511baa6msh5cde68a3fea29f1p1cac2ajsnc706e985da4f',
           "X-RapidAPI-Host": "booking-com15.p.rapidapi.com",
         },
       };
@@ -116,8 +115,7 @@ export const useSearchDetailsStore = defineStore("searchDetailsStore", {
           currency_code: "usd",
         },
         headers: {
-          "X-RapidAPI-Key":
-            "2a99baf621msh04c1651a83dfe2cp13bfa6jsnd533ded3fd81",
+          'X-RapidAPI-Key': 'ae3511baa6msh5cde68a3fea29f1p1cac2ajsnc706e985da4f',
           "X-RapidAPI-Host": "booking-com15.p.rapidapi.com",
         },
       };
@@ -150,43 +148,6 @@ export const useSearchDetailsStore = defineStore("searchDetailsStore", {
       const dests = localStorage.getItem("destinations");
       //console.log(dests);
       return dests ? JSON.parse(dests) : await this.fetchDestinations();
-    },
-    getDifferenceInDays() {
-      console.log(this.selectedDestinationFromStorage);
-      const checkinDateParts =
-        this.selectedDestinationFromStorage.selectedCheckinDate.split(".");
-      const checkoutDateParts =
-        this.selectedDestinationFromStorage.selectedCheckoutDate.split(".");
-
-      if (checkinDateParts.length !== 3 || checkoutDateParts.length !== 3) {
-        console.error("Invalid date format");
-        return 0;
-      }
-
-      const checkinDate = new Date(
-        parseInt(checkinDateParts[2], 10),
-        parseInt(checkinDateParts[1], 10) - 1,
-        parseInt(checkinDateParts[0], 10)
-      );
-
-      const checkoutDate = new Date(
-        parseInt(checkoutDateParts[2], 10),
-        parseInt(checkoutDateParts[1], 10) - 1,
-        parseInt(checkoutDateParts[0], 10)
-      );
-
-      if (isNaN(checkinDate) || isNaN(checkoutDate)) {
-        console.error("Invalid date format");
-        return 0;
-      }
-
-      const differenceInMilliseconds = checkoutDate - checkinDate;
-      const differenceInDays = differenceInMilliseconds / (1000 * 60 * 60 * 24);
-      const roundedDifferenceInDays = Math.round(differenceInDays);
-
-      console.log(`The difference is ${roundedDifferenceInDays} days.`);
-
-      return roundedDifferenceInDays;
     },
   },
 
@@ -253,6 +214,6 @@ export const useSearchDetailsStore = defineStore("searchDetailsStore", {
     },
     getHotels: (state) => state.hotels,
     getIsisDestinationsLoading: (state) => state.isDestinationsLoading,
-    getIsHotelLoading: (state) => state.isHotelsLoading,
+    getIsHotelsLoading: (state) => state.isHotelsLoading,
   },
 });

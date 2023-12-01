@@ -124,6 +124,7 @@ const blocksOfHotel = ref([]);
 
 const fetchHotel = async () => {
   try {
+    hotelStore.setIsHotelLoading(true);
     await hotelStore.fetchHotelDetails();
     hotelDetails.value = hotelStore.getHotelDetails;
     blocksOfHotel.value = hotelDetails.value.data.block;
@@ -135,6 +136,7 @@ const fetchHotel = async () => {
     console.error("Error fetching hotel data:", error);
   } finally {
     isLoading.value = false;
+    hotelStore.setIsHotelLoading(false);
   }
 };
 onMounted(() => {

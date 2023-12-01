@@ -159,7 +159,7 @@ const hotelStore = useHotelStore();
 const currentPage = ref(1);
 const totalPages = ref(20);
 const hotels = ref(searchDetailsStore.getHotels);
-const isHotelsLoading = ref(searchDetailsStore.getIsHotelLoading);
+const isHotelsLoading = ref(searchDetailsStore.getIsHotelsLoading);
 
 const fetchHotels = async () => {
   isHotelsLoading.value = true;
@@ -231,7 +231,6 @@ todos
 </script>
 
 <style scoped>
-
 button.active {
   background-color: #2f80ed;
   color: #ffffff;

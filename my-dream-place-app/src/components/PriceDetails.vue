@@ -33,7 +33,12 @@ const hotelStore = useHotelStore();
 const searchstore = useSearchDetailsStore();
 const selectedHotel = ref(hotelStore.getselectedHotelData);
 const noOfRooms = ref(searchstore.getSelectedRooms);
-const noOfDays = ref(searchstore.getDifferenceInDays());
+const noOfDays = ref(
+  hotelStore.calcDifferenceInDays(
+    selectedHotel.value.property.checkinDate,
+    selectedHotel.value.property.checkoutDate
+  )
+);
 
 // todo get the number of rooms and the dayes .. done
 
