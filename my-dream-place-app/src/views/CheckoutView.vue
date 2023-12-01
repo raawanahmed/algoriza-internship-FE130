@@ -36,6 +36,7 @@ import { useHotelStore } from "@/stores/HotelStore";
 import { ref } from "vue";
 const hotelStore = useHotelStore();
 const selectedHotel = ref(hotelStore.getselectedHotelData);
+const isLoading = ref(true);
 </script>
 
 <style></style>

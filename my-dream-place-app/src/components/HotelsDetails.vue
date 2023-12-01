@@ -157,12 +157,14 @@ watch(
   }
 );
 fetchHotels();
-const changePage = (page) => {
+const changePage = async (page) => {
   if (page >= 1 && page <= totalPages.value) {
     currentPage.value = page;
   }
   searchDetailsStore.setCurrenPage(page);
-  fetchHotels();
+  isLoading.value = true;
+  await fetchHotels();
+  isLoading.value = false;
 };
 
 const paginationButtons = computed(() => {

@@ -56,7 +56,7 @@ export const useSearchDetailsStore = defineStore("searchDetailsStore", {
       this.selectedDestinationData.selectedRooms = rooms;
     },
     setSeachDataToStorage(searchData) {
-      console.log(searchData);
+      console.log("SearchData", searchData);
       localStorage.setItem("searchData", JSON.stringify(searchData));
       console.log("local: ", this.selectedDestinationFromStorage);
     },
@@ -76,8 +76,7 @@ export const useSearchDetailsStore = defineStore("searchDetailsStore", {
         url: "https://booking-com15.p.rapidapi.com/api/v1/hotels/searchDestination",
         params: { query: "egypt" },
         headers: {
-          "X-RapidAPI-Key":
-            "ef36964bf1msh5b69499800c7bdfp195c9ajsnefcfdc7d84c7",
+          'X-RapidAPI-Key': 'e92c684514mshe00e5fb9f9e6c14p1b4f8ajsn6342ba042c38',
           "X-RapidAPI-Host": "booking-com15.p.rapidapi.com",
         },
       };
@@ -110,8 +109,7 @@ export const useSearchDetailsStore = defineStore("searchDetailsStore", {
           currency_code: "usd",
         },
         headers: {
-          "X-RapidAPI-Key":
-            "ef36964bf1msh5b69499800c7bdfp195c9ajsnefcfdc7d84c7",
+          'X-RapidAPI-Key': 'e92c684514mshe00e5fb9f9e6c14p1b4f8ajsn6342ba042c38',
           "X-RapidAPI-Host": "booking-com15.p.rapidapi.com",
         },
       };
@@ -121,11 +119,21 @@ export const useSearchDetailsStore = defineStore("searchDetailsStore", {
         console.log(response);
         this.hotels = response.data.data.hotels;
         return this.hotels;
-        // totalPages.value = Math.ceil(totalHotels.value / 20);
-        // console.log(response.data.data.meta.total, totalPages)
       } catch (error) {
         console.error(error);
       }
+    },
+    getNumberOfTotalPagesTotalPages(title) {
+      console.log(title);
+      const properties = title.match(/\d+/);
+
+      if (properties) {
+        const number = properties[0];
+        console.log(number);
+      } else {
+        console.log("No number found in the title");
+      }
+      return Math.ceil(properties / 20);
     },
     getDestinations() {
       const dests = localStorage.getItem("destinations");

@@ -24,7 +24,7 @@ export const useHotelsOfreservedRoomsStore = defineStore(
       gethotelsOfreservedRooms: (state) => {
         return state.hotelsOfreservedRoomsFromStorage
           ? state.hotelsOfreservedRoomsFromStorage
-          : null;
+          : [];
       },
     },
   }

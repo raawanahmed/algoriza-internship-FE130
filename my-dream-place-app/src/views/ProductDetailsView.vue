@@ -111,13 +111,13 @@ import ExploreArea from "@/components/ExploreArea.vue";
 import Ad from "@/components/Ad.vue";
 import RoomDetails from "@/components/RoomDetails.vue";
 import { useHotelStore } from "@/stores/HotelStore";
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 const activeTab = ref("overview");
 
 const hotelStore = useHotelStore();
 const selectedHotel = ref(hotelStore.getselectedHotelData);
 const hotelDetails = ref(hotelStore.getHotelDetails);
-const isLoading = ref(false);
+const isLoading = ref(true);
 const blocksOfHotel = ref([]);
 
 const fetchHotel = async () => {
@@ -135,7 +135,9 @@ const fetchHotel = async () => {
     isLoading.value = false;
   }
 };
-
+onMounted(() => {
+  fetchHotel();
+});
 const getBedTypes = (roomId) => {
   const room = hotelDetails.value.data.rooms[roomId];
   if (
@@ -172,8 +174,6 @@ const goToAvailableRooms = () => {
     availableRoomsSection.scrollIntoView({ behavior: "smooth" });
   }
 };
-fetchHotel();
-// console.log(hotelDetails.value.data);
 
 /*
 todos 
