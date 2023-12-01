@@ -70,7 +70,7 @@ export const useHotelStore = defineStore("hotelStore", {
           currency_code: "USD",
         },
         headers: {
-          'X-RapidAPI-Key': 'f38f1ded64msh7e85db60c951678p11a065jsna6808dcdf49f',
+          'X-RapidAPI-Key': '4cced9aff8mshaa2c5cef3458b46p13f6dfjsnd2f3ea867ad4',
           "X-RapidAPI-Host": "booking-com15.p.rapidapi.com",
         },
       };

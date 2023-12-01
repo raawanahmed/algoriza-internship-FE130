@@ -24,6 +24,7 @@ export const useSearchDetailsStore = defineStore("searchDetailsStore", {
     currentPageFromStorage: JSON.parse(localStorage.getItem("currentPage")),
     isDestinationsLoading: true,
     isHotelsLoading: true,
+    sortByOptions: JSON.parse(localStorage.getItem("sortBy")),
   }),
 
   actions: {
@@ -78,7 +79,7 @@ export const useSearchDetailsStore = defineStore("searchDetailsStore", {
         url: "https://booking-com15.p.rapidapi.com/api/v1/hotels/searchDestination",
         params: { query: "egypt" },
         headers: {
-          'X-RapidAPI-Key': 'f38f1ded64msh7e85db60c951678p11a065jsna6808dcdf49f',
+          'X-RapidAPI-Key': '4cced9aff8mshaa2c5cef3458b46p13f6dfjsnd2f3ea867ad4',
           "X-RapidAPI-Host": "booking-com15.p.rapidapi.com",
         },
       };
@@ -113,9 +114,12 @@ export const useSearchDetailsStore = defineStore("searchDetailsStore", {
           page_number: this.getCurrentPage,
           languagecode: "en-us",
           currency_code: "usd",
+          price_min: "",
+          price_max: "",
+          sort_by: "",
         },
         headers: {
-          'X-RapidAPI-Key': 'f38f1ded64msh7e85db60c951678p11a065jsna6808dcdf49f',
+          'X-RapidAPI-Key': '4cced9aff8mshaa2c5cef3458b46p13f6dfjsnd2f3ea867ad4',
           "X-RapidAPI-Host": "booking-com15.p.rapidapi.com",
         },
       };
@@ -131,6 +135,45 @@ export const useSearchDetailsStore = defineStore("searchDetailsStore", {
         this.isHotelsLoading = false;
         console.log(this.isHotelsLoading);
       }
+    },
+
+    async fetchSortByOptions() {
+      this.isHotelsLoading = true;
+      const options = {
+        method: "GET",
+        url: "https://booking-com15.p.rapidapi.com/api/v1/hotels/getSortBy",
+        params: {
+          dest_id: this.getSelectedDestinationId,
+          search_type: "city",
+          arrival_date: this.getDateFormatted(this.getSelectedCheckinDate),
+          departure_date: this.getDateFormatted(this.getSelectedCheckoutDate),
+          adults: this.getSelectedGuests,
+          children_age: "1,17",
+          room_qty: this.getSelectedRooms,
+        },
+        headers: {
+          'X-RapidAPI-Key': '4cced9aff8mshaa2c5cef3458b46p13f6dfjsnd2f3ea867ad4',
+          "X-RapidAPI-Host": "booking-com15.p.rapidapi.com",
+        },
+      };
+
+      try {
+        const response = await axios.request(options);
+        console.log(response.data);
+        localStorage.setItem("sortBy", JSON.stringify(response.data.data));
+
+        return response.data.data;
+      } catch (error) {
+        console.error(error);
+      } finally {
+        this.isHotelsLoading = false;
+        console.log(this.isHotelsLoading);
+      }
+    },
+    async getSortByOptions() {
+      const options = localStorage.getItem("sortBy");
+      //console.log(options);
+      return options ? JSON.parse(options) : await this.fetchSortByOptions();
     },
     getNumberOfTotalPagesTotalPages(title) {
       console.log(title);

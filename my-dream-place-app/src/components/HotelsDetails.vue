@@ -14,9 +14,13 @@
           <option disabled selected hidden class="text-[#828282]">
             Sort by
           </option>
-          <option value="value1">Display Text 1</option>
-          <option value="value2">Display Text 2</option>
-          <option value="value3">Display Text 3</option>
+          <option
+            v-for="option in sortByOptions"
+            :key="option.title"
+            :value="option.title"
+          >
+            {{ option.title }}
+          </option>
         </select>
       </div>
     </div>
@@ -144,7 +148,7 @@
 <script setup>
 import { useSearchDetailsStore } from "@/stores/SearchDetailsStore";
 
-import { ref, computed, onMounted, watch } from "vue";
+import { ref, computed, onMounted, watch, watchEffect } from "vue";
 import { useHotelStore } from "@/stores/HotelStore";
 import Reviews from "./Reviews.vue";
 
@@ -157,13 +161,16 @@ const destName = ref(searchDetailsStore.getSelectedDestinationName);
 const destCount = ref(searchDetailsStore.getHotelsCountOfDist);
 const hotelStore = useHotelStore();
 const currentPage = ref(1);
-const totalPages = ref(20);
+
 const hotels = ref(searchDetailsStore.getHotels);
 const isHotelsLoading = ref(searchDetailsStore.getIsHotelsLoading);
 
+const totalProperties = ref(-1);
+const returnedHotels = ref(null);
+const totalPages = ref(Math.ceil(destCount / 20));
 const fetchHotels = async () => {
   isHotelsLoading.value = true;
-  await searchDetailsStore.fetchHotels();
+  returnedHotels.value = await searchDetailsStore.fetchHotels();
   hotels.value = searchDetailsStore.getHotels;
   destName.value = searchDetailsStore.getSelectedDestinationName;
   destCount.value = searchDetailsStore.getHotelsCountOfDist;
@@ -171,10 +178,16 @@ const fetchHotels = async () => {
 };
 
 // console.log(JSON.parse(route.params.searchData));
+const sortByOptions = ref(searchDetailsStore.getSortByOptions());
+watchEffect(async () => {
+  sortByOptions.value = await searchDetailsStore.getSortByOptions();
+});
+console.log(sortByOptions.value);
 
 watch(
   () => JSON.parse(route.params.searchData),
   async (newSearchData) => {
+    totalProperties.value = -1;
     // console.log("New Search Data: ", newSearchData);
     isHotelsLoading.value = true;
     await fetchHotels();
@@ -194,8 +207,8 @@ const changePage = async (page) => {
 
 const paginationButtons = computed(() => {
   const buttons = [];
-  const totalButtons = 3;
-
+  const totalButtons = 100;
+  console.log(totalPages.value);
   if (totalPages.value <= totalButtons) {
     for (let i = 1; i <= totalPages.value; i++) {
       buttons.push(i);
