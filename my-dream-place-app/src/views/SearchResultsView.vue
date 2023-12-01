@@ -24,22 +24,6 @@
         <Rating />
       </div>
       <div class="col-span-3 bg-white">
-        <div class="flex relative">
-          <p class="font-semibold text-2xl">
-            {{ searchDetailsStore.getSelectedDestinationName }} :
-            {{ searchDetailsStore.getHotelsCountOfDist }} search results found
-          </p>
-          <select
-            class="absolute right-0 w-[190px] h-[48px] py-2 px-3 border-[1px] border-[#BDBDBD] rounded-md pr-3 flex"
-          >
-            <option disabled selected hidden class="text-[#828282]">
-              Sort by
-            </option>
-            <option value="value1">Display Text 1</option>
-            <option value="value2">Display Text 2</option>
-            <option value="value3">Display Text 3</option>
-          </select>
-        </div>
         <HotelsDetails />
       </div>
     </div>

@@ -214,7 +214,7 @@ const goSearch = async () => {
     return;
   }
   try {
-    searchDetailsStore.setIsLoading(true);
+    searchDetailsStore.setIsHotelsLoading(true);
     await searchDetailsStore.fetchHotels();
     console.log("search data?? ", searchData);
     searchDetailsStore.setSeachDataToStorage(searchData);
@@ -225,7 +225,7 @@ const goSearch = async () => {
   } catch (error) {
     console.error("Error fetching hotels: ", error);
   } finally {
-    searchDetailsStore.setIsLoading(true);
+    searchDetailsStore.setIsHotelsLoading(false);
   }
 };
 

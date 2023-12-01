@@ -1,10 +1,28 @@
 <template>
-   <div v-if="isLoading" class="loading-indicator">
+  <div v-if="isHotelsLoading" class="loading-indicator">
     <div class="spinner"></div>
   </div>
-  <!-- <div v-if="isLoading" class="loading-indicator">Loading...</div> -->
+  <div v-if="isHotelsLoading == false">
+    <div class="col-span-3 bg-white">
+      <div class="flex relative">
+        <p class="font-semibold text-2xl">
+          {{ destName }} : {{ destCount }} search results found
+        </p>
+        <select
+          class="absolute right-0 w-[190px] h-[48px] py-2 px-3 border-[1px] border-[#BDBDBD] rounded-md pr-3 flex mr-[10px]"
+        >
+          <option disabled selected hidden class="text-[#828282]">
+            Sort by
+          </option>
+          <option value="value1">Display Text 1</option>
+          <option value="value2">Display Text 2</option>
+          <option value="value3">Display Text 3</option>
+        </select>
+      </div>
+    </div>
+  </div>
   <div v-for="hotel in hotels" :key="hotel.hotel_id">
-    <div v-if="isLoading == false">
+    <div v-if="isHotelsLoading == false">
       <section
         class="mt-6 rounded"
         style="
@@ -135,17 +153,21 @@ const router = useRouter();
 const route = useRoute();
 
 const searchDetailsStore = useSearchDetailsStore();
+const destName = ref(searchDetailsStore.getSelectedDestinationName);
+const destCount = ref(searchDetailsStore.getHotelsCountOfDist);
 const hotelStore = useHotelStore();
 const currentPage = ref(1);
 const totalPages = ref(20);
 const hotels = ref(searchDetailsStore.getHotels);
-const isLoading = ref(searchDetailsStore.getLoadingStatus);
+const isHotelsLoading = ref(searchDetailsStore.getIsHotelLoading);
 
 const fetchHotels = async () => {
-  isLoading.value = true;
+  isHotelsLoading.value = true;
   await searchDetailsStore.fetchHotels();
   hotels.value = searchDetailsStore.getHotels;
-  isLoading.value = false;
+  destName.value = searchDetailsStore.getSelectedDestinationName;
+  destCount.value = searchDetailsStore.getHotelsCountOfDist;
+  isHotelsLoading.value = false;
 };
 
 // console.log(JSON.parse(route.params.searchData));
@@ -154,9 +176,9 @@ watch(
   () => JSON.parse(route.params.searchData),
   async (newSearchData) => {
     // console.log("New Search Data: ", newSearchData);
-    isLoading.value = true;
+    isHotelsLoading.value = true;
     await fetchHotels();
-    isLoading.value = false;
+    isHotelsLoading.value = false;
   }
 );
 fetchHotels();
@@ -165,9 +187,9 @@ const changePage = async (page) => {
     currentPage.value = page;
   }
   searchDetailsStore.setCurrenPage(page);
-  isLoading.value = true;
+  isHotelsLoading.value = true;
   await fetchHotels();
-  isLoading.value = false;
+  isHotelsLoading.value = false;
 };
 
 const paginationButtons = computed(() => {

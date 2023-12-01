@@ -14,7 +14,6 @@ export const useSearchDetailsStore = defineStore("searchDetailsStore", {
     currentPage: 1,
     destinations: [],
     hotels: [],
-    isLoading: null,
     selectedDestinationFromStorage: JSON.parse(
       localStorage.getItem("searchData")
     ),
@@ -23,7 +22,8 @@ export const useSearchDetailsStore = defineStore("searchDetailsStore", {
       localStorage.getItem("hotelsCount")
     ),
     currentPageFromStorage: JSON.parse(localStorage.getItem("currentPage")),
-    destinationsLoading: true,
+    isDestinationsLoading: true,
+    isHotelsLoading: true,
   }),
 
   actions: {
@@ -68,17 +68,18 @@ export const useSearchDetailsStore = defineStore("searchDetailsStore", {
       this.currentPage = page;
       localStorage.setItem("currentPage", JSON.stringify(page));
     },
-    setIsLoading(isLoading) {
-      this.isLoading = isLoading;
+    setIsHotelsLoading(isLoading) {
+      this.isHotelsLoading = isLoading;
     },
     async fetchDestinations() {
+      this.isDestinationsLoading = true;
       const options = {
         method: "GET",
         url: "https://booking-com15.p.rapidapi.com/api/v1/hotels/searchDestination",
         params: { query: "egypt" },
         headers: {
           "X-RapidAPI-Key":
-            "e92c684514mshe00e5fb9f9e6c14p1b4f8ajsn6342ba042c38",
+            "13d031d0ddmsha7e322623ee0f2bp148e0ajsnb3a6c690358d",
           "X-RapidAPI-Host": "booking-com15.p.rapidapi.com",
         },
       };
@@ -92,12 +93,13 @@ export const useSearchDetailsStore = defineStore("searchDetailsStore", {
       } catch (error) {
         console.error(error);
       } finally {
-        this.destinationsLoading = false;
-        console.log(this.destinationsLoading);
+        this.isDestinationsLoading = false;
+        console.log(this.isDestinationsLoading);
       }
     },
 
     async fetchHotels() {
+      this.isHotelsLoading = true;
       const options = {
         method: "GET",
         url: "https://booking-com15.p.rapidapi.com/api/v1/hotels/searchHotels",
@@ -115,7 +117,7 @@ export const useSearchDetailsStore = defineStore("searchDetailsStore", {
         },
         headers: {
           "X-RapidAPI-Key":
-            "e92c684514mshe00e5fb9f9e6c14p1b4f8ajsn6342ba042c38",
+            "13d031d0ddmsha7e322623ee0f2bp148e0ajsnb3a6c690358d",
           "X-RapidAPI-Host": "booking-com15.p.rapidapi.com",
         },
       };
@@ -127,6 +129,9 @@ export const useSearchDetailsStore = defineStore("searchDetailsStore", {
         return this.hotels;
       } catch (error) {
         console.error(error);
+      } finally {
+        this.isHotelsLoading = false;
+        console.log(this.isHotelsLoading);
       }
     },
     getNumberOfTotalPagesTotalPages(title) {
@@ -247,7 +252,7 @@ export const useSearchDetailsStore = defineStore("searchDetailsStore", {
       );
     },
     getHotels: (state) => state.hotels,
-    getLoadingStatus: (state) => state.isLoading,
-    getIsDestinationsLoading: (state) => state.destinationsLoading,
+    getIsisDestinationsLoading: (state) => state.isDestinationsLoading,
+    getIsHotelLoading: (state) => state.isHotelsLoading,
   },
 });
