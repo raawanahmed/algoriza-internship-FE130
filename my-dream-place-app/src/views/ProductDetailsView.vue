@@ -74,7 +74,7 @@
             </section>
             <OverviewOfHotel />
           </div>
-          <ExploreArea />
+          <ExploreArea :latitude="hotelDetails.data.latitude" :longitude="hotelDetails.data.longitude" />
         </section>
         <div class="ml-[100px] mr-[100px]" id="available-rooms">
           <p class="text-2xl font-semibold mt-[40px] mb-[32px]">

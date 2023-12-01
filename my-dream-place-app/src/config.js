@@ -1,6 +1,6 @@
 // config.js
 const config = {
-  rapidApiKey: "0bcac5eb1bmsh72f3b152d92674ap10612ajsnaebe967941f3",
+  rapidApiKey: "34cefcab42mshc8b73c9b2197663p177018jsn0aa319b0174d",
 };
 
 export default config;

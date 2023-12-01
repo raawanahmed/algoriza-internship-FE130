@@ -1,4 +1,5 @@
 <template>
+
   <div>
     <p class="font-semibold text-lg mt-5 mb-5 text-[#333] ml-[18px]">
       Filter by
@@ -11,7 +12,7 @@
       </p>
       <div class="px-[18px] pt-[18px]">
         <div
-          v-for="option in budgetOptions"
+          v-for="option in Object.values(budgetOptions)"
           :key="option.id"
           class="mb-[14px] flex items-center text-[#333]"
         >
@@ -22,10 +23,11 @@
             :value="option.value"
             class="mr-2 w-5 h-5 rounded border border-[#e0e0e0]"
             :checked="selectedBudget === option.value"
-            @change="updateSelectedBudget(option.value)"
+            @change="updateSelectedBudget(option)"
           />
           <label :for="option.id">{{ option.label }}</label>
         </div>
+
         <div class="flex relative">
           <p class="text-[#4F4F4F]">Set your own budget</p>
           <img
@@ -64,35 +66,74 @@
 
 <script setup>
 import { ref } from "vue";
+import { useSearchDetailsStore } from "@/stores/SearchDetailsStore";
 
 const isToggled = ref(false);
 const selectedBudget = ref(null);
+const searchDetailsStore = useSearchDetailsStore();
+const isHotelsLoading = ref(searchDetailsStore.getIsHotelsLoading);
+const BudgetOptions = {
+  ZERO_TO_200: {
+    id: "1",
+    value: "0-200",
+    minPrice: "0",
+    maxPrice: "200",
+    label: "$0 - $200",
+  },
+  TWO_HUNDRED_TO_500: {
+    id: "2",
+    value: "200-500",
+    minPrice: "200",
+    maxPrice: "500",
+    label: "$200 - $500",
+  },
+  FIVE_HUNDRED_TO_1000: {
+    id: "3",
+    value: "500-1000",
+    minPrice: "500",
+    maxPrice: "1000",
+    label: "$500 - $1000",
+  },
+  ONE_THOUSAND_TO_2000: {
+    id: "4",
+    value: "1000-2000",
+    minPrice: "1000",
+    maxPrice: "2000",
+    label: "$1000 - $2000",
+  },
+  TWO_THOUSAND_TO_5000: {
+    id: "5",
+    value: "2000-5000",
+    minPrice: "2000",
+    maxPrice: "5000",
+    label: "$2000 - $5000",
+  },
+};
 
-const budgetOptions = [
-  { id: "0-200", value: "0-200", label: "$0 - $200" },
-  { id: "200-500", value: "200-500", label: "$200 - $500" },
-  { id: "500-1000", value: "500-1000", label: "$500 - $1,000" },
-  { id: "1000-2000", value: "1000-2000", label: "$1,000 - $2,000" },
-  { id: "2000-5000", value: "2000-5000", label: "$2,000 - $5,000" },
-];
+const budgetOptions = ref(BudgetOptions);
 
 const toggleTheToggle = () => {
   isToggled.value = !isToggled.value;
   selectedBudget.value = null;
 };
 
-const updateSelectedBudget = (value) => {
+const updateSelectedBudget = async (option) => {
   if (!isToggled.value) {
-    selectedBudget.value = value;
+    selectedBudget.value =
+      selectedBudget.value === option.value ? null : option.value;
+    searchDetailsStore.setSelectedRangePrice(option.minPrice, option.maxPrice);
+    isHotelsLoading.value = true;
+    await searchDetailsStore.fetchHotels();
+    isHotelsLoading.value = false;
   }
 };
 /*
 todos 
 1- add the design .. done
-2- handle the logic with static data
+2- handle the logic from api with static data .. done but I didn't tested it because of apis
 
 challenging todos
-3- try to handle logic with min and max values for budget
+3- try to handle logic with min and max values for budget getting them from hotels in the page
 4- if it's possible get the count of them 
 */
 </script>
