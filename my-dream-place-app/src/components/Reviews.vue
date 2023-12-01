@@ -1,12 +1,10 @@
 <template>
-  <main style="font-family: SF Pro Display, sans-serif">
-    <div v-for="index in generateRange(reviewScore)" :key="index" class="flex">
-      <img src="../assets/Icons/star.svg" alt="star icon" />
-    </div>
-    <p class="text-sm ml-2 text-[#4f4f4f]">
-      {{ numberOfStars }} ({{ reviewsCount }} Reviews)
-    </p>
-  </main>
+  <div v-for="index in generateRange(reviewScore)" :key="index" class="flex">
+    <img src="../assets/Icons/star.svg" alt="star icon" />
+  </div>
+  <p class="text-sm ml-2 text-[#4f4f4f]" style="font-family: SF Pro Display, sans-serif">
+    {{ numberOfStars }} ({{ reviewsCount }} Reviews)
+  </p>
 </template>
 
 <script setup>
