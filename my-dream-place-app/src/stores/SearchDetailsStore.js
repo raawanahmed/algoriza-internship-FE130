@@ -143,7 +143,7 @@ export const useSearchDetailsStore = defineStore("searchDetailsStore", {
     },
     async getDestinations() {
       const dests = localStorage.getItem("destinations");
-      console.log(dests);
+      //console.log(dests);
       return dests ? JSON.parse(dests) : await this.fetchDestinations();
     },
     getDifferenceInDays() {

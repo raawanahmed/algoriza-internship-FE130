@@ -1,5 +1,8 @@
 <template>
-  <div v-if="isLoading" class="loading-indicator">Loading...</div>
+   <div v-if="isLoading" class="loading-indicator">
+    <div class="spinner"></div>
+  </div>
+  <!-- <div v-if="isLoading" class="loading-indicator">Loading...</div> -->
   <div v-for="hotel in hotels" :key="hotel.hotel_id">
     <div v-if="isLoading == false">
       <section

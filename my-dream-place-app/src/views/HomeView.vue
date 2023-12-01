@@ -37,7 +37,7 @@ onMounted(async () => {
 });
 </script>
 
-<style scoped>
+<style>
 
 .spinner {
   border: 8px solid #f3f3f3;
