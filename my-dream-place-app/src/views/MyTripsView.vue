@@ -4,7 +4,10 @@
     :notificationColor="'notification-black'"
     :showNavBar="true"
   />
-  <section class="bg-[#F4F4F4]">
+  <div v-if="isTripsLoading" class="flex justify-center items-center h-[100vh]">
+    <div class="spinner"></div>
+  </div>
+  <section v-else class="bg-[#F4F4F4]">
     <div class="mx-[205px]">
       <p class="pt-[75px] font-semibold text-[32px]">My trips</p>
       <div v-if="hotelsOfreservedRooms.length > 0">
@@ -32,13 +35,17 @@ import Header from "@/components/Header.vue";
 import CovidAlert from "@/components/CovidAlert.vue";
 import Footer from "@/components/Footer.vue";
 import ReservedRoom from "@/components/ReservedRoom.vue";
-import { useHotelsOfreservedRoomsStore } from "@/stores/ReservedRoomsStore";
-import { ref, watchEffect } from "vue";
-const hotelsOfreservedRoomsStore = useHotelsOfreservedRoomsStore();
-const hotelsOfreservedRooms = ref([]);
-watchEffect(() => {
-  hotelsOfreservedRooms.value =
-    hotelsOfreservedRoomsStore.gethotelsOfreservedRooms;
+import { ref, onMounted } from "vue";
+const hotelsOfreservedRooms = ref(
+  JSON.parse(localStorage.getItem("hotelsOfreservedRooms"))
+);
+const isTripsLoading = ref(true);
+
+onMounted(() => {
+  hotelsOfreservedRooms.value = JSON.parse(
+    localStorage.getItem("hotelsOfreservedRooms")
+  );
+  isTripsLoading.value = false;
 });
 </script>
 

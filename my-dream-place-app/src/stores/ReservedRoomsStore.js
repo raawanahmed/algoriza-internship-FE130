@@ -7,16 +7,19 @@ export const useHotelsOfreservedRoomsStore = defineStore(
       hotelsOfreservedRoomsFromStorage: JSON.parse(
         localStorage.getItem("hotelsOfreservedRooms")
       ),
+      isTripsLoading: true,
     }),
 
     actions: {
       addHotelOfReservedRoom(room) {
+        this.isTripsLoading = true;
         this.hotelsOfreservedRooms = [...this.hotelsOfreservedRooms, room];
         console.log("Reserved rooms: ", this.hotelsOfreservedRooms);
         localStorage.setItem(
           "hotelsOfreservedRooms",
           JSON.stringify(this.hotelsOfreservedRooms)
         );
+        this.isTripsLoading = false;
       },
     },
 
@@ -26,6 +29,7 @@ export const useHotelsOfreservedRoomsStore = defineStore(
           ? state.hotelsOfreservedRoomsFromStorage
           : [];
       },
+      getIsTripsLoading: (state) => state.isTripsLoading,
     },
   }
 );

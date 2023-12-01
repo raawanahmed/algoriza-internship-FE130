@@ -78,7 +78,7 @@ export const useSearchDetailsStore = defineStore("searchDetailsStore", {
         url: "https://booking-com15.p.rapidapi.com/api/v1/hotels/searchDestination",
         params: { query: "egypt" },
         headers: {
-          'X-RapidAPI-Key': 'ae3511baa6msh5cde68a3fea29f1p1cac2ajsnc706e985da4f',
+          'X-RapidAPI-Key': 'f38f1ded64msh7e85db60c951678p11a065jsna6808dcdf49f',
           "X-RapidAPI-Host": "booking-com15.p.rapidapi.com",
         },
       };
@@ -115,7 +115,7 @@ export const useSearchDetailsStore = defineStore("searchDetailsStore", {
           currency_code: "usd",
         },
         headers: {
-          'X-RapidAPI-Key': 'ae3511baa6msh5cde68a3fea29f1p1cac2ajsnc706e985da4f',
+          'X-RapidAPI-Key': 'f38f1ded64msh7e85db60c951678p11a065jsna6808dcdf49f',
           "X-RapidAPI-Host": "booking-com15.p.rapidapi.com",
         },
       };
