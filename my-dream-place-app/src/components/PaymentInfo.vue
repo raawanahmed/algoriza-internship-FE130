@@ -40,19 +40,28 @@
         </p>
       </div>
     </section>
+    <section v-if="paymentCompleted">
+      <BookingModal />
+    </section>
   </div>
 </template>
 
 <script setup>
-// todo highlight texts and adjust the spacing
+import BookingModal from "./BookingModal.vue";
 import { useHotelStore } from "@/stores/HotelStore";
 import { useHotelsOfreservedRoomsStore } from "@/stores/ReservedRoomsStore";
+import { ref } from "vue";
+
 const hotelStore = useHotelStore();
 const hotelsOfreservedRoomsStore = useHotelsOfreservedRoomsStore();
+
+const paymentCompleted = ref(false);
 const completePayment = () => {
   const hotel = hotelStore.getselectedHotelData;
   hotelsOfreservedRoomsStore.addHotelOfReservedRoom(hotel);
+  paymentCompleted.value = true;
 };
+// todo highlight texts and adjust the spacing
 </script>
 
 <style></style>
