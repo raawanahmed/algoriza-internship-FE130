@@ -1,5 +1,8 @@
 <template>
-  <div class="rounded-md w-[295px] h-[119px] bg-[#f2f2f2]" style="font-family: SF Pro Display, sans-serif">
+  <div
+    class="rounded-md w-[295px] h-[119px] bg-[#f2f2f2]"
+    style="font-family: SF Pro Display, sans-serif"
+  >
     <p class="font-semibold text-base ml-5 mr-5 pt-3 text-[#181818]">
       Search by property name
     </p>
@@ -11,12 +14,23 @@
         type="text"
         class="mb-5 mt-4 rounded pl-9 h-[44px] w-[259px] mx-[18px]"
         placeholder="eg. Beach westpalm"
+        v-model="enteredName"
       />
     </div>
   </div>
 </template>
 
 <script setup>
+import { ref, watchEffect } from "vue";
+import { useSearchDetailsStore } from "@/stores/SearchDetailsStore";
+const searchDetailsStore = useSearchDetailsStore();
+
+const enteredName = ref("");
+
+watchEffect(() => {
+  console.log(enteredName.value);
+  searchDetailsStore.setEnteredName(enteredName.value);
+});
 /*
 todos
 1- handle functionality here when searching

@@ -27,8 +27,11 @@
           </select>
         </div>
       </div>
-      <p v-if="filteredHotels.length === 0" class="text-[#ff3636] text-center mt-[50px] text-2xl">
-        There are no hotels in this page with this rating
+      <p
+        v-if="filteredHotels.length === 0"
+        class="text-[#ff3636] text-center mt-[50px] text-2xl"
+      >
+        {{ msgToDisplay }}
       </p>
     </div>
 
@@ -144,6 +147,8 @@ const selectedSortOption = ref("Sort by");
 const sortByOptions = ref(searchDetailsStore.getSortByOptions());
 const rangePrice = ref(searchDetailsStore.getSelectedRangePrice);
 const selectedRating = ref(searchDetailsStore.getSelectedRating);
+const enteredName = ref(searchDetailsStore.getEnteredName);
+const msgToDisplay = ref("");
 
 const fetchHotels = async () => {
   isHotelsLoading.value = true;
@@ -194,23 +199,36 @@ watch(
   () => searchDetailsStore.getSelectedRating,
   (newRating) => {
     selectedRating.value = newRating;
-    // Do something when selectedRating changes
     console.log("Selected Rating Changed:", newRating);
+  }
+);
+
+watch(
+  () => searchDetailsStore.getEnteredName,
+  (newName) => {
+    enteredName.value = newName;
+    console.log("Entered Name:", newName);
   }
 );
 const generateRange = (num) =>
   Array.from({ length: Math.ceil(num / 2) }, (_, index) => index + 1);
 
 const filteredHotels = computed(() => {
-  if (!selectedRating.value) {
-    return hotels.value;
-  } else {
+  if (selectedRating.value) {
+    msgToDisplay.value = "There are no hotels in this page with this rating";
     return hotels.value.filter(
       (hotel) =>
         generateRange(hotel.property.reviewScore).length ===
         selectedRating.value
     );
-  }
+  } else if (enteredName.value) {
+    msgToDisplay.value = "There are no hotels contains this name";
+    return hotels.value.filter((hotel) =>
+      hotel.property.name
+        .toLowerCase()
+        .includes(enteredName.value.toLowerCase())
+    );
+  } else return hotels.value;
 });
 const changePage = async (page) => {
   if (page >= 1 && page <= totalPages.value) {

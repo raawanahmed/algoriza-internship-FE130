@@ -32,6 +32,7 @@ export const useSearchDetailsStore = defineStore("searchDetailsStore", {
       selectedMaxPrice: "",
     },
     selectedRating: null,
+    enteredName: null,
   }),
 
   actions: {
@@ -88,7 +89,9 @@ export const useSearchDetailsStore = defineStore("searchDetailsStore", {
     },
     setSelectedRating(rating) {
       this.selectedRating = rating;
-      console.log(this.selectedRating)
+    },
+    setEnteredName(name) {
+      this.enteredName = name;
     },
     async fetchDestinations() {
       this.isDestinationsLoading = true;
@@ -279,5 +282,6 @@ export const useSearchDetailsStore = defineStore("searchDetailsStore", {
     getSelectedSortOption: (state) => state.selectedSortOption,
     getSelectedRangePrice: (state) => state.selectedRangePrice,
     getSelectedRating: (state) => state.selectedRating,
+    getEnteredName: (state) => state.enteredName,
   },
 });
