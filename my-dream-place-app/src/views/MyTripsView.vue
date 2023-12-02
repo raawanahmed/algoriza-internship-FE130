@@ -10,7 +10,7 @@
   <section v-else class="bg-[#F4F4F4]">
     <div class="mx-[205px]">
       <p class="pt-[75px] font-semibold text-[32px]">My trips</p>
-      <div v-if="hotelsOfreservedRooms.length > 0">
+      <div v-if="hotelsOfreservedRooms && hotelsOfreservedRooms.length > 0">
         <div v-for="hotel in hotelsOfreservedRooms" :key="hotel.hotel_id">
           <ReservedRoom
             :classOfCard="'w-[1030px] h-[240px] flex py-5 pl-5 pl-[24px] rounded-[5px]'"

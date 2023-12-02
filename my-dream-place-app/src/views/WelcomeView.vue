@@ -42,9 +42,9 @@
 <script setup>
 import { onMounted } from "vue";
 
-onMounted(() => {
-  localStorage.clear();
-});
+// onMounted(() => {
+//   localStorage.clear();
+// });
 </script>
 
 <style></style>

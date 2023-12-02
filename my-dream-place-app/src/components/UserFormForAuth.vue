@@ -22,7 +22,7 @@
         {{ textBasedOnTheView }}
       </h1>
       <div class="flex flex-col items-center">
-        <form action="" class="flex flex-col">
+        <form action="" class="flex flex-col" @submit.prevent>
           <label for="email" class="mb-1 font-medium text-sm text-left">
             Email address</label
           >

@@ -80,9 +80,7 @@
               <li class="border-b pb-2 pt-2">
                 <div class="flex items-center gap-2 m-1">
                   <img src="../assets/Icons/wallet.svg" alt="wallet" />
-                  <a href="#" @click="goToCheckout" class="text-[#4f4f4f]"
-                    >Reward and Wallet</a
-                  >
+                  <a href="#" class="text-[#4f4f4f]">Reward and Wallet</a>
                 </div>
               </li>
               <li class="border-b pb-2 pt-2 rounded-md">
@@ -130,9 +128,6 @@ const goToTrips = () => {
 };
 const goToHome = () => {
   router.push("/home");
-};
-const goToCheckout = () => {
-  router.push("/checkout");
 };
 
 // clean css .. done
