@@ -1,5 +1,5 @@
 <template>
-  <div class="flex justify-center items-center">
+  <div class="flex justify-center items-center pt-12">
     <section class="w-[352px] h-[44px]">
       <section class="flex justify-center items-center mt-[50px]">
         <div
