@@ -15,7 +15,7 @@ Users can initiate searches and navigate through a results page presenting vario
 Clicking on a hotel provides users with detailed information, including a photo gallery, room options, and a map.
 
 ### 4. Checkout Process
-The checkout process is secure and user-friendly, offering a summary of the booking, room details, and a form for personal and payment information.
+The checkout process is handled on the client side, offering a summary of the booking, room details, and a form for personal and payment information.
 
 ### 5. My Trips Section
 The "My Trips" section allows users to view their bookings, complete with hotel details, and dates.
