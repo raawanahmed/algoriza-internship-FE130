@@ -55,8 +55,13 @@ export const useAuthStore = defineStore("authStore", {
     signOut() {
       this.user = null;
       this.isAuthenticated = false;
+      // Remove all items from local storage except "users"
+      Object.keys(localStorage).forEach((key) => {
+        if (key !== "users") {
+          localStorage.removeItem(key);
+        }
+      });
       router.push("/home");
-      localStorage.clear();
     },
   },
 });

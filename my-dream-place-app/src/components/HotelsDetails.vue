@@ -173,7 +173,7 @@ const sortByOptions = ref(searchDetailsStore.getSortByOptions());
 const rangePrice = ref(searchDetailsStore.getSelectedRangePrice);
 const selectedRating = ref(searchDetailsStore.getSelectedRating);
 const enteredName = ref(searchDetailsStore.getEnteredName);
-const msgToDisplay = ref("");
+const msgToDisplay = ref("There are no hotels");
 const isDropdownOpen = ref(false);
 const arrowDir = ref("down");
 const fetchHotels = async () => {
