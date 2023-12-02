@@ -15,7 +15,7 @@ Users can initiate searches and navigate through a results page presenting vario
 Clicking on a hotel provides users with detailed information, including a photo gallery, room options, and a map.
 
 ### 4. Checkout Process
-The checkout process is secure and user-friendly, offering a summary of the booking, room details, and a form for personal and payment information.
+The checkout process is handled on the client side, offering a summary of the booking, room details, and a form for personal and payment information.
 
 ### 5. My Trips Section
 The "My Trips" section allows users to view their bookings, complete with hotel details, and dates.
@@ -41,5 +41,6 @@ Open your browser and access the project at http://localhost:8080.
 
 ## Design Mockup
 The design of the application is based on the Figma mockup, providing a visual representation of the user interface: https://www.figma.com/file/BQHVuw93nxwUFEnNuyPDdd/Untitled?type=design&node-id=1-230&mode=design&t=Pt8cwvDM9wQXs5m7-0
-
+## Project's Demo
+https://drive.google.com/file/d/1KLRuuOMFB-THmC_LLomFgBVdj7HoTKFf/view?usp=drive_link
 
