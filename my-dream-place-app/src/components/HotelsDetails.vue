@@ -9,22 +9,29 @@
           <p class="font-semibold text-2xl">
             {{ destName }} : {{ destCount }} search results found
           </p>
-          <select
-            class="absolute right-0 w-[190px] h-[48px] py-2 px-3 border-[1px] border-[#BDBDBD] rounded-md pr-3 flex mr-[10px]"
-            v-model="selectedSortOption"
-            @change="serachHotelsBySortOption"
-          >
-            <option disabled selected hidden class="text-[#828282]">
-              Sort by
-            </option>
-            <option
-              v-for="option in sortByOptions"
-              :key="option.title"
-              :value="option.title"
+
+          <section>
+            <IconButton
+              :textOnTheBtn="'Sort by'"
+              :btnClass="'right-0 w-[190px] h-[48px] py-2 px-3 border-[1px] border-[#BDBDBD] rounded-md flex absolute mr-[8px] text-[#828282]'"
+              :bgOfBtn="'#fff'"
+              :arrowDir="require(`@/assets/Icons/arrow-${arrowDir}.svg`)"
+              @click="toggleDropdown"
+            />
+            <div
+              v-if="isDropdownOpen"
+              class="absolute mt-[50px] w-[190px] text-xs right-0 border-[1px] border-[#BDBDBD] rounded-md z-[100] mr-[8px] bg-white"
             >
-              {{ option.title }}
-            </option>
-          </select>
+              <div v-for="option in sortByOptions" :key="option.id">
+                <button
+                  @click="serachHotelsBySortOption(option.title)"
+                  class="block w-full p-2 border-b-2"
+                >
+                  {{ option.title }}
+                </button>
+              </div>
+            </div>
+          </section>
         </div>
       </div>
       <p
@@ -144,6 +151,7 @@
 
 <script setup>
 import Reviews from "./Reviews.vue";
+import IconButton from "./IconButton.vue";
 import { useSearchDetailsStore } from "@/stores/SearchDetailsStore";
 import { ref, computed, onMounted, watch, watchEffect } from "vue";
 import { useHotelStore } from "@/stores/HotelStore";
@@ -161,13 +169,13 @@ const isHotelsLoading = ref(searchDetailsStore.getIsHotelsLoading);
 const totalProperties = ref(-1);
 const returnedHotels = ref(null);
 const totalPages = ref(20);
-const selectedSortOption = ref("Sort by");
 const sortByOptions = ref(searchDetailsStore.getSortByOptions());
 const rangePrice = ref(searchDetailsStore.getSelectedRangePrice);
 const selectedRating = ref(searchDetailsStore.getSelectedRating);
 const enteredName = ref(searchDetailsStore.getEnteredName);
 const msgToDisplay = ref("");
-
+const isDropdownOpen = ref(false);
+const arrowDir = ref("down");
 const fetchHotels = async () => {
   isHotelsLoading.value = true;
   returnedHotels.value = await searchDetailsStore.fetchHotels();
@@ -183,7 +191,8 @@ watchEffect(async () => {
   sortByOptions.value = await searchDetailsStore.getSortByOptions();
 });
 
-const serachHotelsBySortOption = async () => {
+const serachHotelsBySortOption = async (option) => {
+  searchDetailsStore.setSelectedSortOption(option);
   isHotelsLoading.value = true;
   await fetchHotels();
   isHotelsLoading.value = false;
@@ -290,11 +299,15 @@ const calcDiscount = (strikethroughPrice, grossPrice) => {
     ((strikethroughPrice - grossPrice) / strikethroughPrice) * 100;
   return Math.ceil(discount);
 };
+const toggleDropdown = () => {
+  isDropdownOpen.value = !isDropdownOpen.value;
+  arrowDir.value = arrowDir.value === "down" ? "up" : "down";
+};
 
 /*
 todos
-1- add the discount section
-2- add the offer style if exist
+1- add the discount section .. done
+2- add the offer style if exist .. done
 */
 </script>
 

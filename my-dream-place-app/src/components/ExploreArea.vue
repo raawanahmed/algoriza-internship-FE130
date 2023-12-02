@@ -2,7 +2,7 @@
   <main class="mt-10 ml-[30px]" style="font-family: SF Pro Display, sans-serif">
     <iframe
       :src="
-        'https//maps.google.com/maps?q=' +
+        '//maps.google.com/maps?q=' +
         { latitude } +
         ',' +
         { longitude } +
