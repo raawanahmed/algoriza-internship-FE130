@@ -37,8 +37,11 @@
       class="text-end relative mr-6 max-h-[200px] flex-grow-[1]"
     >
       <section class="absolute bottom-[80px] right-0 flex items-center">
-        <p class="mr-2 text-[#EB5757] line-through">
-          ${{ selectedHotel.property.priceBreakdown.excludedPrice.value }}
+        <p
+          class="mr-2 text-[#EB5757] line-through"
+          v-if="hotel.property.priceBreakdown.strikethroughPrice"
+        >
+          ${{ selectedHotel.property.priceBreakdown.strikethroughPrice.value }}
         </p>
         <p class="font-semibold text-xl">
           ${{ selectedHotel.property.priceBreakdown.grossPrice.value }}

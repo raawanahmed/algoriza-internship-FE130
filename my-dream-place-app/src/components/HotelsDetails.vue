@@ -72,8 +72,26 @@
               class="text-end relative max-h-[200px] flex-grow-[1]"
               style="flex-grow: 1; max-height: 200px"
             >
+              <div
+                class="px-2 py-1 rounded-md bg-[#219653]  right-0 absolute bottom-[65px] h-[26px]"
+                v-if="hotel.property.priceBreakdown.strikethroughPrice"
+              >
+                <p class="text-[#fff] text-[13px]">
+                  {{
+                    calcDiscount(
+                      hotel.property.priceBreakdown.strikethroughPrice.value,
+                      hotel.property.priceBreakdown.grossPrice.value
+                    )
+                  }}% off
+                </p>
+              </div>
               <section class="absolute bottom-6 right-0 flex items-center">
-                <p class="mr-2 text-[#EB5757] line-through">${{ 170 }}</p>
+                <p
+                  class="mr-2 text-[#EB5757] line-through"
+                  v-if="hotel.property.priceBreakdown.strikethroughPrice"
+                >
+                  ${{ hotel.property.priceBreakdown.strikethroughPrice.value }}
+                </p>
                 <p class="font-semibold text-xl">
                   ${{ hotel.property.priceBreakdown.grossPrice.value }}
                 </p>
@@ -154,6 +172,7 @@ const fetchHotels = async () => {
   isHotelsLoading.value = true;
   returnedHotels.value = await searchDetailsStore.fetchHotels();
   hotels.value = searchDetailsStore.getHotels;
+  console.log(hotels.value);
   destName.value = searchDetailsStore.getSelectedDestinationName;
   destCount.value = searchDetailsStore.getHotelsCountOfDist;
   isHotelsLoading.value = false;
@@ -265,6 +284,12 @@ const paginationButtons = computed(() => {
 const seeAvailabilityOfHotel = (hotel) => {
   hotelStore.setselectedHotelData(hotel);
   router.push("/productDetails");
+};
+
+const calcDiscount = (strikethroughPrice, grossPrice) => {
+  const discount =
+    ((strikethroughPrice - grossPrice) / strikethroughPrice) * 100;
+  return Math.ceil(discount);
 };
 
 /*

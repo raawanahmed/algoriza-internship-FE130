@@ -11,7 +11,7 @@
     >
       <div class="flex justify-between mb-3">
         <p>{{ noOfRooms }} room X {{ noOfDays }} nights</p>
-        <p>${{ selectedHotel.property.priceBreakdown.excludedPrice.value }}</p>
+        <p>${{ selectedHotel.property.priceBreakdown.grossPrice.value }}</p>
       </div>
       <div class="flex justify-between">
         <p>Tax and service fees</p>
@@ -20,7 +20,7 @@
     </section>
     <div class="flex justify-between py-6 px-[18px] font-medium text-lg">
       <p>Total</p>
-      <p>${{ selectedHotel.property.priceBreakdown.excludedPrice.value }}</p>
+      <p>${{ selectedHotel.property.priceBreakdown.grossPrice.value }}</p>
     </div>
   </div>
 </template>
