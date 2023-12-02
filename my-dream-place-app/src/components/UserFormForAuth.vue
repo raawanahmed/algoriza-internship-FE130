@@ -121,6 +121,11 @@ const onBtnClick = () => {
     alert("Please fill in all required fields.");
     return;
   }
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email.value)) {
+    alert("Please enter a valid email address.");
+    return;
+  }
 
   if (isSignIn) {
     const success = authStore.signIn({
@@ -138,7 +143,7 @@ const onBtnClick = () => {
       email: email.value,
       password: password.value,
     });
-    success ? router.push("/home") : alert("Invalid email or password.");
+    success ? router.push("/signin") : alert("Invalid email or password.");
   }
 };
 </script>

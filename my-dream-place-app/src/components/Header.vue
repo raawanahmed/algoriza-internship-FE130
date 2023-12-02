@@ -19,7 +19,7 @@
 
       <div class="flex items-center gap-8" v-if="showNavBar">
         <router-link
-          to="/"
+          to="/home"
           class="text-gray-1 font-sans text-base font-normal cursor-pointer"
           >Home</router-link
         >

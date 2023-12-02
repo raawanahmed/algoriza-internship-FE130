@@ -7,6 +7,7 @@ import SearchResultsView from "@/views/SearchResultsView.vue";
 import CheckoutView from "@/views/CheckoutView";
 import MyTripsView from "@/views/MyTripsView";
 import ProductDetailsView from "@/views/ProductDetailsView";
+import { useAuthStore } from "@/stores/AuthStore";
 
 const routes = [
   {
@@ -33,21 +34,25 @@ const routes = [
     path: "/searchResults/:searchData",
     name: "searchResults",
     component: SearchResultsView,
+    meta: { requiresAuth: true },
   },
   {
     path: "/checkout",
     name: "checkout",
     component: CheckoutView,
+    meta: { requiresAuth: true },
   },
   {
     path: "/myTrips",
     name: "myTrips",
     component: MyTripsView,
+    meta: { requiresAuth: true },
   },
   {
     path: "/productDetails",
     name: "productDetails",
     component: ProductDetailsView,
+    meta: { requiresAuth: true },
   },
   // {
   //   path: '/about',
@@ -64,6 +69,16 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
+});
+router.beforeEach((to, from, next) => {
+  const authStore = useAuthStore();
+  const requiresAuth = to.matched.some((record) => record.meta.requiresAuth);
+  const isAuthenticated = JSON.parse(localStorage.getItem("isAuthenticated"));
+  if (requiresAuth && !isAuthenticated) {
+    next("/signin");
+  } else {
+    next();
+  }
 });
 
 export default router;

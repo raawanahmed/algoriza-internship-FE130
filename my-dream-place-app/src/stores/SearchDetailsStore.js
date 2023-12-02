@@ -121,7 +121,7 @@ export const useSearchDetailsStore = defineStore("searchDetailsStore", {
 
     async fetchHotels() {
       this.isHotelsLoading = true;
-      console.log(this.selectedSortOption)
+      // console.log(this.selectedSortOption)
       const options = {
         method: "GET",
         url: "https://booking-com15.p.rapidapi.com/api/v1/hotels/searchHotels",
@@ -148,7 +148,7 @@ export const useSearchDetailsStore = defineStore("searchDetailsStore", {
 
       try {
         const response = await axios.request(options);
-        console.log(response);
+        // console.log(response);
         this.hotels = response.data.data.hotels;
         return this.hotels;
       } catch (error) {
