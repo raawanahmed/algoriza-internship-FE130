@@ -5,22 +5,22 @@
     </div>
     <div v-if="isHotelsLoading == false">
       <div class="col-span-3 bg-white">
-        <div class="flex relative">
+        <div class="flex">
           <p class="font-semibold text-2xl">
             {{ destName }} : {{ destCount }} search results found
           </p>
 
-          <section>
+          <section class="">
             <IconButton
               :textOnTheBtn="'Sort by'"
-              :btnClass="'right-0 w-[190px] h-[48px] py-2 px-3 border-[1px] border-[#BDBDBD] rounded-md flex absolute mr-[8px] text-[#828282]'"
+              :btnClass="'right-0 w-[190px] h-[48px] py-2 px-3 border-[1px] border-[#BDBDBD] rounded-md flex absolute mr-[148px] text-[#828282]'"
               :bgOfBtn="'#fff'"
               :arrowDir="require(`@/assets/Icons/arrow-${arrowDir}.svg`)"
               @click="toggleDropdown"
             />
             <div
               v-if="isDropdownOpen"
-              class="absolute mt-[50px] w-[190px] text-xs right-0 border-[1px] border-[#BDBDBD] rounded-md z-[100] mr-[8px] bg-white"
+              class="absolute mt-[50px] w-[190px] text-xs right-0 border-[1px] border-[#BDBDBD] rounded-md z-[100] mr-[148px] bg-white"
             >
               <div v-for="option in sortByOptions" :key="option.id">
                 <button
