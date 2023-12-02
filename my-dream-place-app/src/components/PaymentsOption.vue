@@ -1,5 +1,8 @@
 <template>
-  <div class="w-[810px] h-[576px] bg-white rounded-md mt-[30px]" style="font-family: SF Pro Display, sans-serif">
+  <div
+    class="w-[810px] bg-white rounded-md mt-[30px]"
+    style="font-family: SF Pro Display, sans-serif"
+  >
     <header
       class="py-4 px-5 flex bg-[#2F80ED] font-medium text-[#fff] items-center rounded-t-md"
     >
@@ -46,18 +49,30 @@
       </div>
     </section>
 
-    <div class="bg-white px-8 pb-8">
+    <div class="bg-white px-8 pb-8 rounded-md">
       <section class="mb-5">
         <div>
-          <label for="cardNumber" class="font-medium">Name on card</label>
+          <label for="cardName" class="font-medium">Name on card</label>
         </div>
         <div>
-          <input
-            type="number"
-            name="cardNumber"
-            id="cardNumber"
-            class="rounded bg-[#F2F2F2] w-[500px] h-[44px] p-3"
-          />
+          <div class="flex">
+            <input
+              type="text"
+              name="cardName"
+              id="cardName"
+              class="rounded bg-[#F2F2F2] w-[500px] h-[44px] p-3"
+              v-model="cardName"
+            />
+            <img
+              v-if="isCardNameValid"
+              src="../assets/Icons/tick-circle 3.svg"
+              alt="tick circle"
+              class="ml-[18px]"
+            />
+          </div>
+          <p v-if="!isCardNameValid" class="text-red-500">
+            Card name should be at least 5 characters
+          </p>
         </div>
       </section>
 
@@ -68,12 +83,24 @@
           >
         </div>
         <div>
-          <input
-            type="number"
-            name="cardNumber"
-            id="cardNumber"
-            class="rounded bg-[#F2F2F2] w-[500px] h-[44px] p-3"
-          />
+          <div class="flex">
+            <input
+              type="text"
+              name="cardNumber"
+              id="cardNumber"
+              class="rounded bg-[#F2F2F2] w-[500px] h-[44px] p-3"
+              v-model="cardNumber"
+            />
+            <img
+              v-if="isCardNumberValid"
+              src="../assets/Icons/tick-circle 3.svg"
+              alt="tick circle"
+              class="ml-[18px]"
+            />
+          </div>
+          <p v-if="!isCardNumberValid" class="text-red-500">
+            Enter a valid card Number
+          </p>
         </div>
       </section>
 
@@ -89,18 +116,26 @@
             id="months"
             class="rounded bg-[#F2F2F2] w-[150px] h-[42px] px-3 py-[10px] mr-3"
           >
-            <!-- todo loop over the months -->
+            <option
+              v-for="(month, index) in months"
+              :key="index"
+              :value="index + 1"
+            >
+              {{ month }}
+            </option>
           </select>
           <select
             name="years"
             id="years"
             class="rounded bg-[#F2F2F2] w-[150px] h-[42px] px-3 py-[10px]"
           >
-            <!-- todo loop over the years -->
+            <option v-for="(year, index) in years" :key="index" :value="year">
+              {{ year }}
+            </option>
           </select>
         </div>
       </section>
-      <section class="flex">
+      <section class="flex relative">
         <section class="mr-5">
           <div>
             <label for="securityCode" class="font-medium">Security Code</label>
@@ -111,7 +146,11 @@
               name="securityCode"
               id="securityCode"
               class="rounded bg-[#F2F2F2] w-[240px] h-[44px] p-3"
+              v-model="securityCode"
             />
+            <p v-if="!isSecurityCodeValid" class="text-red-500">
+              Security code should be 3 characters
+            </p>
           </div>
         </section>
         <section>
@@ -126,14 +165,72 @@
               name="billingZipCode"
               id="billingZipCode"
               class="rounded bg-[#F2F2F2] w-[240px] h-[44px] p-3"
+              v-model="billingCode"
             />
+            <p v-if="!isBillingCodeValid" class="text-red-500">
+              Billing code should be 6 characters
+            </p>
           </div>
         </section>
+        <img
+          v-if="isSecurityCodeValid && isBillingCodeValid"
+          src="../assets/Icons/tick-circle 3.svg"
+          alt="tick circle"
+          class="ml-[18px] bottom-[13px] right-[210px] absolute"
+        />
       </section>
     </div>
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+import { useHotelStore } from "@/stores/HotelStore";
+import { ref, watchEffect, onMounted } from "vue";
+const months = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+
+const currentYear = new Date().getFullYear();
+const years = Array.from({ length: 10 }, (_, index) => currentYear + index);
+
+const hotelStore = useHotelStore();
+const cardNumber = ref("");
+const cardName = ref("");
+const securityCode = ref("");
+const billingCode = ref("");
+const isCardNumberValid = ref("");
+const isCardNameValid = ref("");
+const isSecurityCodeValid = ref("");
+const isBillingCodeValid = ref("");
+
+watchEffect(() => {
+  if (cardNumber.value.length == 16) isCardNumberValid.value = true;
+  else isCardNumberValid.value = false;
+  if (cardName.value.length > 4) isCardNameValid.value = true;
+  else isCardNameValid.value = false;
+  if (securityCode.value.length == 3) isSecurityCodeValid.value = true;
+  else isSecurityCodeValid.value = false;
+  if (billingCode.value.length == 6) isBillingCodeValid.value = true;
+  else isBillingCodeValid.value = false;
+
+  hotelStore.setIsPaymentsDetailsFilled(
+    isCardNumberValid.value &&
+      isCardNameValid.value &&
+      isSecurityCodeValid.value &&
+      isBillingCodeValid.value
+  );
+});
+</script>
 
 <style></style>

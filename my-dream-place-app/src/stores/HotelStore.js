@@ -10,6 +10,8 @@ export const useHotelStore = defineStore("hotelStore", {
     ),
     hotelDetailsFromStorage: JSON.parse(localStorage.getItem("hotelDetails")),
     isHotelLoading: false,
+    isUserDetailsFilled: false,
+    isPaymentsDetailsFilled: false,
   }),
   actions: {
     setselectedHotelData(selectedHotelData) {
@@ -19,6 +21,13 @@ export const useHotelStore = defineStore("hotelStore", {
     },
     setIsHotelLoading(isLoading) {
       this.isHotelLoading = isLoading;
+    },
+    setIsPaymentsDetailsFilled(isPaymentsDetailsFilled) {
+      this.isPaymentsDetailsFilled = isPaymentsDetailsFilled;
+    },
+    setIsUserDetailsFilled(isUsersDetailsFilled) {
+      this.isUsersDetailsFilled = isUsersDetailsFilled;
+      // console.log(this.isUsersDetailsFilled)
     },
     calcDifferenceInDays(checkin, checkout) {
       console.log(checkin, checkout);
@@ -105,5 +114,7 @@ export const useHotelStore = defineStore("hotelStore", {
     },
     getIsHotelLoading: (state) => state.isHotelLoading,
     getDifferenceInDays: (state) => state.differenceInDays,
+    getIsPaymentsDetailsFilled: (state) => state.isPaymentsDetailsFilled,
+    getIsUserDetailsFilled: (state) => state.isUserDetailsFilled,
   },
 });
