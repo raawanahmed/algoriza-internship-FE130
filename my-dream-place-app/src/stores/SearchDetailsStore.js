@@ -79,8 +79,8 @@ export const useSearchDetailsStore = defineStore("searchDetailsStore", {
       this.isHotelsLoading = isLoading;
     },
     setSelectedRangePrice(minPrice, maxPrice) {
-      this.selectedRangePrice.maxPrice = maxPrice;
-      this.selectedRangePrice.minPrice = minPrice;
+      this.selectedRangePrice.selectedMaxPrice = maxPrice;
+      this.selectedRangePrice.selectedMinPrice = minPrice;
     },
     setSelectedSortOption(sortOption) {
       this.selectedSortOption = sortOption;
@@ -147,7 +147,7 @@ export const useSearchDetailsStore = defineStore("searchDetailsStore", {
         console.error(error);
       } finally {
         this.isHotelsLoading = false;
-        console.log(this.isHotelsLoading);
+        // console.log(this.isHotelsLoading);
       }
     },
 

@@ -1,6 +1,6 @@
 <template>
   <main class="mt-10 ml-[30px]" style="font-family: SF Pro Display, sans-serif">
-    <!-- <iframe
+    <iframe
       :src="
         '//maps.google.com/maps?q=' +
         { latitude } +
@@ -8,8 +8,8 @@
         { longitude } +
         '&z=15&output=embed'
       "
-    ></iframe> -->
-    <img src="../assets/Imgs/map.png" alt="map image" />
+    ></iframe>
+    <!-- <img src="../assets/Imgs/map.png" alt="map image" /> -->
     <p class="font-semibold text-lg mt-[35px] mb-[22px]">Explore the area</p>
     <IconWithText
       :iconText="'Hotel Penselvenyia'"
@@ -42,7 +42,7 @@
 <script setup>
 import IconWithText from "./IconWithText.vue";
 const { longitude, latitude } = defineProps(["latitude", "longitude"]);
-// I didn't tested the iframe because the apis becomes paid so I added static image
+
 // clean code and css .. done
 </script>
 

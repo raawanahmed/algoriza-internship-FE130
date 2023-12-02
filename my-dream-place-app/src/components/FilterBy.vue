@@ -44,20 +44,27 @@
             @click="toggleTheToggle"
           />
         </div>
-        <div class="flex justify-between mt-[15px] mb-[18px]">
+        <div class="flex justify-between mt-[15px] mb-[2px]">
           <input
             type="text"
             placeholder="Min budget"
             class="w-[112px] h-[43px] p-3 rounded border border-[#e0e0e0]"
             :disabled="!isToggled"
+            @keyup.enter="handleEnterPress"
+            v-model="minBudgetInput"
           />
           <input
             type="text"
             placeholder="Max budget"
             class="w-[112px] h-[43px] p-3 rounded border border-[#e0e0e0]"
             :disabled="!isToggled"
+            @keyup.enter="handleEnterPress"
+            v-model="maxBudgetInput"
           />
         </div>
+        <p class="mb-[18px] text-[#4F4F4F] text-[12px]">
+          Press Enter to filter
+        </p>
       </div>
     </div>
   </div>
@@ -70,7 +77,8 @@ import { useSearchDetailsStore } from "@/stores/SearchDetailsStore";
 const isToggled = ref(false);
 const selectedBudget = ref(null);
 const searchDetailsStore = useSearchDetailsStore();
-const isHotelsLoading = ref(searchDetailsStore.getIsHotelsLoading);
+const minBudgetInput = ref("");
+const maxBudgetInput = ref("");
 const BudgetOptions = {
   ZERO_TO_200: {
     id: "1",
@@ -116,14 +124,23 @@ const toggleTheToggle = () => {
   selectedBudget.value = null;
 };
 
-const updateSelectedBudget = async (option) => {
+const updateSelectedBudget = (option) => {
   if (!isToggled.value) {
     selectedBudget.value =
       selectedBudget.value === option.value ? null : option.value;
     searchDetailsStore.setSelectedRangePrice(option.minPrice, option.maxPrice);
-    isHotelsLoading.value = true;
-    await searchDetailsStore.fetchHotels();
-    isHotelsLoading.value = false;
+    console.log(searchDetailsStore.getSelectedRangePrice);
+  }
+};
+
+const handleEnterPress = () => {
+  const minPrice = parseFloat(minBudgetInput.value);
+  const maxPrice = parseFloat(maxBudgetInput.value);
+
+  if (!isNaN(minPrice) && !isNaN(maxPrice)) {
+    searchDetailsStore.setSelectedRangePrice(minPrice, maxPrice);
+    // Perform any additional actions or trigger the filtering logic here
+    console.log(searchDetailsStore.getSelectedRangePrice);
   }
 };
 /*

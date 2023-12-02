@@ -138,6 +138,7 @@ const returnedHotels = ref(null);
 const totalPages = ref(20);
 const selectedSortOption = ref("Sort by");
 const sortByOptions = ref(searchDetailsStore.getSortByOptions());
+const rangePrice = ref(searchDetailsStore.getSelectedRangePrice);
 
 const fetchHotels = async () => {
   isHotelsLoading.value = true;
@@ -169,6 +170,20 @@ watch(
     isHotelsLoading.value = false;
   }
 );
+
+// watch(() => rangePrice, async () => {
+//   console.log(rangePrice.value);
+//   isHotelsLoading.value = true;
+//   await fetchHotels();
+//   isHotelsLoading.value = false;
+// });
+
+watchEffect(async () => {
+  console.log(rangePrice.value);
+  isHotelsLoading.value = true;
+  await fetchHotels();
+  isHotelsLoading.value = false;
+});
 
 fetchHotels();
 const changePage = async (page) => {
