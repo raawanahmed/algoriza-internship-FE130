@@ -27,8 +27,12 @@
           </select>
         </div>
       </div>
+      <p v-if="filteredHotels.length === 0" class="text-[#ff3636] text-center mt-[50px] text-2xl">
+        There are no hotels in this page with this rating
+      </p>
     </div>
-    <div v-for="hotel in hotels" :key="hotel.hotel_id">
+
+    <div v-for="hotel in filteredHotels" :key="hotel.hotel_id">
       <div v-if="isHotelsLoading == false">
         <section
           class="mt-6 rounded border-[1px] border-[#e0e0e0] w-[915px] h-[240px]"
@@ -139,6 +143,7 @@ const totalPages = ref(20);
 const selectedSortOption = ref("Sort by");
 const sortByOptions = ref(searchDetailsStore.getSortByOptions());
 const rangePrice = ref(searchDetailsStore.getSelectedRangePrice);
+const selectedRating = ref(searchDetailsStore.getSelectedRating);
 
 const fetchHotels = async () => {
   isHotelsLoading.value = true;
@@ -185,7 +190,28 @@ watchEffect(async () => {
   isHotelsLoading.value = false;
 });
 
-fetchHotels();
+watch(
+  () => searchDetailsStore.getSelectedRating,
+  (newRating) => {
+    selectedRating.value = newRating;
+    // Do something when selectedRating changes
+    console.log("Selected Rating Changed:", newRating);
+  }
+);
+const generateRange = (num) =>
+  Array.from({ length: Math.ceil(num / 2) }, (_, index) => index + 1);
+
+const filteredHotels = computed(() => {
+  if (!selectedRating.value) {
+    return hotels.value;
+  } else {
+    return hotels.value.filter(
+      (hotel) =>
+        generateRange(hotel.property.reviewScore).length ===
+        selectedRating.value
+    );
+  }
+});
 const changePage = async (page) => {
   if (page >= 1 && page <= totalPages.value) {
     currentPage.value = page;

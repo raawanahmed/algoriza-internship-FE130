@@ -31,6 +31,7 @@ export const useSearchDetailsStore = defineStore("searchDetailsStore", {
       selectedMinPrice: "",
       selectedMaxPrice: "",
     },
+    selectedRating: null,
   }),
 
   actions: {
@@ -85,6 +86,10 @@ export const useSearchDetailsStore = defineStore("searchDetailsStore", {
     setSelectedSortOption(sortOption) {
       this.selectedSortOption = sortOption;
     },
+    setSelectedRating(rating) {
+      this.selectedRating = rating;
+      console.log(this.selectedRating)
+    },
     async fetchDestinations() {
       this.isDestinationsLoading = true;
       const options = {
@@ -132,8 +137,7 @@ export const useSearchDetailsStore = defineStore("searchDetailsStore", {
           sort_by: this.selectedSortOption,
         },
         headers: {
-          "X-RapidAPI-Key":
-          config.rapidApiKey,
+          "X-RapidAPI-Key": config.rapidApiKey,
           "X-RapidAPI-Host": "booking-com15.p.rapidapi.com",
         },
       };
@@ -166,8 +170,7 @@ export const useSearchDetailsStore = defineStore("searchDetailsStore", {
           room_qty: this.getSelectedRooms,
         },
         headers: {
-          "X-RapidAPI-Key":
-          config.rapidApiKey,
+          "X-RapidAPI-Key": config.rapidApiKey,
           "X-RapidAPI-Host": "booking-com15.p.rapidapi.com",
         },
       };
@@ -275,5 +278,6 @@ export const useSearchDetailsStore = defineStore("searchDetailsStore", {
     getIsHotelsLoading: (state) => state.isHotelsLoading,
     getSelectedSortOption: (state) => state.selectedSortOption,
     getSelectedRangePrice: (state) => state.selectedRangePrice,
+    getSelectedRating: (state) => state.selectedRating,
   },
 });

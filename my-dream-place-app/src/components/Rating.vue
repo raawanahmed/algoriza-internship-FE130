@@ -18,6 +18,7 @@
             border-right: none;
           "
           class="p-3 flex items-center gap-1.5 relative border-[1px] border-[#e0e0e0] w-[50px] h-[46px]"
+          @click="searchDetailsStore.setSelectedRating(1)"
         >
           1
           <img src="../assets/Icons/star.svg" alt="star icon" />
@@ -25,6 +26,7 @@
         <button
           style="border-right: none"
           class="p-3 flex items-center gap-1.5 relative border-[1px] border-[#e0e0e0] w-[50px] h-[46px]"
+          @click="searchDetailsStore.setSelectedRating(2)"
         >
           2
           <img src="../assets/Icons/star.svg" alt="star icon" />
@@ -32,6 +34,7 @@
         <button
           style="border-right: none"
           class="p-3 flex items-center gap-1.5 relative border-[1px] border-[#e0e0e0] w-[50px] h-[46px]"
+          @click="searchDetailsStore.setSelectedRating(3)"
         >
           3
           <img src="../assets/Icons/star.svg" alt="star icon" />
@@ -39,6 +42,7 @@
         <button
           style="border-right: none"
           class="p-3 flex items-center gap-1.5 relative border-[1px] border-[#e0e0e0] w-[50px] h-[46px]"
+          @click="searchDetailsStore.setSelectedRating(4)"
         >
           4
           <img src="../assets/Icons/star.svg" alt="star icon" />
@@ -46,6 +50,7 @@
         <button
           style="border-top-right-radius: 5px; border-bottom-right-radius: 5px"
           class="p-3 flex items-center gap-1.5 relative border-[1px] border-[#e0e0e0] w-[50px] h-[46px]"
+          @click="searchDetailsStore.setSelectedRating(5)"
         >
           5
           <img src="../assets/Icons/star.svg" alt="star icon" />
@@ -56,6 +61,8 @@
 </template>
 
 <script setup>
+import { useSearchDetailsStore } from "@/stores/SearchDetailsStore";
+const searchDetailsStore = useSearchDetailsStore();
 /*
 todos 
 1- filter the list based on the selected number of stars
