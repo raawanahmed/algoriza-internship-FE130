@@ -44,7 +44,7 @@ const isHotelLoading = ref(false);
 watchEffect(()=>{
   isHotelLoading.value = hotelStore.getIsHotelLoading
 })
-console.log(isHotelLoading.value)
+// console.log(isHotelLoading.value)
 
 
 </script>

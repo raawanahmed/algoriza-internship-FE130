@@ -14,7 +14,7 @@ export const useHotelsOfreservedRoomsStore = defineStore(
       addHotelOfReservedRoom(room) {
         this.isTripsLoading = true;
         this.hotelsOfreservedRooms = [...this.hotelsOfreservedRooms, room];
-        console.log("Reserved rooms: ", this.hotelsOfreservedRooms);
+        // console.log("Reserved rooms: ", this.hotelsOfreservedRooms);
         localStorage.setItem(
           "hotelsOfreservedRooms",
           JSON.stringify(this.hotelsOfreservedRooms)

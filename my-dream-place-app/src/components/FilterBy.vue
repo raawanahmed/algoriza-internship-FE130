@@ -129,7 +129,6 @@ const updateSelectedBudget = (option) => {
     selectedBudget.value =
       selectedBudget.value === option.value ? null : option.value;
     searchDetailsStore.setSelectedRangePrice(option.minPrice, option.maxPrice);
-    console.log(searchDetailsStore.getSelectedRangePrice);
   }
 };
 
@@ -139,18 +138,12 @@ const handleEnterPress = () => {
 
   if (!isNaN(minPrice) && !isNaN(maxPrice)) {
     searchDetailsStore.setSelectedRangePrice(minPrice, maxPrice);
-    // Perform any additional actions or trigger the filtering logic here
-    console.log(searchDetailsStore.getSelectedRangePrice);
   }
 };
 /*
 todos 
 1- add the design .. done
-2- handle the logic from api with static data .. done but I didn't tested it because of apis
-
-challenging todos
-3- try to handle logic with min and max values for budget getting them from hotels in the page
-4- if it's possible get the count of them 
+2- handle the logic from api with static data .. done 
 */
 </script>
 

@@ -73,7 +73,7 @@
               style="flex-grow: 1; max-height: 200px"
             >
               <div
-                class="px-2 py-1 rounded-md bg-[#219653]  right-0 absolute bottom-[65px] h-[26px]"
+                class="px-2 py-1 rounded-md bg-[#219653] right-0 absolute bottom-[65px] h-[26px]"
                 v-if="hotel.property.priceBreakdown.strikethroughPrice"
               >
                 <p class="text-[#fff] text-[13px]">
@@ -172,7 +172,7 @@ const fetchHotels = async () => {
   isHotelsLoading.value = true;
   returnedHotels.value = await searchDetailsStore.fetchHotels();
   hotels.value = searchDetailsStore.getHotels;
-  console.log(hotels.value);
+  // console.log(hotels.value);
   destName.value = searchDetailsStore.getSelectedDestinationName;
   destCount.value = searchDetailsStore.getHotelsCountOfDist;
   isHotelsLoading.value = false;
@@ -208,7 +208,6 @@ watch(
 // });
 
 watchEffect(async () => {
-  console.log(rangePrice.value);
   isHotelsLoading.value = true;
   await fetchHotels();
   isHotelsLoading.value = false;
@@ -218,7 +217,7 @@ watch(
   () => searchDetailsStore.getSelectedRating,
   (newRating) => {
     selectedRating.value = newRating;
-    console.log("Selected Rating Changed:", newRating);
+    // console.log("Selected Rating Changed:", newRating);
   }
 );
 
@@ -226,7 +225,7 @@ watch(
   () => searchDetailsStore.getEnteredName,
   (newName) => {
     enteredName.value = newName;
-    console.log("Entered Name:", newName);
+    // console.log("Entered Name:", newName);
   }
 );
 const generateRange = (num) =>

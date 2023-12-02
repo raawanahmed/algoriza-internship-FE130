@@ -30,7 +30,7 @@ export const useHotelStore = defineStore("hotelStore", {
       // console.log(this.isUsersDetailsFilled)
     },
     calcDifferenceInDays(checkin, checkout) {
-      console.log(checkin, checkout);
+      // console.log(checkin, checkout);
       const checkinDateParts = checkin.split("-");
       const checkoutDateParts = checkout.split("-");
 
@@ -60,7 +60,7 @@ export const useHotelStore = defineStore("hotelStore", {
       const differenceInDays = differenceInMilliseconds / (1000 * 60 * 60 * 24);
       const roundedDifferenceInDays = Math.round(differenceInDays);
 
-      console.log(`The difference is ${roundedDifferenceInDays} days.`);
+      // console.log(`The difference is ${roundedDifferenceInDays} days.`);
 
       return roundedDifferenceInDays;
     },
@@ -88,12 +88,12 @@ export const useHotelStore = defineStore("hotelStore", {
       try {
         const response = await axios.request(options);
         this.hotelDetails = response.data;
-        console.log(this.hotelDetails);
+        // console.log(this.hotelDetails);
       } catch (error) {
         console.error(error);
       } finally {
         this.isHotelLoading = false;
-        console.log(this.isHotelLoading);
+        // console.log(this.isHotelLoading);
       }
     },
   },

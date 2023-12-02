@@ -10,7 +10,7 @@ export const useAuthStore = defineStore("authStore", {
   actions: {
     init() {
       const storedUsers = localStorage.getItem("users");
-      console.log(storedUsers);
+      // console.log(storedUsers);
       if (storedUsers) {
         this.users = JSON.parse(storedUsers);
       }
@@ -40,7 +40,7 @@ export const useAuthStore = defineStore("authStore", {
         email,
         password,
       };
-      console.log(newUser);
+      // console.log(newUser);
       this.users.push(newUser);
       this.user = newUser;
       this.isAuthenticated = true;

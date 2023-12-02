@@ -66,9 +66,9 @@ export const useSearchDetailsStore = defineStore("searchDetailsStore", {
       this.selectedDestinationData.selectedRooms = rooms;
     },
     setSeachDataToStorage(searchData) {
-      console.log("SearchData", searchData);
+      // console.log("SearchData", searchData);
       localStorage.setItem("searchData", JSON.stringify(searchData));
-      console.log("local: ", this.selectedDestinationFromStorage);
+      // console.log("local: ", this.selectedDestinationFromStorage);
     },
     setHotelsCount(hotelsCount) {
       this.hotelsCountOfDist = hotelsCount;
@@ -115,7 +115,7 @@ export const useSearchDetailsStore = defineStore("searchDetailsStore", {
         console.error(error);
       } finally {
         this.isDestinationsLoading = false;
-        console.log(this.isDestinationsLoading);
+        // console.log(this.isDestinationsLoading);
       }
     },
 
@@ -147,7 +147,7 @@ export const useSearchDetailsStore = defineStore("searchDetailsStore", {
 
       try {
         const response = await axios.request(options);
-        console.log(response);
+        // console.log(response);
         this.hotels = response.data.data.hotels;
         return this.hotels;
       } catch (error) {
@@ -180,7 +180,7 @@ export const useSearchDetailsStore = defineStore("searchDetailsStore", {
 
       try {
         const response = await axios.request(options);
-        console.log(response.data);
+        // console.log(response.data);
         localStorage.setItem("sortBy", JSON.stringify(response.data.data));
 
         return response.data.data;
@@ -188,7 +188,7 @@ export const useSearchDetailsStore = defineStore("searchDetailsStore", {
         console.error(error);
       } finally {
         this.isHotelsLoading = false;
-        console.log(this.isHotelsLoading);
+        // console.log(this.isHotelsLoading);
       }
     },
     async getSortByOptions() {
@@ -197,14 +197,14 @@ export const useSearchDetailsStore = defineStore("searchDetailsStore", {
       return options ? JSON.parse(options) : await this.fetchSortByOptions();
     },
     getNumberOfTotalPagesTotalPages(title) {
-      console.log(title);
+      // console.log(title);
       const properties = title.match(/\d+/);
 
       if (properties) {
         const number = properties[0];
-        console.log(number);
+        // console.log(number);
       } else {
-        console.log("No number found in the title");
+        // console.log("No number found in the title");
       }
       return Math.ceil(properties / 20);
     },

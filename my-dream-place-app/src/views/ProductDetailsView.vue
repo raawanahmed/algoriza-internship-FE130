@@ -153,7 +153,7 @@ const getBedTypes = (roomId) => {
     room.bed_configurations[0] &&
     room.bed_configurations[0].bed_types
   ) {
-    console.log(room.bed_configurations[0].bed_types[0]);
+    // console.log(room.bed_configurations[0].bed_types[0]);
     return room.bed_configurations[0].bed_types[0];
   } else {
     return null;
@@ -163,7 +163,7 @@ const getBedTypes = (roomId) => {
 const getImageOfHotel = (roomId) => {
   const room = hotelDetails.value.data.rooms[roomId];
   if (room && room.photos && room.photos[0]) {
-    console.log(room.photos[0].url_original);
+    // console.log(room.photos[0].url_original);
     return room.photos[0].url_original;
   } else {
     return null;

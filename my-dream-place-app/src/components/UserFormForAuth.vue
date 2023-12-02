@@ -113,7 +113,6 @@ const authStore = useAuthStore();
 const router = useRouter();
 
 onMounted(() => {
-  console.log("onMounteed");
   authStore.init();
 });
 const onBtnClick = () => {
@@ -131,7 +130,7 @@ const onBtnClick = () => {
     success ? router.push("/home") : alert("Invalid email or password.");
   } else {
     if (password.value !== confirmPassword.value) {
-      console.log(password.value, confirmPassword.value);
+      // console.log(password.value, confirmPassword.value);
       alert("Passwords do not match.");
       return;
     }

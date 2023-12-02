@@ -28,7 +28,7 @@ const searchDetailsStore = useSearchDetailsStore();
 const enteredName = ref("");
 
 watchEffect(() => {
-  console.log(enteredName.value);
+  // console.log(enteredName.value);
   searchDetailsStore.setEnteredName(enteredName.value);
 });
 /*

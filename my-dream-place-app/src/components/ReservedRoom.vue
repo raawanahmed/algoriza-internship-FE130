@@ -77,7 +77,7 @@ const { classOfCard, classOfImg, showPriceAndDetilsBtn, hotel } = defineProps([
 const searchstore = useSearchDetailsStore();
 const hotelStore = useHotelStore();
 const selectedHotel = ref(hotel);
-console.log(selectedHotel.value);
+// console.log(selectedHotel.value);
 const days = hotelStore.calcDifferenceInDays(
   selectedHotel.value.property.checkinDate,
   selectedHotel.value.property.checkoutDate

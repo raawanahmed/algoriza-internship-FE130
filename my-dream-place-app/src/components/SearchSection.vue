@@ -211,7 +211,7 @@ const goSearch = async () => {
   try {
     searchDetailsStore.setIsHotelsLoading(true);
     await searchDetailsStore.fetchHotels();
-    console.log("search data?? ", searchData);
+    // console.log("search data?? ", searchData);
     searchDetailsStore.setSeachDataToStorage(searchData);
     router.push({
       name: "searchResults",
