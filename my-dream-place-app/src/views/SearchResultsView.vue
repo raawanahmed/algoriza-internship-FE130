@@ -48,8 +48,8 @@ const selectedSortOption = ref("Sort by");
 
 /*
 toods 
-1- add sort by component
-2- handle the logic of sort by using api
+1- add sort by component .. done
+2- handle the logic of sort by using api .. done
 */
 </script>
 

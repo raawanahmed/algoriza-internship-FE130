@@ -33,7 +33,7 @@ watchEffect(() => {
 });
 /*
 todos
-1- handle functionality here when searching
+1- handle functionality here when searching .. done
 */
 </script>
 

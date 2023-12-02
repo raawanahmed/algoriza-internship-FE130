@@ -65,7 +65,7 @@ import { useSearchDetailsStore } from "@/stores/SearchDetailsStore";
 const searchDetailsStore = useSearchDetailsStore();
 /*
 todos 
-1- filter the list based on the selected number of stars
+1- filter the list based on the selected number of stars .. done
 */
 </script>
 

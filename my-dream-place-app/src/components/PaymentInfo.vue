@@ -64,7 +64,7 @@ const completePayment = () => {
   hotelsOfreservedRoomsStore.addHotelOfReservedRoom(hotel);
   paymentCompleted.value = true;
 };
-// todo highlight texts and adjust the spacing
+
 </script>
 
 <style></style>
