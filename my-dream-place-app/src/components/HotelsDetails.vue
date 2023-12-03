@@ -172,10 +172,11 @@ const totalPages = ref(20);
 const sortByOptions = ref(searchDetailsStore.getSortByOptions());
 const rangePrice = ref(searchDetailsStore.getSelectedRangePrice);
 const selectedRating = ref(searchDetailsStore.getSelectedRating);
-const enteredName = ref(searchDetailsStore.getEnteredName);
+const enteredName = ref(searchDetailsStore.getEnteredName); // entered named to search with
 const msgToDisplay = ref("There are no hotels");
 const isDropdownOpen = ref(false);
-const arrowDir = ref("down");
+const arrowDir = ref("down"); // to get the image path for the arrow icon of the sort by dropdown
+
 const fetchHotels = async () => {
   isHotelsLoading.value = true;
   returnedHotels.value = await searchDetailsStore.fetchHotels();
@@ -190,6 +191,8 @@ const fetchHotels = async () => {
 
 watchEffect(async () => {
   sortByOptions.value = await searchDetailsStore.getSortByOptions();
+  // as the sort by options most of time constant because I fetch them only once at the beginning if they aren't fetched before
+  // and save it to the local storage & every time I get it, I get it from local storage
 });
 
 const serachHotelsBySortOption = async (option) => {
@@ -238,19 +241,22 @@ watch(
     // console.log("Entered Name:", newName);
   }
 );
-const generateRange = (num) =>
-  Array.from({ length: Math.ceil(num / 2) }, (_, index) => index + 1);
+
+
+// note: you need to refresh the page after selecting a specific rate if you want the original hotel array becuase the project will work on the filtered array until you refresh
+// so is you want the selectedRating to be null you need this because at the ui design there weren't any button or any action to do to reset the rating to null
+// selectedRating.value will be always equal the selecting rating utill refreshing 
+
 
 const filteredHotels = computed(() => {
   if (selectedRating.value) {
-    msgToDisplay.value = "There are no hotels in this page with this rating";
+    msgToDisplay.value = "There are no hotels in this page with this rating"; // I display it if the returned array is empty
     return hotels.value.filter(
       (hotel) =>
-        generateRange(hotel.property.reviewScore).length ===
-        selectedRating.value
+        Math.ceil(hotel.property.reviewScore / 2) === selectedRating.value
     );
   } else if (enteredName.value) {
-    msgToDisplay.value = "There are no hotels contains this name";
+    msgToDisplay.value = "There are no hotels contains this name"; // I display it if the returned array is empty
     return hotels.value.filter((hotel) =>
       hotel.property.name
         .toLowerCase()
@@ -258,6 +264,7 @@ const filteredHotels = computed(() => {
     );
   } else return hotels.value;
 });
+
 const changePage = async (page) => {
   if (page >= 1 && page <= totalPages.value) {
     currentPage.value = page;
@@ -300,6 +307,7 @@ const calcDiscount = (strikethroughPrice, grossPrice) => {
     ((strikethroughPrice - grossPrice) / strikethroughPrice) * 100;
   return Math.ceil(discount);
 };
+
 const toggleDropdown = () => {
   isDropdownOpen.value = !isDropdownOpen.value;
   arrowDir.value = arrowDir.value === "down" ? "up" : "down";

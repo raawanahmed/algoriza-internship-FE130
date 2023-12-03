@@ -118,6 +118,7 @@ const BudgetOptions = {
 };
 
 const budgetOptions = ref(BudgetOptions);
+const isSelectedBudget = ref(false);
 
 const toggleTheToggle = () => {
   isToggled.value = !isToggled.value;
@@ -125,9 +126,14 @@ const toggleTheToggle = () => {
 };
 
 const updateSelectedBudget = (option) => {
-  if (!isToggled.value) {
+  isSelectedBudget.value = !isSelectedBudget.value; 
+  if (!isSelectedBudget.value) {
+    searchDetailsStore.setSelectedRangePrice("", ""); // because when the user unselect the checkbox I want the hotels to be fetched again without any condition on the prices
+  }
+  else if (!isToggled.value) {
     selectedBudget.value =
       selectedBudget.value === option.value ? null : option.value;
+    console.log(option.value);
     searchDetailsStore.setSelectedRangePrice(option.minPrice, option.maxPrice);
   }
 };

@@ -12,6 +12,8 @@ const { reviewsCount, reviewScore } = defineProps([
   "reviewsCount",
   "reviewScore",
 ]);
+// I generate range because I want to iterate over the number of rating to display stars = the rating
+
 const generateRange = (num) =>
   Array.from({ length: Math.ceil(num / 2) }, (_, index) => index + 1);
 const numberOfStars = generateRange(reviewScore).length;

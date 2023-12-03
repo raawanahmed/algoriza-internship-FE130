@@ -5,7 +5,7 @@
     style="font-family: SF Pro Display, sans-serif"
   >
     <nav
-      class="flex justify-between items-center w-full mx-auto h-[68px] ml-[100px] mr-[100px]"
+      class="flex justify-between items-center w-full  h-[68px] mx-[100px]"
     >
       <div class="flex items-center gap-1">
         <img src="../assets/Icons/plane.svg" alt="Plane Icon" class="w-6 h-6" />
@@ -40,7 +40,7 @@
       </div>
       <router-link to="/register" v-if="!curUser">
         <button
-          class="register-button inline-flex px-10 py-2 justify-center items-center gap-2 rounded border border-blue-500 bg-blue-500 text-white w-[92px] h-[40px]"
+          class="inline-flex px-10 py-2 justify-center items-center gap-2 rounded border border-blue-500 bg-blue-500 text-white w-[92px] h-[40px]"
         >
           Register
         </button>
@@ -116,7 +116,7 @@ const getNotificationIconPath = () => {
   return require(`@/assets/Icons/${notificationColor}.svg`);
 };
 const toggleDropdown = () => {
-  isDropdownOpen.value = !isDropdownOpen.value;
+  isDropdownOpen.value = !isDropdownOpen.value; // I created a custom select to be able to design the options as I want because there are restrictions on designing the <option?
   // console.log(isDropdownOpen.value);
 };
 const signOut = () => {

@@ -111,7 +111,6 @@
 
 <script setup>
 import IconButton from "./IconButton.vue";
-//import router from "@/router";
 import { ref, reactive, onMounted, watchEffect } from "vue";
 import { useSearchDetailsStore } from "@/stores/SearchDetailsStore";
 import { useRouter, useRoute } from "vue-router";
@@ -125,9 +124,7 @@ const validate = ref("true");
 
 const searchDetailsStore = useSearchDetailsStore();
 const destinations = ref(searchDetailsStore.getDestinations());
-watchEffect(async () => {
-  destinations.value = await searchDetailsStore.getDestinations();
-});
+
 const searchData = reactive({
   selectedDestinationId: searchDetailsStore.getSelectedDestinationId, // sometimes null and causes some errors thats why i created a seprated localstorage for it
   selectedDestinationName: searchDetailsStore.getSelectedDestinationName,
@@ -136,6 +133,11 @@ const searchData = reactive({
   selectedGuests: searchDetailsStore.getSelectedGuests,
   selectedRooms: searchDetailsStore.getSelectedRooms,
   hotelsCountOfDist: searchDetailsStore.getHotelsCountOfDist, // same as destination id and idk why i tried manytimes to figure the problem but i couldn't?
+});
+watchEffect(async () => {
+  destinations.value = await searchDetailsStore.getDestinations();
+  // as the destinations always constant because query always egypt I fetch the destination only once at the beginning if there aren't fetched before 
+  // and save it to the local storage & every time I get it, I get it from local storage
 });
 
 const selectDestination = (destination) => {
@@ -210,7 +212,7 @@ const goSearch = async () => {
   }
   try {
     searchDetailsStore.setIsHotelsLoading(true);
-    await searchDetailsStore.fetchHotels();
+    //await searchDetailsStore.fetchHotels(); // no need for it already fetching hotels in searchResults view
     // console.log("search data?? ", searchData);
     searchDetailsStore.setSeachDataToStorage(searchData);
     router.push({
