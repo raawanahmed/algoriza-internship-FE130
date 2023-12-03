@@ -43,6 +43,7 @@
 import IconWithText from "./IconWithText.vue";
 const { longitude, latitude } = defineProps(["latitude", "longitude"]);
 
+// is the map doesn't appear because of the api uncomment the static image and comment the iframe
 // clean code and css .. done
 </script>
 

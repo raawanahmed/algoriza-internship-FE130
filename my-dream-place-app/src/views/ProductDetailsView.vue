@@ -51,7 +51,10 @@
     </div>
     <section class="bg-[#f4f4f4]">
       <div class="mx-auto w-[1440px]">
-        <section class="mt-6 flex ml-[100px] mr-[100px] ">
+        <section
+          class="mt-6 flex ml-[100px] mr-[100px]"
+          v-if="selectedHotel && hotelDetails"
+        >
           <div>
             <p class="font-medium text-3xl pt-10 text-[#1a1a1a]">
               {{ selectedHotel.property.name }}
@@ -79,7 +82,11 @@
             :longitude="hotelDetails.data.longitude"
           />
         </section>
-        <div class="ml-[100px] mr-[100px]" id="available-rooms">
+        <div
+          class="ml-[100px] mr-[100px]"
+          id="available-rooms"
+          v-if="selectedHotel && hotelDetails"
+        >
           <p class="text-2xl font-semibold mt-[40px] mb-[32px]">
             Available rooms
           </p>

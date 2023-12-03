@@ -184,7 +184,8 @@ const fetchHotels = async () => {
   destName.value = searchDetailsStore.getSelectedDestinationName;
   destCount.value = searchDetailsStore.getHotelsCountOfDist;
   isHotelsLoading.value = false;
-  totalPages.value = Math.ceil(+destCount.value / 20);
+  totalPages.value = Math.floor(+destCount.value / 20);
+  // sometimes the destCount is not true the destination don't have actually this number of hotels, also this is returned from api nr_hotels
 };
 
 watchEffect(async () => {
