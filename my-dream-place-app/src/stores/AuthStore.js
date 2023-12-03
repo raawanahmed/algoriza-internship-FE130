@@ -15,16 +15,22 @@ export const useAuthStore = defineStore("authStore", {
         this.users = JSON.parse(storedUsers);
       }
     },
+    generateToken(token) {
+      const encodedToken = btoa(JSON.stringify(token));
+      // console.log(encodedToken);
+      return encodedToken;
+    },
+    verifyToken(password, token) {
+      const decodedToken = JSON.parse(atob(token));
+      // console.log(decodedToken);
+      return password === decodedToken.password;
+    },
     signIn({ email, password }) {
-      const user = this.users.find(
-        (u) => u.email === email && u.password === password
-      );
-      //console.log(user);
+      const user = this.users.find((u) => u.email === email);
+      // console.log(user);
 
-      if (user) {
-        this.user = user;
+      if (user && this.verifyToken(password, user.token)) {
         this.isAuthenticated = true;
-        localStorage.setItem("user", JSON.stringify(user));
         localStorage.setItem(
           "isAuthenticated",
           JSON.stringify(this.isAuthenticated)
@@ -34,26 +40,21 @@ export const useAuthStore = defineStore("authStore", {
         return false;
       }
     },
-    getCurrentUser() {
-      const user = localStorage.getItem("user");
-      return user ? JSON.parse(user) : undefined;
-    },
     register({ email, password }) {
-      const newUser = {
-        id: this.users.length + 1,
-        email,
-        password,
-      };
-      // console.log(newUser);
+      const token = this.generateToken({ email, password });
+      console.log(token);
+      const newUser = { email, token };
       this.users.push(newUser);
-      this.user = newUser;
       this.isAuthenticated = true;
       localStorage.setItem("users", JSON.stringify(this.users));
       return true;
     },
+    getCurrentUser() {
+      const isAuthenticated = localStorage.getItem("isAuthenticated");
+      return isAuthenticated ? JSON.parse(isAuthenticated) : undefined;
+    },
 
     signOut() {
-      this.user = null;
       this.isAuthenticated = false;
       // Remove all items from local storage except "users"
       Object.keys(localStorage).forEach((key) => {
