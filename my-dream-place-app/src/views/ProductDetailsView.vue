@@ -51,7 +51,7 @@
     </div>
     <section class="bg-[#f4f4f4]">
       <div class="mx-auto w-[1440px]">
-        <section class="mt-6 flex ml-[100px] mr-[100px]">
+        <section class="mt-6 flex ml-[100px] mr-[100px] ">
           <div>
             <p class="font-medium text-3xl pt-10 text-[#1a1a1a]">
               {{ selectedHotel.property.name }}
@@ -83,10 +83,10 @@
           <p class="text-2xl font-semibold mt-[40px] mb-[32px]">
             Available rooms
           </p>
-          <section class="flex">
+          <section class="flex flex-wrap">
             <Ad class="mr-[15px]" />
             <div
-              class="flex"
+              class="flex w-[400px] mr-[12px] mb-[15px]"
               v-for="block in blocksOfHotel"
               :key="block.room_id"
             >
